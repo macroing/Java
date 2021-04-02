@@ -15,6 +15,7 @@ ant
 Supported Features
 ------------------
  - `org.macroing.java.io` provides an extension to `java.io`.
+ - `org.macroing.java.util` provides an extension to `java.util`.
  - `org.macroing.java.util.concurrent.atomic` provides an extension to `java.util.concurrent.atomic`.
  - `org.macroing.java.util.function` provides an extension to `java.util.function`.
 
