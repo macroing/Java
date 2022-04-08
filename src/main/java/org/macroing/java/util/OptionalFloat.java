@@ -18,9 +18,7 @@
  */
 package org.macroing.java.util;
 
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 import org.macroing.java.util.function.FloatConsumer;
@@ -40,15 +38,22 @@ import org.macroing.java.util.function.FloatSupplier;
  * @author J&#246;rgen Lundgren
  */
 public final class OptionalFloat {
-	private static final OptionalFloat EMPTY = new OptionalFloat(null);
+	private static final OptionalFloat EMPTY = new OptionalFloat();
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private final Float value;
+	private final boolean isPresent;
+	private final float value;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private OptionalFloat(final Float value) {
+	private OptionalFloat() {
+		this.isPresent = false;
+		this.value = 0.0F;
+	}
+	
+	private OptionalFloat(final float value) {
+		this.isPresent = true;
 		this.value = value;
 	}
 	
@@ -65,10 +70,9 @@ public final class OptionalFloat {
 	 * 
 	 * @return a non-empty string representation of this object suitable for debugging
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public String toString() {
-		return this.value != null ? String.format("OptionalFloat[%s]", this.value) : "OptionalFloat.empty";
+		return this.isPresent ? String.format("OptionalFloat[%s]", Float.toString(this.value)) : "OptionalFloat.empty";
 	}
 	
 	/**
@@ -84,17 +88,26 @@ public final class OptionalFloat {
 	 * @param object an {@code Object} to be tested for equality
 	 * @return {@code true} if the other {@code Object} is "equal to" this {@code OptionalFloat} otherwise {@code false}
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public boolean equals(final Object object) {
 		if(object == this) {
 			return true;
 		} else if(!(object instanceof OptionalFloat)) {
 			return false;
-		} else if(!Objects.equals(OptionalFloat.class.cast(object).value, this.value)) {
-			return false;
 		} else {
-			return true;
+			final OptionalFloat optionalFloat = (OptionalFloat)(object);
+			
+			if(this.isPresent && optionalFloat.isPresent) {
+				return Float.compare(this.value, optionalFloat.value) == 0;
+			}
+			
+			/*
+			 * The below code can only be true when comparing two empty OptionalFloat instances.
+			 * However, the empty() method returns a constant instance, so object == this above will handle that case.
+			 */
+			
+//			return this.isPresent == optionalFloat.isPresent;
+			return false;
 		}
 	}
 	
@@ -103,9 +116,8 @@ public final class OptionalFloat {
 	 * 
 	 * @return {@code true} if there is a value present, otherwise {@code false}
 	 */
-//	TODO: Add Unit Tests!
 	public boolean isPresent() {
-		return this.value != null;
+		return this.isPresent;
 	}
 	
 	/**
@@ -114,9 +126,12 @@ public final class OptionalFloat {
 	 * @return the value held by this {@code OptionalFloat}
 	 * @throws NoSuchElementException if there is no value present
 	 */
-//	TODO: Add Unit Tests!
 	public float getAsFloat() {
-		return orElseThrow(NoSuchElementException::new);
+		if(!this.isPresent) {
+			throw new NoSuchElementException("No value present");
+		}
+		
+		return this.value;
 	}
 	
 	/**
@@ -125,9 +140,8 @@ public final class OptionalFloat {
 	 * @param other the value to be returned if there is no value present
 	 * @return the value if present, otherwise returns {@code other}
 	 */
-//	TODO: Add Unit Tests!
 	public float orElse(final float other) {
-		return isPresent() ? this.value.floatValue() : other;
+		return this.isPresent ? this.value : other;
 	}
 	
 	/**
@@ -137,9 +151,8 @@ public final class OptionalFloat {
 	 * @return the value if present, otherwise invokes {@code other} and returns the result of that invocation
 	 * @throws NullPointerException if value is not present and {@code other} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public float orElseGet(final FloatSupplier other) {
-		return isPresent() ? this.value.floatValue() : other.getAsFloat();
+		return this.isPresent ? this.value : other.getAsFloat();
 	}
 	
 	/**
@@ -151,10 +164,9 @@ public final class OptionalFloat {
 	 * @throws NullPointerException if no value is present and {@code exceptionSupplier} is {@code null}
 	 * @throws X if there is no value present
 	 */
-//	TODO: Add Unit Tests!
 	public <X extends Throwable> float orElseThrow(final Supplier<X> exceptionSupplier) throws X {
-		if(isPresent()) {
-			return this.value.floatValue();
+		if(this.isPresent) {
+			return this.value;
 		}
 		
 		throw exceptionSupplier.get();
@@ -165,10 +177,9 @@ public final class OptionalFloat {
 	 * 
 	 * @return the hash code value of the present value, if any, or {@code 0} (zero) if no value is present
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public int hashCode() {
-		return isPresent() ? this.value.hashCode() : 0;
+		return this.isPresent ? Float.hashCode(this.value) : 0;
 	}
 	
 	/**
@@ -177,10 +188,9 @@ public final class OptionalFloat {
 	 * @param consumer block to be executed if a value is present
 	 * @throws NullPointerException if value is present and {@code consumer} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public void ifPresent(final FloatConsumer consumer) {
-		if(isPresent()) {
-			consumer.accept(this.value.floatValue());
+		if(this.isPresent) {
+			consumer.accept(this.value);
 		}
 	}
 	
@@ -195,7 +205,6 @@ public final class OptionalFloat {
 	 * 
 	 * @return an empty {@code OptionalFloat} instance
 	 */
-//	TODO: Add Unit Tests!
 	public static OptionalFloat empty() {
 		return EMPTY;
 	}
@@ -206,8 +215,7 @@ public final class OptionalFloat {
 	 * @param value the value to be present
 	 * @return an {@code OptionalFloat} with the specified value present
 	 */
-//	TODO: Add Unit Tests!
 	public static OptionalFloat of(final float value) {
-		return new OptionalFloat(Float.valueOf(value));
+		return new OptionalFloat(value);
 	}
 }

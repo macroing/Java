@@ -18,9 +18,7 @@
  */
 package org.macroing.java.util;
 
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 import org.macroing.java.util.function.ByteConsumer;
@@ -40,15 +38,22 @@ import org.macroing.java.util.function.ByteSupplier;
  * @author J&#246;rgen Lundgren
  */
 public final class OptionalByte {
-	private static final OptionalByte EMPTY = new OptionalByte(null);
+	private static final OptionalByte EMPTY = new OptionalByte();
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private final Byte value;
+	private final boolean isPresent;
+	private final byte value;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private OptionalByte(final Byte value) {
+	private OptionalByte() {
+		this.isPresent = false;
+		this.value = 0;
+	}
+	
+	private OptionalByte(final byte value) {
+		this.isPresent = true;
 		this.value = value;
 	}
 	
@@ -65,10 +70,9 @@ public final class OptionalByte {
 	 * 
 	 * @return a non-empty string representation of this object suitable for debugging
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public String toString() {
-		return this.value != null ? String.format("OptionalByte[%s]", this.value) : "OptionalByte.empty";
+		return this.isPresent ? String.format("OptionalByte[%s]", Byte.toString(this.value)) : "OptionalByte.empty";
 	}
 	
 	/**
@@ -84,17 +88,26 @@ public final class OptionalByte {
 	 * @param object an {@code Object} to be tested for equality
 	 * @return {@code true} if the other {@code Object} is "equal to" this {@code OptionalByte} otherwise {@code false}
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public boolean equals(final Object object) {
 		if(object == this) {
 			return true;
 		} else if(!(object instanceof OptionalByte)) {
 			return false;
-		} else if(!Objects.equals(OptionalByte.class.cast(object).value, this.value)) {
-			return false;
 		} else {
-			return true;
+			final OptionalByte optionalByte = (OptionalByte)(object);
+			
+			if(this.isPresent && optionalByte.isPresent) {
+				return this.value == optionalByte.value;
+			}
+			
+			/*
+			 * The below code can only be true when comparing two empty OptionalByte instances.
+			 * However, the empty() method returns a constant instance, so object == this above will handle that case.
+			 */
+			
+//			return this.isPresent == optionalByte.isPresent;
+			return false;
 		}
 	}
 	
@@ -103,9 +116,8 @@ public final class OptionalByte {
 	 * 
 	 * @return {@code true} if there is a value present, otherwise {@code false}
 	 */
-//	TODO: Add Unit Tests!
 	public boolean isPresent() {
-		return this.value != null;
+		return this.isPresent;
 	}
 	
 	/**
@@ -114,9 +126,12 @@ public final class OptionalByte {
 	 * @return the value held by this {@code OptionalByte}
 	 * @throws NoSuchElementException if there is no value present
 	 */
-//	TODO: Add Unit Tests!
 	public byte getAsByte() {
-		return orElseThrow(NoSuchElementException::new);
+		if(!this.isPresent) {
+			throw new NoSuchElementException("No value present");
+		}
+		
+		return this.value;
 	}
 	
 	/**
@@ -125,9 +140,8 @@ public final class OptionalByte {
 	 * @param other the value to be returned if there is no value present
 	 * @return the value if present, otherwise returns {@code other}
 	 */
-//	TODO: Add Unit Tests!
 	public byte orElse(final byte other) {
-		return isPresent() ? this.value.byteValue() : other;
+		return this.isPresent ? this.value : other;
 	}
 	
 	/**
@@ -137,9 +151,8 @@ public final class OptionalByte {
 	 * @return the value if present, otherwise invokes {@code other} and returns the result of that invocation
 	 * @throws NullPointerException if value is not present and {@code other} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public byte orElseGet(final ByteSupplier other) {
-		return isPresent() ? this.value.byteValue() : other.getAsByte();
+		return this.isPresent ? this.value : other.getAsByte();
 	}
 	
 	/**
@@ -151,10 +164,9 @@ public final class OptionalByte {
 	 * @throws NullPointerException if no value is present and {@code exceptionSupplier} is {@code null}
 	 * @throws X if there is no value present
 	 */
-//	TODO: Add Unit Tests!
 	public <X extends Throwable> byte orElseThrow(final Supplier<X> exceptionSupplier) throws X {
-		if(isPresent()) {
-			return this.value.byteValue();
+		if(this.isPresent) {
+			return this.value;
 		}
 		
 		throw exceptionSupplier.get();
@@ -165,10 +177,9 @@ public final class OptionalByte {
 	 * 
 	 * @return the hash code value of the present value, if any, or {@code 0} (zero) if no value is present
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public int hashCode() {
-		return isPresent() ? this.value.hashCode() : 0;
+		return this.isPresent ? Byte.hashCode(this.value) : 0;
 	}
 	
 	/**
@@ -177,10 +188,9 @@ public final class OptionalByte {
 	 * @param consumer block to be executed if a value is present
 	 * @throws NullPointerException if value is present and {@code consumer} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public void ifPresent(final ByteConsumer consumer) {
-		if(isPresent()) {
-			consumer.accept(this.value.byteValue());
+		if(this.isPresent) {
+			consumer.accept(this.value);
 		}
 	}
 	
@@ -195,7 +205,6 @@ public final class OptionalByte {
 	 * 
 	 * @return an empty {@code OptionalByte} instance
 	 */
-//	TODO: Add Unit Tests!
 	public static OptionalByte empty() {
 		return EMPTY;
 	}
@@ -206,8 +215,7 @@ public final class OptionalByte {
 	 * @param value the value to be present
 	 * @return an {@code OptionalByte} with the specified value present
 	 */
-//	TODO: Add Unit Tests!
 	public static OptionalByte of(final byte value) {
-		return new OptionalByte(Byte.valueOf(value));
+		return new OptionalByte(value);
 	}
 }

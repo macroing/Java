@@ -18,7 +18,6 @@
  */
 package org.macroing.java.util;
 
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Random;
 
 /**
@@ -55,7 +54,6 @@ public final class MersenneTwisterRandom extends Random {
 	 * }
 	 * </pre>
 	 */
-//	TODO: Add Unit Tests!
 	public MersenneTwisterRandom() {
 		this(System.nanoTime());
 	}
@@ -65,7 +63,6 @@ public final class MersenneTwisterRandom extends Random {
 	 * 
 	 * @param seed the seed to use
 	 */
-//	TODO: Add Unit Tests!
 	public MersenneTwisterRandom(final long seed) {
 		super(seed);
 		
@@ -79,7 +76,6 @@ public final class MersenneTwisterRandom extends Random {
 	 * 
 	 * @param seed the new seed
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public synchronized void setSeed(final long seed) {
 		super.setSeed(seed);
@@ -106,7 +102,6 @@ public final class MersenneTwisterRandom extends Random {
 	 * @param bits random bits
 	 * @return the next pseudorandom number
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	protected int next(final int bits) {
 		int y;

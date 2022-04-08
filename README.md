@@ -34,8 +34,8 @@ The following table describes the different APIs and their current status in the
 | Macroing Java AWT Image API              | 100.0%  |   0.0%    | org.macroing.java.awt.image              |
 | Macroing Java I/O API                    | 100.0%  |   0.0%    | org.macroing.java.io                     |
 | Macroing Java Lang API                   | 100.0%  | 100.0%    | org.macroing.java.lang                   |
-| Macroing Java Util API                   | 100.0%  |   0.0%    | org.macroing.java.util                   |
-| Macroing Java Util Concurrent Atomic API | 100.0%  |   0.0%    | org.macroing.java.util.concurrent.atomic |
+| Macroing Java Util API                   | 100.0%  | 100.0%    | org.macroing.java.util                   |
+| Macroing Java Util Concurrent Atomic API | 100.0%  | 100.0%    | org.macroing.java.util.concurrent.atomic |
 | Macroing Java Util Function API          | 100.0%  | 100.0%    | org.macroing.java.util.function          |
 
 Dependencies
