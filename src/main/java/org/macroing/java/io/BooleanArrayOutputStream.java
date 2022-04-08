@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 J&#246;rgen Lundgren
+ * Copyright 2021 - 2022 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -19,6 +19,7 @@
 package org.macroing.java.io;
 
 import java.io.OutputStream;
+import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Arrays;
 
 /**
@@ -47,6 +48,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * }
 	 * </pre>
 	 */
+//	TODO: Add Unit Tests!
 	public BooleanArrayOutputStream() {
 		this(32);
 	}
@@ -59,6 +61,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * @param capacity the initial capacity
 	 * @throws IllegalArgumentException thrown if, and only if, {@code capacity} is less than {@code 0}
 	 */
+//	TODO: Add Unit Tests!
 	public BooleanArrayOutputStream(final int capacity) {
 		this.buffer = new boolean[doRequireRange(capacity, 0, Integer.MAX_VALUE, "capacity")];
 		this.size = 0;
@@ -71,6 +74,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * 
 	 * @return a {@code boolean} array that contains the {@code boolean} values that have been written so far
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized boolean[] toBooleanArray() {
 		return Arrays.copyOf(this.buffer, this.size);
 	}
@@ -87,6 +91,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the number of {@code boolean} values that can be written without expanding the current {@code boolean} array
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized int available() {
 		return capacity() - size();
 	}
@@ -98,6 +103,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the capacity of this {@code BooleanArrayOutputStream} instance
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized int capacity() {
 		return this.buffer.length;
 	}
@@ -109,6 +115,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the size of this {@code BooleanArrayOutputStream} instance
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized int size() {
 		return this.size;
 	}
@@ -118,6 +125,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * <p>
 	 * The methods in this class can be called after the stream has been closed without generating an {@code IOException}.
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public void close() {
 		
@@ -126,6 +134,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	/**
 	 * Resets this {@code BooleanArrayOutputStream} instance so that the size is {@code 0}.
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized void reset() {
 		this.size = 0;
 	}
@@ -135,6 +144,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * 
 	 * @param b the {@code boolean} value to write
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized void write(final boolean b) {
 		doEnsureCapacity(this.size + 1);
 		
@@ -157,6 +167,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * @param b the {@code boolean} array to write from
 	 * @throws NullPointerException thrown if, and only if, {@code b} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized void write(final boolean[] b) {
 		write(b, 0, b.length);
 	}
@@ -174,6 +185,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * @throws IndexOutOfBoundsException thrown if, and only if, either {@code off < 0}, {@code off > b.length}, {@code len < 0} or {@code off + len - b.length > 0}
 	 * @throws NullPointerException thrown if, and only if, {@code b} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized void write(final boolean[] b, final int off, final int len) {
 //		Similar to ByteArrayOutputStream. It looks like 'off > b.length' is a bug. Should it not be 'off >= b.length'?
 		if(off < 0 || off > b.length || len < 0 || off + len - b.length > 0) {
@@ -199,6 +211,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 * 
 	 * @param b the {@code byte} value to write
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public synchronized void write(final int b) {
 		write((byte)(b) != 0);

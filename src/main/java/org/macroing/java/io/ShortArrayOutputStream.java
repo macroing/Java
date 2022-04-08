@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 J&#246;rgen Lundgren
+ * Copyright 2021 - 2022 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -19,6 +19,7 @@
 package org.macroing.java.io;
 
 import java.io.OutputStream;
+import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Arrays;
 
 /**
@@ -47,6 +48,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * }
 	 * </pre>
 	 */
+//	TODO: Add Unit Tests!
 	public ShortArrayOutputStream() {
 		this(32);
 	}
@@ -59,6 +61,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * @param capacity the initial capacity
 	 * @throws IllegalArgumentException thrown if, and only if, {@code capacity} is less than {@code 0}
 	 */
+//	TODO: Add Unit Tests!
 	public ShortArrayOutputStream(final int capacity) {
 		this.size = 0;
 		this.buffer = new short[doRequireRange(capacity, 0, Integer.MAX_VALUE, "capacity")];
@@ -78,6 +81,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the number of {@code short} values that can be written without expanding the current {@code short} array
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized int available() {
 		return capacity() - size();
 	}
@@ -89,6 +93,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the capacity of this {@code ShortArrayOutputStream} instance
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized int capacity() {
 		return this.buffer.length;
 	}
@@ -100,6 +105,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the size of this {@code ShortArrayOutputStream} instance
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized int size() {
 		return this.size;
 	}
@@ -109,6 +115,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * 
 	 * @return a {@code short} array that contains the {@code short} values that have been written so far
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized short[] toShortArray() {
 		return Arrays.copyOf(this.buffer, this.size);
 	}
@@ -118,6 +125,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * <p>
 	 * The methods in this class can be called after the stream has been closed without generating an {@code IOException}.
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public void close() {
 		
@@ -126,6 +134,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	/**
 	 * Resets this {@code ShortArrayOutputStream} instance so that the size is {@code 0}.
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized void reset() {
 		this.size = 0;
 	}
@@ -142,6 +151,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * 
 	 * @param b the {@code byte} value to write
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public synchronized void write(final int b) {
 		write((byte)(b));
@@ -152,6 +162,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * 
 	 * @param s the {@code short} value to write
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized void write(final short s) {
 		doEnsureCapacity(this.size + 1);
 		
@@ -174,6 +185,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * @param s the {@code short} array to write from
 	 * @throws NullPointerException thrown if, and only if, {@code s} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized void write(final short[] s) {
 		write(s, 0, s.length);
 	}
@@ -191,6 +203,7 @@ public final class ShortArrayOutputStream extends OutputStream {
 	 * @throws IndexOutOfBoundsException thrown if, and only if, either {@code off < 0}, {@code off > s.length}, {@code len < 0} or {@code off + len - s.length > 0}
 	 * @throws NullPointerException thrown if, and only if, {@code s} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	public synchronized void write(final short[] s, final int off, final int len) {
 //		Similar to ByteArrayOutputStream. It looks like 'off > s.length' is a bug. Should it not be 'off >= s.length'?
 		if(off < 0 || off > s.length || len < 0 || off + len - s.length > 0) {

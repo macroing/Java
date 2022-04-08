@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 J&#246;rgen Lundgren
+ * Copyright 2021 - 2022 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -18,6 +18,7 @@
  */
 package org.macroing.java.util.function;
 
+import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Objects;
 
 /**
@@ -56,6 +57,7 @@ public interface CharConsumer {
 	 * @return a composed {@code CharConsumer} that performs, in sequence, this operation followed by the {@code after} operation
 	 * @throws NullPointerException thrown if, and only if, {@code after} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	default CharConsumer andThen(final CharConsumer after) {
 		Objects.requireNonNull(after, "after == null");
 		

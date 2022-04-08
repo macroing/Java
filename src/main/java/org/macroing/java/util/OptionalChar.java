@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 J&#246;rgen Lundgren
+ * Copyright 2021 - 2022 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -18,6 +18,7 @@
  */
 package org.macroing.java.util;
 
+import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -64,6 +65,7 @@ public final class OptionalChar {
 	 * 
 	 * @return a non-empty string representation of this object suitable for debugging
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public String toString() {
 		return this.value != null ? String.format("OptionalChar[%s]", this.value) : "OptionalChar.empty";
@@ -82,6 +84,7 @@ public final class OptionalChar {
 	 * @param object an {@code Object} to be tested for equality
 	 * @return {@code true} if the other {@code Object} is "equal to" this {@code OptionalChar} otherwise {@code false}
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public boolean equals(final Object object) {
 		if(object == this) {
@@ -100,6 +103,7 @@ public final class OptionalChar {
 	 * 
 	 * @return {@code true} if there is a value present, otherwise {@code false}
 	 */
+//	TODO: Add Unit Tests!
 	public boolean isPresent() {
 		return this.value != null;
 	}
@@ -110,6 +114,7 @@ public final class OptionalChar {
 	 * @return the value held by this {@code OptionalChar}
 	 * @throws NoSuchElementException if there is no value present
 	 */
+//	TODO: Add Unit Tests!
 	public char getAsChar() {
 		return orElseThrow(NoSuchElementException::new);
 	}
@@ -120,6 +125,7 @@ public final class OptionalChar {
 	 * @param other the value to be returned if there is no value present
 	 * @return the value if present, otherwise returns {@code other}
 	 */
+//	TODO: Add Unit Tests!
 	public char orElse(final char other) {
 		return isPresent() ? this.value.charValue() : other;
 	}
@@ -131,6 +137,7 @@ public final class OptionalChar {
 	 * @return the value if present, otherwise invokes {@code other} and returns the result of that invocation
 	 * @throws NullPointerException if value is not present and {@code other} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	public char orElseGet(final CharSupplier other) {
 		return isPresent() ? this.value.charValue() : other.getAsChar();
 	}
@@ -144,6 +151,7 @@ public final class OptionalChar {
 	 * @throws NullPointerException if no value is present and {@code exceptionSupplier} is {@code null}
 	 * @throws X if there is no value present
 	 */
+//	TODO: Add Unit Tests!
 	public <X extends Throwable> char orElseThrow(final Supplier<X> exceptionSupplier) throws X {
 		if(isPresent()) {
 			return this.value.charValue();
@@ -157,6 +165,7 @@ public final class OptionalChar {
 	 * 
 	 * @return the hash code value of the present value, if any, or {@code 0} (zero) if no value is present
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public int hashCode() {
 		return isPresent() ? this.value.hashCode() : 0;
@@ -168,6 +177,7 @@ public final class OptionalChar {
 	 * @param consumer block to be executed if a value is present
 	 * @throws NullPointerException if value is present and {@code consumer} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	public void ifPresent(final CharConsumer consumer) {
 		if(isPresent()) {
 			consumer.accept(this.value.charValue());
@@ -185,6 +195,7 @@ public final class OptionalChar {
 	 * 
 	 * @return an empty {@code OptionalChar} instance
 	 */
+//	TODO: Add Unit Tests!
 	public static OptionalChar empty() {
 		return EMPTY;
 	}
@@ -195,6 +206,7 @@ public final class OptionalChar {
 	 * @param value the value to be present
 	 * @return an {@code OptionalChar} with the specified value present
 	 */
+//	TODO: Add Unit Tests!
 	public static OptionalChar of(final char value) {
 		return new OptionalChar(Character.valueOf(value));
 	}

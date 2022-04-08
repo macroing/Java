@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 J&#246;rgen Lundgren
+ * Copyright 2021 - 2022 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -18,6 +18,7 @@
  */
 package org.macroing.java.util.function;
 
+import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Objects;
 
 /**
@@ -57,6 +58,7 @@ public interface BooleanPredicate {
 	 * @return a composed predicate that represents a short-circuiting logical AND of this predicate and another
 	 * @throws NullPointerException thrown if, and only if, {@code other} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	default BooleanPredicate and(final BooleanPredicate other) {
 		Objects.requireNonNull(other, "other == null");
 		
@@ -68,6 +70,7 @@ public interface BooleanPredicate {
 	 * 
 	 * @return a predicate that represents the logical negation of this predicate
 	 */
+//	TODO: Add Unit Tests!
 	default BooleanPredicate negate() {
 		return value -> !test(value);
 	}
@@ -85,6 +88,7 @@ public interface BooleanPredicate {
 	 * @return a composed predicate that represents a short-circuiting logical OR of this predicate and another
 	 * @throws NullPointerException thrown if, and only if, {@code other} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	default BooleanPredicate or(final BooleanPredicate other) {
 		Objects.requireNonNull(other, "other == null");
 		

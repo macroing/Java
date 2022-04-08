@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 J&#246;rgen Lundgren
+ * Copyright 2021 - 2022 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -18,6 +18,7 @@
  */
 package org.macroing.java.util.function;
 
+import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Objects;
 
 /**
@@ -55,6 +56,7 @@ public interface BooleanUnaryOperator {
 	 * @return a composed operator that first applies this operator to its input, and then applies the {@code after} operator to the result
 	 * @throws NullPointerException thrown if, and only if, {@code after} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	default BooleanUnaryOperator andThen(final BooleanUnaryOperator after) {
 		Objects.requireNonNull(after, "after == null");
 		
@@ -72,18 +74,21 @@ public interface BooleanUnaryOperator {
 	 * @return a composed operator that first applies the {@code before} operator to its input, and then applies this operator to the result
 	 * @throws NullPointerException thrown if, and only if, {@code before} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	default BooleanUnaryOperator compose(final BooleanUnaryOperator before) {
 		Objects.requireNonNull(before, "before == null");
 		
 		return (boolean v) -> applyAsBoolean(before.applyAsBoolean(v));
 	}
 	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	/**
 	 * Returns a unary operator that always returns its input argument.
 	 * 
 	 * @return a unary operator that always returns its input argument
 	 */
-	default BooleanUnaryOperator identity() {
+	static BooleanUnaryOperator identity() {
 		return t -> t;
 	}
 }

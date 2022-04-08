@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 J&#246;rgen Lundgren
+ * Copyright 2021 - 2022 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -18,6 +18,7 @@
  */
 package org.macroing.java.util;
 
+import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
@@ -64,6 +65,7 @@ public final class OptionalBoolean {
 	 * 
 	 * @return a non-empty string representation of this object suitable for debugging
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public String toString() {
 		return this.value != null ? String.format("OptionalBoolean[%s]", this.value) : "OptionalBoolean.empty";
@@ -82,6 +84,7 @@ public final class OptionalBoolean {
 	 * @param object an {@code Object} to be tested for equality
 	 * @return {@code true} if the other {@code Object} is "equal to" this {@code OptionalBoolean} otherwise {@code false}
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public boolean equals(final Object object) {
 		if(object == this) {
@@ -101,6 +104,7 @@ public final class OptionalBoolean {
 	 * @return the value held by this {@code OptionalBoolean}
 	 * @throws NoSuchElementException if there is no value present
 	 */
+//	TODO: Add Unit Tests!
 	public boolean getAsBoolean() {
 		return orElseThrow(NoSuchElementException::new);
 	}
@@ -110,6 +114,7 @@ public final class OptionalBoolean {
 	 * 
 	 * @return {@code true} if there is a value present, otherwise {@code false}
 	 */
+//	TODO: Add Unit Tests!
 	public boolean isPresent() {
 		return this.value != null;
 	}
@@ -120,6 +125,7 @@ public final class OptionalBoolean {
 	 * @param other the value to be returned if there is no value present
 	 * @return the value if present, otherwise returns {@code other}
 	 */
+//	TODO: Add Unit Tests!
 	public boolean orElse(final boolean other) {
 		return isPresent() ? this.value.booleanValue() : other;
 	}
@@ -131,6 +137,7 @@ public final class OptionalBoolean {
 	 * @return the value if present, otherwise invokes {@code other} and returns the result of that invocation
 	 * @throws NullPointerException if value is not present and {@code other} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	public boolean orElseGet(final BooleanSupplier other) {
 		return isPresent() ? this.value.booleanValue() : other.getAsBoolean();
 	}
@@ -144,6 +151,7 @@ public final class OptionalBoolean {
 	 * @throws NullPointerException if no value is present and {@code exceptionSupplier} is {@code null}
 	 * @throws X if there is no value present
 	 */
+//	TODO: Add Unit Tests!
 	public <X extends Throwable> boolean orElseThrow(final Supplier<X> exceptionSupplier) throws X {
 		if(isPresent()) {
 			return this.value.booleanValue();
@@ -157,6 +165,7 @@ public final class OptionalBoolean {
 	 * 
 	 * @return the hash code value of the present value, if any, or {@code 0} (zero) if no value is present
 	 */
+//	TODO: Add Unit Tests!
 	@Override
 	public int hashCode() {
 		return isPresent() ? this.value.hashCode() : 0;
@@ -168,6 +177,7 @@ public final class OptionalBoolean {
 	 * @param consumer block to be executed if a value is present
 	 * @throws NullPointerException if value is present and {@code consumer} is {@code null}
 	 */
+//	TODO: Add Unit Tests!
 	public void ifPresent(final BooleanConsumer consumer) {
 		if(isPresent()) {
 			consumer.accept(this.value.booleanValue());
@@ -185,6 +195,7 @@ public final class OptionalBoolean {
 	 * 
 	 * @return an empty {@code OptionalBoolean} instance
 	 */
+//	TODO: Add Unit Tests!
 	public static OptionalBoolean empty() {
 		return EMPTY;
 	}
@@ -195,6 +206,7 @@ public final class OptionalBoolean {
 	 * @param value the value to be present
 	 * @return an {@code OptionalBoolean} with the specified value present
 	 */
+//	TODO: Add Unit Tests!
 	public static OptionalBoolean of(final boolean value) {
 		return new OptionalBoolean(Boolean.valueOf(value));
 	}

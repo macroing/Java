@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 J&#246;rgen Lundgren
+ * Copyright 2021 - 2022 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -78,12 +78,14 @@ public interface CharUnaryOperator {
 		return (char v) -> applyAsChar(before.applyAsChar(v));
 	}
 	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	/**
 	 * Returns a unary operator that always returns its input argument.
 	 * 
 	 * @return a unary operator that always returns its input argument
 	 */
-	default CharUnaryOperator identity() {
+	static CharUnaryOperator identity() {
 		return t -> t;
 	}
 }
