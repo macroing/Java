@@ -18,7 +18,6 @@
  */
 package org.macroing.java.util.function;
 
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Objects;
 
 /**
@@ -58,7 +57,6 @@ public interface BytePredicate {
 	 * @return a composed predicate that represents a short-circuiting logical AND of this predicate and another
 	 * @throws NullPointerException thrown if, and only if, {@code other} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	default BytePredicate and(final BytePredicate other) {
 		Objects.requireNonNull(other, "other == null");
 		
@@ -70,7 +68,6 @@ public interface BytePredicate {
 	 * 
 	 * @return a predicate that represents the logical negation of this predicate
 	 */
-//	TODO: Add Unit Tests!
 	default BytePredicate negate() {
 		return value -> !test(value);
 	}
@@ -88,7 +85,6 @@ public interface BytePredicate {
 	 * @return a composed predicate that represents a short-circuiting logical OR of this predicate and another
 	 * @throws NullPointerException thrown if, and only if, {@code other} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	default BytePredicate or(final BytePredicate other) {
 		Objects.requireNonNull(other, "other == null");
 		

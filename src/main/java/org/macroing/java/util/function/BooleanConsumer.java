@@ -18,7 +18,6 @@
  */
 package org.macroing.java.util.function;
 
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Objects;
 
 /**
@@ -57,7 +56,6 @@ public interface BooleanConsumer {
 	 * @return a composed {@code BooleanConsumer} that performs, in sequence, this operation followed by the {@code after} operation
 	 * @throws NullPointerException thrown if, and only if, {@code after} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	default BooleanConsumer andThen(final BooleanConsumer after) {
 		Objects.requireNonNull(after, "after == null");
 		

@@ -18,7 +18,6 @@
  */
 package org.macroing.java.util.function;
 
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Objects;
 
 /**
@@ -57,7 +56,6 @@ public interface ByteConsumer {
 	 * @return a composed {@code ByteConsumer} that performs, in sequence, this operation followed by the {@code after} operation
 	 * @throws NullPointerException thrown if, and only if, {@code after} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	default ByteConsumer andThen(final ByteConsumer after) {
 		Objects.requireNonNull(after, "after == null");
 		

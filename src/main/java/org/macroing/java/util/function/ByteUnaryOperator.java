@@ -18,7 +18,6 @@
  */
 package org.macroing.java.util.function;
 
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Objects;
 
 /**
@@ -56,7 +55,6 @@ public interface ByteUnaryOperator {
 	 * @return a composed operator that first applies this operator to its input, and then applies the {@code after} operator to the result
 	 * @throws NullPointerException thrown if, and only if, {@code after} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	default ByteUnaryOperator andThen(final ByteUnaryOperator after) {
 		Objects.requireNonNull(after, "after == null");
 		
@@ -74,7 +72,6 @@ public interface ByteUnaryOperator {
 	 * @return a composed operator that first applies the {@code before} operator to its input, and then applies this operator to the result
 	 * @throws NullPointerException thrown if, and only if, {@code before} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	default ByteUnaryOperator compose(final ByteUnaryOperator before) {
 		Objects.requireNonNull(before, "before == null");
 		
@@ -88,7 +85,6 @@ public interface ByteUnaryOperator {
 	 * 
 	 * @return a unary operator that always returns its input argument
 	 */
-//	TODO: Add Unit Tests!
 	static ByteUnaryOperator identity() {
 		return t -> t;
 	}
