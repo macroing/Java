@@ -64,7 +64,7 @@ public final class IntArrayOutputStream extends OutputStream {
 //	TODO: Add Unit Tests!
 	public IntArrayOutputStream(final int capacity) {
 		this.size = 0;
-		this.buffer = new int[doRequireRange(capacity, 0, Integer.MAX_VALUE, "capacity")];
+		this.buffer = new int[doRequireMinimum(capacity, 0, "capacity")];
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -246,13 +246,11 @@ public final class IntArrayOutputStream extends OutputStream {
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static int doRequireRange(final int value, final int minimum, final int maximum, final String name) {
+	private static int doRequireMinimum(final int value, final int minimum, final String name) {
 		if(value < minimum) {
 			throw new IllegalArgumentException(String.format("%s < %d: %s == %d", name, Integer.valueOf(minimum), name, Integer.valueOf(value)));
-		} else if(value > maximum) {
-			throw new IllegalArgumentException(String.format("%s > %d: %s == %d", name, Integer.valueOf(maximum), name, Integer.valueOf(value)));
-		} else {
-			return value;
 		}
+		
+		return value;
 	}
 }

@@ -23,8 +23,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A class that consists exclusively of static methods that returns or performs various operations on {@code BufferedImage} instances.
@@ -33,7 +33,13 @@ import java.util.Objects;
  * @author J&#246;rgen Lundgren
  */
 public final class BufferedImages {
-	private static final Robot ROBOT = doCreateRobot();
+	private static final AtomicReference<Robot> ROBOT = new AtomicReference<>();
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	static {
+		setRobot();
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -60,12 +66,16 @@ public final class BufferedImages {
 	 * @throws NullPointerException thrown if, and only if, {@code rectangle} is {@code null}
 	 * @throws SecurityException thrown if, and only if, the permission {@code readDisplayPixels} is not granted
 	 */
-//	TODO: Add Unit Tests!
 	public static BufferedImage createScreenCapture(final Rectangle rectangle) {
 		Objects.requireNonNull(rectangle, "rectangle == null");
 		
-		if(ROBOT != null) {
-			return ROBOT.createScreenCapture(rectangle);
+		doRequireMinimum(rectangle.width, 1, "rectangle.width");
+		doRequireMinimum(rectangle.height, 1, "rectangle.height");
+		
+		final Robot robot = getRobot();
+		
+		if(robot != null) {
+			return robot.createScreenCapture(rectangle);
 		}
 		
 		return new BufferedImage(rectangle.width, rectangle.height, BufferedImage.TYPE_INT_ARGB);
@@ -95,9 +105,8 @@ public final class BufferedImages {
 	 * @throws IllegalArgumentException thrown if, and only if, {@code width} or {@code height} are less than or equal to {@code 0}
 	 * @throws SecurityException thrown if, and only if, the permission {@code readDisplayPixels} is not granted
 	 */
-//	TODO: Add Unit Tests!
 	public static BufferedImage createScreenCapture(final int x, final int y, final int width, final int height) {
-		return createScreenCapture(new Rectangle(x, y, width, height));
+		return createScreenCapture(new Rectangle(x, y, doRequireMinimum(width, 1, "width"), doRequireMinimum(height, 1, "height")));
 	}
 	
 	/**
@@ -116,7 +125,6 @@ public final class BufferedImages {
 	 * @return a {@code BufferedImage} instance that contains an image similar to {@code bufferedImage} and a type of {@code BufferedImage.TYPE_INT_ARGB}
 	 * @throws NullPointerException thrown if, and only if, {@code bufferedImage} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public static BufferedImage getCompatibleBufferedImage(final BufferedImage bufferedImage) {
 		return getCompatibleBufferedImage(bufferedImage, BufferedImage.TYPE_INT_ARGB);
 	}
@@ -134,7 +142,6 @@ public final class BufferedImages {
 	 * @throws IllegalArgumentException thrown if, and only if, {@code type} is invalid
 	 * @throws NullPointerException thrown if, and only if, {@code bufferedImage} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public static BufferedImage getCompatibleBufferedImage(final BufferedImage bufferedImage, final int type) {
 		if(bufferedImage.getType() == type) {
 			return bufferedImage;
@@ -151,11 +158,37 @@ public final class BufferedImages {
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static Robot doCreateRobot() {
+	static Robot getRobot() {
+		return ROBOT.get();
+	}
+	
+	static void setRobot() {
+		setRobot(false);
+	}
+	
+	static void setRobot(final Robot robot) {
+		ROBOT.set(robot);
+	}
+	
+	static void setRobot(final boolean isThrowingAWTException) {
 		try {
-			return new Robot();
+			if(isThrowingAWTException) {
+				throw new AWTException("");
+			}
+			
+			setRobot(new Robot());
 		} catch(final AWTException e) {
-			return null;
+//			Do nothing.
 		}
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static int doRequireMinimum(final int value, final int minimum, final String name) {
+		if(value < minimum) {
+			throw new IllegalArgumentException(String.format("%s < %d: %s == %d", name, Integer.valueOf(minimum), name, Integer.valueOf(value)));
+		}
+		
+		return value;
 	}
 }
