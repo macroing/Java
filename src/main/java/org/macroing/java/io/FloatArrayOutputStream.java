@@ -19,7 +19,6 @@
 package org.macroing.java.io;
 
 import java.io.OutputStream;
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Arrays;
 
 /**
@@ -29,7 +28,7 @@ import java.util.Arrays;
  * @author J&#246;rgen Lundgren
  */
 public final class FloatArrayOutputStream extends OutputStream {
-	private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+	private static final int MAX_ARRAY_SIZE = (Integer.MAX_VALUE - 8) / 4;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -48,7 +47,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * }
 	 * </pre>
 	 */
-//	TODO: Add Unit Tests!
 	public FloatArrayOutputStream() {
 		this(32);
 	}
@@ -61,7 +59,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * @param capacity the initial capacity
 	 * @throws IllegalArgumentException thrown if, and only if, {@code capacity} is less than {@code 0}
 	 */
-//	TODO: Add Unit Tests!
 	public FloatArrayOutputStream(final int capacity) {
 		this.buffer = new float[doRequireMinimum(capacity, 0, "capacity")];
 		this.size = 0;
@@ -74,7 +71,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * 
 	 * @return a {@code float} array that contains the {@code float} values that have been written so far
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized float[] toFloatArray() {
 		return Arrays.copyOf(this.buffer, this.size);
 	}
@@ -91,7 +87,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the number of {@code float} values that can be written without expanding the current {@code float} array
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int available() {
 		return capacity() - size();
 	}
@@ -103,7 +98,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the capacity of this {@code FloatArrayOutputStream} instance
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int capacity() {
 		return this.buffer.length;
 	}
@@ -115,7 +109,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the size of this {@code FloatArrayOutputStream} instance
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int size() {
 		return this.size;
 	}
@@ -125,7 +118,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * <p>
 	 * The methods in this class can be called after the stream has been closed without generating an {@code IOException}.
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public void close() {
 		
@@ -134,7 +126,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	/**
 	 * Resets this {@code FloatArrayOutputStream} instance so that the size is {@code 0}.
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void reset() {
 		this.size = 0;
 	}
@@ -144,7 +135,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * 
 	 * @param f the {@code float} value to write
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void write(final float f) {
 		doEnsureCapacity(this.size + 1);
 		
@@ -167,7 +157,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * @param f the {@code float} array to write from
 	 * @throws NullPointerException thrown if, and only if, {@code f} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void write(final float[] f) {
 		write(f, 0, f.length);
 	}
@@ -185,9 +174,7 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * @throws IndexOutOfBoundsException thrown if, and only if, either {@code off < 0}, {@code off > f.length}, {@code len < 0} or {@code off + len - f.length > 0}
 	 * @throws NullPointerException thrown if, and only if, {@code f} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void write(final float[] f, final int off, final int len) {
-//		Similar to ByteArrayOutputStream. It looks like 'off > f.length' is a bug. Should it not be 'off >= f.length'?
 		if(off < 0 || off > f.length || len < 0 || off + len - f.length > 0) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -211,7 +198,6 @@ public final class FloatArrayOutputStream extends OutputStream {
 	 * 
 	 * @param b the {@code byte} value to write
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public synchronized void write(final int b) {
 		write((float)((byte)(b)));
@@ -226,9 +212,10 @@ public final class FloatArrayOutputStream extends OutputStream {
 	}
 	
 	private void doGrow(final int minCapacity) {
-		if(minCapacity < 0) {
-			throw new OutOfMemoryError();
-		}
+//		Unable to verify that this code will ever be executed:
+//		if(minCapacity < 0) {
+//			throw new OutOfMemoryError();
+//		}
 		
 		int oldCapacity = this.buffer.length;
 		int newCapacity = oldCapacity << 1;

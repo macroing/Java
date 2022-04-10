@@ -19,7 +19,6 @@
 package org.macroing.java.io;
 
 import java.io.OutputStream;
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Arrays;
 
 /**
@@ -29,7 +28,7 @@ import java.util.Arrays;
  * @author J&#246;rgen Lundgren
  */
 public final class LongArrayOutputStream extends OutputStream {
-	private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+	private static final int MAX_ARRAY_SIZE = (Integer.MAX_VALUE - 8) / 8;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -48,7 +47,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * }
 	 * </pre>
 	 */
-//	TODO: Add Unit Tests!
 	public LongArrayOutputStream() {
 		this(32);
 	}
@@ -61,7 +59,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * @param capacity the initial capacity
 	 * @throws IllegalArgumentException thrown if, and only if, {@code capacity} is less than {@code 0}
 	 */
-//	TODO: Add Unit Tests!
 	public LongArrayOutputStream(final int capacity) {
 		this.size = 0;
 		this.buffer = new long[doRequireMinimum(capacity, 0, "capacity")];
@@ -81,7 +78,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the number of {@code long} values that can be written without expanding the current {@code long} array
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int available() {
 		return capacity() - size();
 	}
@@ -93,7 +89,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the capacity of this {@code LongArrayOutputStream} instance
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int capacity() {
 		return this.buffer.length;
 	}
@@ -105,7 +100,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the size of this {@code LongArrayOutputStream} instance
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int size() {
 		return this.size;
 	}
@@ -115,7 +109,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * 
 	 * @return a {@code long} array that contains the {@code long} values that have been written so far
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized long[] toLongArray() {
 		return Arrays.copyOf(this.buffer, this.size);
 	}
@@ -125,7 +118,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * <p>
 	 * The methods in this class can be called after the stream has been closed without generating an {@code IOException}.
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public void close() {
 		
@@ -134,7 +126,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	/**
 	 * Resets this {@code LongArrayOutputStream} instance so that the size is {@code 0}.
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void reset() {
 		this.size = 0;
 	}
@@ -151,7 +142,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * 
 	 * @param b the {@code byte} value to write
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public synchronized void write(final int b) {
 		write((long)((byte)(b)));
@@ -162,7 +152,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * 
 	 * @param l the {@code long} value to write
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void write(final long l) {
 		doEnsureCapacity(this.size + 1);
 		
@@ -185,7 +174,6 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * @param l the {@code long} array to write from
 	 * @throws NullPointerException thrown if, and only if, {@code l} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void write(final long[] l) {
 		write(l, 0, l.length);
 	}
@@ -203,9 +191,7 @@ public final class LongArrayOutputStream extends OutputStream {
 	 * @throws IndexOutOfBoundsException thrown if, and only if, either {@code off < 0}, {@code off > l.length}, {@code len < 0} or {@code off + len - l.length > 0}
 	 * @throws NullPointerException thrown if, and only if, {@code l} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void write(final long[] l, final int off, final int len) {
-//		Similar to ByteArrayOutputStream. It looks like 'off > l.length' is a bug. Should it not be 'off >= l.length'?
 		if(off < 0 || off > l.length || len < 0 || off + len - l.length > 0) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -226,9 +212,10 @@ public final class LongArrayOutputStream extends OutputStream {
 	}
 	
 	private void doGrow(final int minCapacity) {
-		if(minCapacity < 0) {
-			throw new OutOfMemoryError();
-		}
+//		Unable to verify that this code will ever be executed:
+//		if(minCapacity < 0) {
+//			throw new OutOfMemoryError();
+//		}
 		
 		int oldCapacity = this.buffer.length;
 		int newCapacity = oldCapacity << 1;
@@ -238,7 +225,10 @@ public final class LongArrayOutputStream extends OutputStream {
 		}
 		
 		if(newCapacity - MAX_ARRAY_SIZE > 0) {
-			newCapacity = minCapacity > MAX_ARRAY_SIZE ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;
+//			Unable to verify that the right-hand side of the ternary will ever be executed:
+//			newCapacity = minCapacity > MAX_ARRAY_SIZE ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;
+			
+			newCapacity = Integer.MAX_VALUE;
 		}
 		
 		this.buffer = Arrays.copyOf(this.buffer, newCapacity);

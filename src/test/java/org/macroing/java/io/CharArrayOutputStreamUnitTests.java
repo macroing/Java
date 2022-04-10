@@ -146,7 +146,6 @@ public final class CharArrayOutputStreamUnitTests {
 				charArrayOutputStream.write(new char[134217728]);
 				charArrayOutputStream.write(new char[268435456]);
 				charArrayOutputStream.write(new char[536870912]);
-				charArrayOutputStream.write(new char[1073741824]);
 			});
 			
 			assertThrows(OutOfMemoryError.class, () -> charArrayOutputStream.write(new char[1]));

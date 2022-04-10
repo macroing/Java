@@ -19,7 +19,6 @@
 package org.macroing.java.io;
 
 import java.io.OutputStream;
-import java.lang.reflect.Field;//TODO: Add Unit Tests!
 import java.util.Arrays;
 
 /**
@@ -29,7 +28,7 @@ import java.util.Arrays;
  * @author J&#246;rgen Lundgren
  */
 public final class IntArrayOutputStream extends OutputStream {
-	private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+	private static final int MAX_ARRAY_SIZE = (Integer.MAX_VALUE - 8) / 4;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -48,7 +47,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * }
 	 * </pre>
 	 */
-//	TODO: Add Unit Tests!
 	public IntArrayOutputStream() {
 		this(32);
 	}
@@ -61,7 +59,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * @param capacity the initial capacity
 	 * @throws IllegalArgumentException thrown if, and only if, {@code capacity} is less than {@code 0}
 	 */
-//	TODO: Add Unit Tests!
 	public IntArrayOutputStream(final int capacity) {
 		this.size = 0;
 		this.buffer = new int[doRequireMinimum(capacity, 0, "capacity")];
@@ -74,7 +71,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * 
 	 * @return an {@code int} array that contains the {@code int} values that have been written so far
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int[] toIntArray() {
 		return Arrays.copyOf(this.buffer, this.size);
 	}
@@ -91,7 +87,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the number of {@code int} values that can be written without expanding the current {@code int} array
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int available() {
 		return capacity() - size();
 	}
@@ -103,7 +98,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the capacity of this {@code IntArrayOutputStream} instance
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int capacity() {
 		return this.buffer.length;
 	}
@@ -115,7 +109,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * 
 	 * @return the size of this {@code IntArrayOutputStream} instance
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized int size() {
 		return this.size;
 	}
@@ -125,7 +118,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * <p>
 	 * The methods in this class can be called after the stream has been closed without generating an {@code IOException}.
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public void close() {
 		
@@ -134,7 +126,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	/**
 	 * Resets this {@code IntArrayOutputStream} instance so that the size is {@code 0}.
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void reset() {
 		this.size = 0;
 	}
@@ -151,7 +142,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * 
 	 * @param b the {@code byte} value to write
 	 */
-//	TODO: Add Unit Tests!
 	@Override
 	public synchronized void write(final int b) {
 		writeInt((byte)(b));
@@ -172,7 +162,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * @param i the {@code int} array to write from
 	 * @throws NullPointerException thrown if, and only if, {@code i} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void write(final int[] i) {
 		write(i, 0, i.length);
 	}
@@ -190,9 +179,7 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * @throws IndexOutOfBoundsException thrown if, and only if, either {@code off < 0}, {@code off > i.length}, {@code len < 0} or {@code off + len - i.length > 0}
 	 * @throws NullPointerException thrown if, and only if, {@code i} is {@code null}
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void write(final int[] i, final int off, final int len) {
-//		Similar to ByteArrayOutputStream. It looks like 'off > i.length' is a bug. Should it not be 'off >= i.length'?
 		if(off < 0 || off > i.length || len < 0 || off + len - i.length > 0) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -209,7 +196,6 @@ public final class IntArrayOutputStream extends OutputStream {
 	 * 
 	 * @param i the {@code int} value to write
 	 */
-//	TODO: Add Unit Tests!
 	public synchronized void writeInt(final int i) {
 		doEnsureCapacity(this.size + 1);
 		
@@ -226,9 +212,10 @@ public final class IntArrayOutputStream extends OutputStream {
 	}
 	
 	private void doGrow(final int minCapacity) {
-		if(minCapacity < 0) {
-			throw new OutOfMemoryError();
-		}
+//		Unable to verify that this code will ever be executed:
+//		if(minCapacity < 0) {
+//			throw new OutOfMemoryError();
+//		}
 		
 		int oldCapacity = this.buffer.length;
 		int newCapacity = oldCapacity << 1;
