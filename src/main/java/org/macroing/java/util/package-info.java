@@ -22,6 +22,7 @@
  * <p>
  * The following list shows all dependencies for this API.
  * <ul>
+ * <li>The Macroing Java I/O API</li>
  * <li>The Macroing Java Util Function API</li>
  * </ul>
  */
