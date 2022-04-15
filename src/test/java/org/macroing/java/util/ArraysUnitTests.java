@@ -725,6 +725,62 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testSpliceFloatArrayInt() {
+		assertArrayEquals(new float[] {0.0F, 1.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 3.0F}, +2));
+		assertArrayEquals(new float[] {0.0F, 1.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 3.0F}, -2));
+		assertArrayEquals(new float[] {0.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 9.0F}, -3));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((float[])(null), 0));
+	}
+	
+	@Test
+	public void testSpliceFloatArrayIntInt() {
+		assertArrayEquals(new float[] {0.0F, 1.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 3.0F}, +2, +2));
+		assertArrayEquals(new float[] {0.0F, 1.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 3.0F}, -2, +2));
+		assertArrayEquals(new float[] {0.0F, 9.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 9.0F}, -3, -1));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((float[])(null), 0, 0));
+	}
+	
+	@Test
+	public void testSpliceFloatArrayIntIntFloatArray() {
+		assertArrayEquals(new float[] {0.0F, 1.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 3.0F}, +2, +2, new float[] {4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F}));
+		assertArrayEquals(new float[] {0.0F, 1.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 3.0F}, -2, +2, new float[] {4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F}));
+		assertArrayEquals(new float[] {0.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 9.0F}, -3, -1, new float[] {3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice(new float[0], 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Arrays.splice(null, 0, 0, new float[0]));
+	}
+	
+	@Test
+	public void testSpliceIntArrayInt() {
+		assertArrayEquals(new int[] {0, 1}, Arrays.splice(new int[] {0, 1, 2, 3}, +2));
+		assertArrayEquals(new int[] {0, 1}, Arrays.splice(new int[] {0, 1, 2, 3}, -2));
+		assertArrayEquals(new int[] {0}, Arrays.splice(new int[] {0, 1, 2, 9}, -3));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((int[])(null), 0));
+	}
+	
+	@Test
+	public void testSpliceIntArrayIntInt() {
+		assertArrayEquals(new int[] {0, 1}, Arrays.splice(new int[] {0, 1, 2, 3}, +2, +2));
+		assertArrayEquals(new int[] {0, 1}, Arrays.splice(new int[] {0, 1, 2, 3}, -2, +2));
+		assertArrayEquals(new int[] {0, 9}, Arrays.splice(new int[] {0, 1, 2, 9}, -3, -1));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((int[])(null), 0, 0));
+	}
+	
+	@Test
+	public void testSpliceIntArrayIntIntIntArray() {
+		assertArrayEquals(new int[] {0, 1, 4, 5, 6, 7, 8, 9}, Arrays.splice(new int[] {0, 1, 2, 3}, +2, +2, new int[] {4, 5, 6, 7, 8, 9}));
+		assertArrayEquals(new int[] {0, 1, 4, 5, 6, 7, 8, 9}, Arrays.splice(new int[] {0, 1, 2, 3}, -2, +2, new int[] {4, 5, 6, 7, 8, 9}));
+		assertArrayEquals(new int[] {0, 3, 4, 5, 6, 7, 8, 9}, Arrays.splice(new int[] {0, 1, 2, 9}, -3, -1, new int[] {3, 4, 5, 6, 7, 8}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice(new int[0], 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Arrays.splice(null, 0, 0, new int[0]));
+	}
+	
+	@Test
 	public void testToByteArrayIntArray() {
 		assertArrayEquals(new byte[] {(byte)(0), (byte)(1), (byte)(2)}, Arrays.toByteArray(new int[] {0, 1, 2}));
 		
