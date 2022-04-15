@@ -19,6 +19,7 @@
 package org.macroing.java.util;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,6 +36,23 @@ public final class ArraysUnitTests {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@Test
+	public void testEqualsBooleanArrayBooleanArray() {
+		final boolean[] a = new boolean[] {false, true, false};
+		final boolean[] b = new boolean[] {false, true, false};
+		final boolean[] c = new boolean[] {false, true, false, true};
+		final boolean[] d = new boolean[] {false, false, false};
+		
+		assertTrue(Arrays.equals(a, a));
+		assertTrue(Arrays.equals(a, b));
+		
+		assertFalse(Arrays.equals(a, c));
+		assertFalse(Arrays.equals(a, d));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.equals(new boolean[0], null));
+		assertThrows(NullPointerException.class, () -> Arrays.equals(null, new boolean[0]));
+	}
+	
+	@Test
 	public void testEqualsBooleanArrayBooleanArrayIntIntInt() {
 		assertTrue(Arrays.equals(new boolean[] {false, true, false, true, false}, new boolean[] {false, true, false}, 2, 0, 3));
 		
@@ -47,6 +65,23 @@ public final class ArraysUnitTests {
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new boolean[1], new boolean[1], +0, -1, +1));
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new boolean[1], new boolean[1], +0, +1, +1));
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new boolean[1], new boolean[1], +0, +0, -1));
+	}
+	
+	@Test
+	public void testEqualsByteArrayByteArray() {
+		final byte[] a = new byte[] {(byte)(0), (byte)(1), (byte)(2)};
+		final byte[] b = new byte[] {(byte)(0), (byte)(1), (byte)(2)};
+		final byte[] c = new byte[] {(byte)(0), (byte)(1), (byte)(2), (byte)(3)};
+		final byte[] d = new byte[] {(byte)(0), (byte)(0), (byte)(0)};
+		
+		assertTrue(Arrays.equals(a, a));
+		assertTrue(Arrays.equals(a, b));
+		
+		assertFalse(Arrays.equals(a, c));
+		assertFalse(Arrays.equals(a, d));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.equals(new byte[0], null));
+		assertThrows(NullPointerException.class, () -> Arrays.equals(null, new byte[0]));
 	}
 	
 	@Test
@@ -65,6 +100,23 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testEqualsCharArrayCharArray() {
+		final char[] a = new char[] {'A', 'B', 'C'};
+		final char[] b = new char[] {'A', 'B', 'C'};
+		final char[] c = new char[] {'A', 'B', 'C', 'D'};
+		final char[] d = new char[] {'A', 'A', 'A'};
+		
+		assertTrue(Arrays.equals(a, a));
+		assertTrue(Arrays.equals(a, b));
+		
+		assertFalse(Arrays.equals(a, c));
+		assertFalse(Arrays.equals(a, d));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.equals(new char[0], null));
+		assertThrows(NullPointerException.class, () -> Arrays.equals(null, new char[0]));
+	}
+	
+	@Test
 	public void testEqualsCharArrayCharArrayIntIntInt() {
 		assertTrue(Arrays.equals(new char[] {'A', 'B', 'C', 'D', 'E'}, new char[] {'C', 'D', 'E'}, 2, 0, 3));
 		
@@ -77,6 +129,23 @@ public final class ArraysUnitTests {
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new char[1], new char[1], +0, -1, +1));
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new char[1], new char[1], +0, +1, +1));
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new char[1], new char[1], +0, +0, -1));
+	}
+	
+	@Test
+	public void testEqualsDoubleArrayDoubleArray() {
+		final double[] a = new double[] {0.0D, 1.0D, 2.0D};
+		final double[] b = new double[] {0.0D, 1.0D, 2.0D};
+		final double[] c = new double[] {0.0D, 1.0D, 2.0D, 3.0D};
+		final double[] d = new double[] {0.0D, 0.0D, 0.0D};
+		
+		assertTrue(Arrays.equals(a, a));
+		assertTrue(Arrays.equals(a, b));
+		
+		assertFalse(Arrays.equals(a, c));
+		assertFalse(Arrays.equals(a, d));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.equals(new double[0], null));
+		assertThrows(NullPointerException.class, () -> Arrays.equals(null, new double[0]));
 	}
 	
 	@Test
@@ -95,6 +164,23 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testEqualsFloatArrayFloatArray() {
+		final float[] a = new float[] {0.0F, 1.0F, 2.0F};
+		final float[] b = new float[] {0.0F, 1.0F, 2.0F};
+		final float[] c = new float[] {0.0F, 1.0F, 2.0F, 3.0F};
+		final float[] d = new float[] {0.0F, 0.0F, 0.0F};
+		
+		assertTrue(Arrays.equals(a, a));
+		assertTrue(Arrays.equals(a, b));
+		
+		assertFalse(Arrays.equals(a, c));
+		assertFalse(Arrays.equals(a, d));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.equals(new float[0], null));
+		assertThrows(NullPointerException.class, () -> Arrays.equals(null, new float[0]));
+	}
+	
+	@Test
 	public void testEqualsFloatArrayFloatArrayIntIntInt() {
 		assertTrue(Arrays.equals(new float[] {0.0F, 1.0F, 2.0F, 3.0F, 4.0F}, new float[] {2.0F, 3.0F, 4.0F}, 2, 0, 3));
 		
@@ -107,6 +193,23 @@ public final class ArraysUnitTests {
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new float[1], new float[1], +0, -1, +1));
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new float[1], new float[1], +0, +1, +1));
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new float[1], new float[1], +0, +0, -1));
+	}
+	
+	@Test
+	public void testEqualsIntArrayIntArray() {
+		final int[] a = new int[] {0, 1, 2};
+		final int[] b = new int[] {0, 1, 2};
+		final int[] c = new int[] {0, 1, 2, 3};
+		final int[] d = new int[] {0, 0, 0};
+		
+		assertTrue(Arrays.equals(a, a));
+		assertTrue(Arrays.equals(a, b));
+		
+		assertFalse(Arrays.equals(a, c));
+		assertFalse(Arrays.equals(a, d));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.equals(new int[0], null));
+		assertThrows(NullPointerException.class, () -> Arrays.equals(null, new int[0]));
 	}
 	
 	@Test
@@ -125,6 +228,23 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testEqualsLongArrayLongArray() {
+		final long[] a = new long[] {0L, 1L, 2L};
+		final long[] b = new long[] {0L, 1L, 2L};
+		final long[] c = new long[] {0L, 1L, 2L, 3L};
+		final long[] d = new long[] {0L, 0L, 0L};
+		
+		assertTrue(Arrays.equals(a, a));
+		assertTrue(Arrays.equals(a, b));
+		
+		assertFalse(Arrays.equals(a, c));
+		assertFalse(Arrays.equals(a, d));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.equals(new long[0], null));
+		assertThrows(NullPointerException.class, () -> Arrays.equals(null, new long[0]));
+	}
+	
+	@Test
 	public void testEqualsLongArrayLongArrayIntIntInt() {
 		assertTrue(Arrays.equals(new long[] {0L, 1L, 2L, 3L, 4L}, new long[] {2L, 3L, 4L}, 2, 0, 3));
 		
@@ -140,6 +260,23 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testEqualsShortArrayShortArray() {
+		final short[] a = new short[] {(short)(0), (short)(1), (short)(2)};
+		final short[] b = new short[] {(short)(0), (short)(1), (short)(2)};
+		final short[] c = new short[] {(short)(0), (short)(1), (short)(2), (short)(3)};
+		final short[] d = new short[] {(short)(0), (short)(0), (short)(0)};
+		
+		assertTrue(Arrays.equals(a, a));
+		assertTrue(Arrays.equals(a, b));
+		
+		assertFalse(Arrays.equals(a, c));
+		assertFalse(Arrays.equals(a, d));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.equals(new short[0], null));
+		assertThrows(NullPointerException.class, () -> Arrays.equals(null, new short[0]));
+	}
+	
+	@Test
 	public void testEqualsShortArrayShortArrayIntIntInt() {
 		assertTrue(Arrays.equals(new short[] {(short)(0), (short)(1), (short)(2), (short)(3), (short)(4)}, new short[] {(short)(2), (short)(3), (short)(4)}, 2, 0, 3));
 		
@@ -152,6 +289,86 @@ public final class ArraysUnitTests {
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new short[1], new short[1], +0, -1, +1));
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new short[1], new short[1], +0, +1, +1));
 		assertThrows(IllegalArgumentException.class, () -> Arrays.equals(new short[1], new short[1], +0, +0, -1));
+	}
+	
+	@Test
+	public void testHashCodeBooleanArray() {
+		final boolean[] a = {false, true, false};
+		final boolean[] b = {false, true, false};
+		
+		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.hashCode((boolean[])(null)));
+	}
+	
+	@Test
+	public void testHashCodeByteArray() {
+		final byte[] a = {(byte)(0), (byte)(1), (byte)(2)};
+		final byte[] b = {(byte)(0), (byte)(1), (byte)(2)};
+		
+		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.hashCode((byte[])(null)));
+	}
+	
+	@Test
+	public void testHashCodeCharArray() {
+		final char[] a = {'A', 'B', 'C'};
+		final char[] b = {'A', 'B', 'C'};
+		
+		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.hashCode((char[])(null)));
+	}
+	
+	@Test
+	public void testHashCodeDoubleArray() {
+		final double[] a = {0.0D, 1.0D, 2.0D};
+		final double[] b = {0.0D, 1.0D, 2.0D};
+		
+		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.hashCode((double[])(null)));
+	}
+	
+	@Test
+	public void testHashCodeFloatArray() {
+		final float[] a = {0.0F, 1.0F, 2.0F};
+		final float[] b = {0.0F, 1.0F, 2.0F};
+		
+		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.hashCode((float[])(null)));
+	}
+	
+	@Test
+	public void testHashCodeIntArray() {
+		final int[] a = {0, 1, 2};
+		final int[] b = {0, 1, 2};
+		
+		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.hashCode((int[])(null)));
+	}
+	
+	@Test
+	public void testHashCodeLongArray() {
+		final long[] a = {0L, 1L, 2L};
+		final long[] b = {0L, 1L, 2L};
+		
+		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.hashCode((long[])(null)));
+	}
+	
+	@Test
+	public void testHashCodeShortArray() {
+		final short[] a = {(short)(0), (short)(1), (short)(2)};
+		final short[] b = {(short)(0), (short)(1), (short)(2)};
+		
+		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.hashCode((short[])(null)));
 	}
 	
 	@Test
@@ -220,6 +437,9 @@ public final class ArraysUnitTests {
 	
 	@Test
 	public void testRepeatBooleanArrayInt() {
+		assertArrayEquals(new boolean [] {}, Arrays.repeat(new boolean[] {}, 3));
+		assertArrayEquals(new boolean [] {}, Arrays.repeat(new boolean[] {false,  true}, 0));
+		assertArrayEquals(new boolean [] {false, false, false}, Arrays.repeat(new boolean[] {false}, 3));
 		assertArrayEquals(new boolean [] {false, true, false, true, false, true}, Arrays.repeat(new boolean[] {false,  true}, 3));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.repeat((boolean[])(null), 1));
@@ -229,6 +449,9 @@ public final class ArraysUnitTests {
 	
 	@Test
 	public void testRepeatByteArrayInt() {
+		assertArrayEquals(new byte [] {}, Arrays.repeat(new byte[] {}, 3));
+		assertArrayEquals(new byte [] {}, Arrays.repeat(new byte[] {(byte)(1), (byte)(2)}, 0));
+		assertArrayEquals(new byte [] {(byte)(1), (byte)(1), (byte)(1)}, Arrays.repeat(new byte[] {(byte)(1)}, 3));
 		assertArrayEquals(new byte [] {(byte)(1), (byte)(2), (byte)(1), (byte)(2), (byte)(1), (byte)(2)}, Arrays.repeat(new byte[] {(byte)(1), (byte)(2)}, 3));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.repeat((byte[])(null), 1));
@@ -238,6 +461,9 @@ public final class ArraysUnitTests {
 	
 	@Test
 	public void testRepeatCharArrayInt() {
+		assertArrayEquals(new char [] {}, Arrays.repeat(new char[] {}, 3));
+		assertArrayEquals(new char [] {}, Arrays.repeat(new char[] {'A',  'B'}, 0));
+		assertArrayEquals(new char [] {'A', 'A', 'A'}, Arrays.repeat(new char[] {'A'}, 3));
 		assertArrayEquals(new char [] {'A', 'B', 'A', 'B', 'A', 'B'}, Arrays.repeat(new char[] {'A',  'B'}, 3));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.repeat((char[])(null), 1));
@@ -247,6 +473,9 @@ public final class ArraysUnitTests {
 	
 	@Test
 	public void testRepeatDoubleArrayInt() {
+		assertArrayEquals(new double [] {}, Arrays.repeat(new double[] {}, 3));
+		assertArrayEquals(new double [] {}, Arrays.repeat(new double[] {1.0D, 2.0D}, 0));
+		assertArrayEquals(new double [] {1.0D, 1.0D, 1.0D}, Arrays.repeat(new double[] {1.0D}, 3));
 		assertArrayEquals(new double [] {1.0D, 2.0D, 1.0D, 2.0D, 1.0D, 2.0D}, Arrays.repeat(new double[] {1.0D, 2.0D}, 3));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.repeat((double[])(null), 1));
@@ -256,6 +485,9 @@ public final class ArraysUnitTests {
 	
 	@Test
 	public void testRepeatFloatArrayInt() {
+		assertArrayEquals(new float [] {}, Arrays.repeat(new float[] {}, 3));
+		assertArrayEquals(new float [] {}, Arrays.repeat(new float[] {1.0F, 2.0F}, 0));
+		assertArrayEquals(new float [] {1.0F, 1.0F, 1.0F}, Arrays.repeat(new float[] {1.0F}, 3));
 		assertArrayEquals(new float [] {1.0F, 2.0F, 1.0F, 2.0F, 1.0F, 2.0F}, Arrays.repeat(new float[] {1.0F, 2.0F}, 3));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.repeat((float[])(null), 1));
@@ -265,6 +497,9 @@ public final class ArraysUnitTests {
 	
 	@Test
 	public void testRepeatIntArrayInt() {
+		assertArrayEquals(new int [] {}, Arrays.repeat(new int[] {}, 3));
+		assertArrayEquals(new int [] {}, Arrays.repeat(new int[] {1, 2}, 0));
+		assertArrayEquals(new int [] {1, 1, 1}, Arrays.repeat(new int[] {1}, 3));
 		assertArrayEquals(new int [] {1, 2, 1, 2, 1, 2}, Arrays.repeat(new int[] {1, 2}, 3));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.repeat((int[])(null), 1));
@@ -274,6 +509,9 @@ public final class ArraysUnitTests {
 	
 	@Test
 	public void testRepeatLongArrayInt() {
+		assertArrayEquals(new long [] {}, Arrays.repeat(new long[] {}, 3));
+		assertArrayEquals(new long [] {}, Arrays.repeat(new long[] {1L, 2L}, 0));
+		assertArrayEquals(new long [] {1L, 1L, 1L}, Arrays.repeat(new long[] {1L}, 3));
 		assertArrayEquals(new long [] {1L, 2L, 1L, 2L, 1L, 2L}, Arrays.repeat(new long[] {1L, 2L}, 3));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.repeat((long[])(null), 1));
@@ -283,6 +521,9 @@ public final class ArraysUnitTests {
 	
 	@Test
 	public void testRepeatShortArrayInt() {
+		assertArrayEquals(new short [] {}, Arrays.repeat(new short[] {}, 3));
+		assertArrayEquals(new short [] {}, Arrays.repeat(new short[] {(short)(1), (short)(2)}, 0));
+		assertArrayEquals(new short [] {(short)(1), (short)(1), (short)(1)}, Arrays.repeat(new short[] {(short)(1)}, 3));
 		assertArrayEquals(new short [] {(short)(1), (short)(2), (short)(1), (short)(2), (short)(1), (short)(2)}, Arrays.repeat(new short[] {(short)(1), (short)(2)}, 3));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.repeat((short[])(null), 1));

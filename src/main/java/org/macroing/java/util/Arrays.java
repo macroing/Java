@@ -43,6 +43,35 @@ public final class Arrays {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
+	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
+	 * <p>
+	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param arrayA a {@code boolean[]}
+	 * @param arrayB a {@code boolean[]}
+	 * @return {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise
+	 * @throws NullPointerException thrown if, and only if, either {@code arrayA} or {@code arrayB} are {@code null}
+	 */
+	public static boolean equals(final boolean[] arrayA, final boolean[] arrayB) {
+		Objects.requireNonNull(arrayA, "arrayA == null");
+		Objects.requireNonNull(arrayB, "arrayB == null");
+		
+		if(arrayA == arrayB) {
+			return true;
+		} else if(arrayA.length != arrayB.length) {
+			return false;
+		} else {
+			for(int i = 0; i < arrayA.length; i++) {
+				if(Boolean.compare(arrayA[i], arrayB[i]) != 0) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+	}
+	
+	/**
 	 * Returns {@code true} if, and only if, the elements of {@code arrayA} starting at {@code offsetArrayA} are equal to the elements of {@code arrayB} starting at {@code offsetArrayB}, {@code false} otherwise.
 	 * <p>
 	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
@@ -75,6 +104,35 @@ public final class Arrays {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
+	 * <p>
+	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param arrayA a {@code byte[]}
+	 * @param arrayB a {@code byte[]}
+	 * @return {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise
+	 * @throws NullPointerException thrown if, and only if, either {@code arrayA} or {@code arrayB} are {@code null}
+	 */
+	public static boolean equals(final byte[] arrayA, final byte[] arrayB) {
+		Objects.requireNonNull(arrayA, "arrayA == null");
+		Objects.requireNonNull(arrayB, "arrayB == null");
+		
+		if(arrayA == arrayB) {
+			return true;
+		} else if(arrayA.length != arrayB.length) {
+			return false;
+		} else {
+			for(int i = 0; i < arrayA.length; i++) {
+				if(Byte.compare(arrayA[i], arrayB[i]) != 0) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
 	}
 	
 	/**
@@ -113,6 +171,35 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
+	 * <p>
+	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param arrayA a {@code char[]}
+	 * @param arrayB a {@code char[]}
+	 * @return {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise
+	 * @throws NullPointerException thrown if, and only if, either {@code arrayA} or {@code arrayB} are {@code null}
+	 */
+	public static boolean equals(final char[] arrayA, final char[] arrayB) {
+		Objects.requireNonNull(arrayA, "arrayA == null");
+		Objects.requireNonNull(arrayB, "arrayB == null");
+		
+		if(arrayA == arrayB) {
+			return true;
+		} else if(arrayA.length != arrayB.length) {
+			return false;
+		} else {
+			for(int i = 0; i < arrayA.length; i++) {
+				if(Character.compare(arrayA[i], arrayB[i]) != 0) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+	}
+	
+	/**
 	 * Returns {@code true} if, and only if, the elements of {@code arrayA} starting at {@code offsetArrayA} are equal to the elements of {@code arrayB} starting at {@code offsetArrayB}, {@code false} otherwise.
 	 * <p>
 	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
@@ -145,6 +232,35 @@ public final class Arrays {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
+	 * <p>
+	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param arrayA a {@code double[]}
+	 * @param arrayB a {@code double[]}
+	 * @return {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise
+	 * @throws NullPointerException thrown if, and only if, either {@code arrayA} or {@code arrayB} are {@code null}
+	 */
+	public static boolean equals(final double[] arrayA, final double[] arrayB) {
+		Objects.requireNonNull(arrayA, "arrayA == null");
+		Objects.requireNonNull(arrayB, "arrayB == null");
+		
+		if(arrayA == arrayB) {
+			return true;
+		} else if(arrayA.length != arrayB.length) {
+			return false;
+		} else {
+			for(int i = 0; i < arrayA.length; i++) {
+				if(Double.compare(arrayA[i], arrayB[i]) != 0) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
 	}
 	
 	/**
@@ -183,6 +299,35 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
+	 * <p>
+	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param arrayA a {@code float[]}
+	 * @param arrayB a {@code float[]}
+	 * @return {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise
+	 * @throws NullPointerException thrown if, and only if, either {@code arrayA} or {@code arrayB} are {@code null}
+	 */
+	public static boolean equals(final float[] arrayA, final float[] arrayB) {
+		Objects.requireNonNull(arrayA, "arrayA == null");
+		Objects.requireNonNull(arrayB, "arrayB == null");
+		
+		if(arrayA == arrayB) {
+			return true;
+		} else if(arrayA.length != arrayB.length) {
+			return false;
+		} else {
+			for(int i = 0; i < arrayA.length; i++) {
+				if(Float.compare(arrayA[i], arrayB[i]) != 0) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+	}
+	
+	/**
 	 * Returns {@code true} if, and only if, the elements of {@code arrayA} starting at {@code offsetArrayA} are equal to the elements of {@code arrayB} starting at {@code offsetArrayB}, {@code false} otherwise.
 	 * <p>
 	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
@@ -215,6 +360,35 @@ public final class Arrays {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
+	 * <p>
+	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param arrayA a {@code int[]}
+	 * @param arrayB a {@code int[]}
+	 * @return {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise
+	 * @throws NullPointerException thrown if, and only if, either {@code arrayA} or {@code arrayB} are {@code null}
+	 */
+	public static boolean equals(final int[] arrayA, final int[] arrayB) {
+		Objects.requireNonNull(arrayA, "arrayA == null");
+		Objects.requireNonNull(arrayB, "arrayB == null");
+		
+		if(arrayA == arrayB) {
+			return true;
+		} else if(arrayA.length != arrayB.length) {
+			return false;
+		} else {
+			for(int i = 0; i < arrayA.length; i++) {
+				if(Integer.compare(arrayA[i], arrayB[i]) != 0) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
 	}
 	
 	/**
@@ -253,6 +427,35 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
+	 * <p>
+	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param arrayA a {@code long[]}
+	 * @param arrayB a {@code long[]}
+	 * @return {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise
+	 * @throws NullPointerException thrown if, and only if, either {@code arrayA} or {@code arrayB} are {@code null}
+	 */
+	public static boolean equals(final long[] arrayA, final long[] arrayB) {
+		Objects.requireNonNull(arrayA, "arrayA == null");
+		Objects.requireNonNull(arrayB, "arrayB == null");
+		
+		if(arrayA == arrayB) {
+			return true;
+		} else if(arrayA.length != arrayB.length) {
+			return false;
+		} else {
+			for(int i = 0; i < arrayA.length; i++) {
+				if(Long.compare(arrayA[i], arrayB[i]) != 0) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+	}
+	
+	/**
 	 * Returns {@code true} if, and only if, the elements of {@code arrayA} starting at {@code offsetArrayA} are equal to the elements of {@code arrayB} starting at {@code offsetArrayB}, {@code false} otherwise.
 	 * <p>
 	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
@@ -285,6 +488,35 @@ public final class Arrays {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
+	 * <p>
+	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param arrayA a {@code short[]}
+	 * @param arrayB a {@code short[]}
+	 * @return {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise
+	 * @throws NullPointerException thrown if, and only if, either {@code arrayA} or {@code arrayB} are {@code null}
+	 */
+	public static boolean equals(final short[] arrayA, final short[] arrayB) {
+		Objects.requireNonNull(arrayA, "arrayA == null");
+		Objects.requireNonNull(arrayB, "arrayB == null");
+		
+		if(arrayA == arrayB) {
+			return true;
+		} else if(arrayA.length != arrayB.length) {
+			return false;
+		} else {
+			for(int i = 0; i < arrayA.length; i++) {
+				if(Short.compare(arrayA[i], arrayB[i]) != 0) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
 	}
 	
 	/**
@@ -363,16 +595,30 @@ public final class Arrays {
 		
 		doRequireRange(repetition, 0, Integer.MAX_VALUE, "repetition");
 		
-		try {
-			final boolean[] repeatedArray = new boolean[Math.multiplyExact(repetition, array.length)];
+		if(array.length == 0 || repetition == 0) {
+			return new boolean[0];
+		} else if(array.length == 1) {
+			final boolean[] repeatedArray = new boolean[repetition];
+			
+			final boolean element = array[0];
 			
 			for(int i = 0; i < repetition; i++) {
-				System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				repeatedArray[i] = element;
 			}
 			
 			return repeatedArray;
-		} catch(final ArithmeticException e) {
-			throw new IllegalArgumentException(e);
+		} else {
+			try {
+				final boolean[] repeatedArray = new boolean[Math.multiplyExact(repetition, array.length)];
+				
+				for(int i = 0; i < repetition; i++) {
+					System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				}
+				
+				return repeatedArray;
+			} catch(final ArithmeticException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
@@ -452,16 +698,30 @@ public final class Arrays {
 		
 		doRequireRange(repetition, 0, Integer.MAX_VALUE, "repetition");
 		
-		try {
-			final byte[] repeatedArray = new byte[Math.multiplyExact(repetition, array.length)];
+		if(array.length == 0 || repetition == 0) {
+			return new byte[0];
+		} else if(array.length == 1) {
+			final byte[] repeatedArray = new byte[repetition];
+			
+			final byte element = array[0];
 			
 			for(int i = 0; i < repetition; i++) {
-				System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				repeatedArray[i] = element;
 			}
 			
 			return repeatedArray;
-		} catch(final ArithmeticException e) {
-			throw new IllegalArgumentException(e);
+		} else {
+			try {
+				final byte[] repeatedArray = new byte[Math.multiplyExact(repetition, array.length)];
+				
+				for(int i = 0; i < repetition; i++) {
+					System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				}
+				
+				return repeatedArray;
+			} catch(final ArithmeticException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
@@ -534,16 +794,30 @@ public final class Arrays {
 		
 		doRequireRange(repetition, 0, Integer.MAX_VALUE, "repetition");
 		
-		try {
-			final char[] repeatedArray = new char[Math.multiplyExact(repetition, array.length)];
+		if(array.length == 0 || repetition == 0) {
+			return new char[0];
+		} else if(array.length == 1) {
+			final char[] repeatedArray = new char[repetition];
+			
+			final char element = array[0];
 			
 			for(int i = 0; i < repetition; i++) {
-				System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				repeatedArray[i] = element;
 			}
 			
 			return repeatedArray;
-		} catch(final ArithmeticException e) {
-			throw new IllegalArgumentException(e);
+		} else {
+			try {
+				final char[] repeatedArray = new char[Math.multiplyExact(repetition, array.length)];
+				
+				for(int i = 0; i < repetition; i++) {
+					System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				}
+				
+				return repeatedArray;
+			} catch(final ArithmeticException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
@@ -616,16 +890,30 @@ public final class Arrays {
 		
 		doRequireRange(repetition, 0, Integer.MAX_VALUE, "repetition");
 		
-		try {
-			final double[] repeatedArray = new double[Math.multiplyExact(repetition, array.length)];
+		if(array.length == 0 || repetition == 0) {
+			return new double[0];
+		} else if(array.length == 1) {
+			final double[] repeatedArray = new double[repetition];
+			
+			final double element = array[0];
 			
 			for(int i = 0; i < repetition; i++) {
-				System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				repeatedArray[i] = element;
 			}
 			
 			return repeatedArray;
-		} catch(final ArithmeticException e) {
-			throw new IllegalArgumentException(e);
+		} else {
+			try {
+				final double[] repeatedArray = new double[Math.multiplyExact(repetition, array.length)];
+				
+				for(int i = 0; i < repetition; i++) {
+					System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				}
+				
+				return repeatedArray;
+			} catch(final ArithmeticException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
@@ -698,16 +986,30 @@ public final class Arrays {
 		
 		doRequireRange(repetition, 0, Integer.MAX_VALUE, "repetition");
 		
-		try {
-			final float[] repeatedArray = new float[Math.multiplyExact(repetition, array.length)];
+		if(array.length == 0 || repetition == 0) {
+			return new float[0];
+		} else if(array.length == 1) {
+			final float[] repeatedArray = new float[repetition];
+			
+			final float element = array[0];
 			
 			for(int i = 0; i < repetition; i++) {
-				System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				repeatedArray[i] = element;
 			}
 			
 			return repeatedArray;
-		} catch(final ArithmeticException e) {
-			throw new IllegalArgumentException(e);
+		} else {
+			try {
+				final float[] repeatedArray = new float[Math.multiplyExact(repetition, array.length)];
+				
+				for(int i = 0; i < repetition; i++) {
+					System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				}
+				
+				return repeatedArray;
+			} catch(final ArithmeticException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
@@ -737,6 +1039,176 @@ public final class Arrays {
 		}
 		
 		return arrays;
+	}
+	
+	/**
+	 * Returns a hash code based on the contents of {@code array}.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the {@code boolean[]} to compute a hash code for
+	 * @return a hash code based on the contents of {@code array}
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int hashCode(final boolean[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		int result = 1;
+		
+		for(final boolean element : array) {
+			result = 31 * result + (element ? 1231 : 1237);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns a hash code based on the contents of {@code array}.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the {@code byte[]} to compute a hash code for
+	 * @return a hash code based on the contents of {@code array}
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int hashCode(final byte[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		int result = 1;
+		
+		for(final byte element : array) {
+			result = 31 * result + element;
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns a hash code based on the contents of {@code array}.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the {@code char[]} to compute a hash code for
+	 * @return a hash code based on the contents of {@code array}
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int hashCode(final char[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		int result = 1;
+		
+		for(final char element : array) {
+			result = 31 * result + element;
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns a hash code based on the contents of {@code array}.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the {@code double[]} to compute a hash code for
+	 * @return a hash code based on the contents of {@code array}
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int hashCode(final double[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		int result = 1;
+		
+		for(final double element : array) {
+			final long bits = Double.doubleToLongBits(element);
+			
+			result = 31 * result + (int)(bits ^ (bits >>> 32L));
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns a hash code based on the contents of {@code array}.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the {@code float[]} to compute a hash code for
+	 * @return a hash code based on the contents of {@code array}
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int hashCode(final float[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		int result = 1;
+		
+		for(final float element : array) {
+			result = 31 * result + Float.floatToIntBits(element);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns a hash code based on the contents of {@code array}.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the {@code int[]} to compute a hash code for
+	 * @return a hash code based on the contents of {@code array}
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int hashCode(final int[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		int result = 1;
+		
+		for(final int element : array) {
+			result = 31 * result + element;
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns a hash code based on the contents of {@code array}.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the {@code long[]} to compute a hash code for
+	 * @return a hash code based on the contents of {@code array}
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int hashCode(final long[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		int result = 1;
+		
+		for(final long element : array) {
+			result = 31 * result + (int)(element ^ (element >>> 32L));
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Returns a hash code based on the contents of {@code array}.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the {@code short[]} to compute a hash code for
+	 * @return a hash code based on the contents of {@code array}
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int hashCode(final short[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		int result = 1;
+		
+		for(final short element : array) {
+			result = 31 * result + element;
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -780,16 +1252,30 @@ public final class Arrays {
 		
 		doRequireRange(repetition, 0, Integer.MAX_VALUE, "repetition");
 		
-		try {
-			final int[] repeatedArray = new int[Math.multiplyExact(repetition, array.length)];
+		if(array.length == 0 || repetition == 0) {
+			return new int[0];
+		} else if(array.length == 1) {
+			final int[] repeatedArray = new int[repetition];
+			
+			final int element = array[0];
 			
 			for(int i = 0; i < repetition; i++) {
-				System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				repeatedArray[i] = element;
 			}
 			
 			return repeatedArray;
-		} catch(final ArithmeticException e) {
-			throw new IllegalArgumentException(e);
+		} else {
+			try {
+				final int[] repeatedArray = new int[Math.multiplyExact(repetition, array.length)];
+				
+				for(int i = 0; i < repetition; i++) {
+					System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				}
+				
+				return repeatedArray;
+			} catch(final ArithmeticException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
@@ -862,16 +1348,30 @@ public final class Arrays {
 		
 		doRequireRange(repetition, 0, Integer.MAX_VALUE, "repetition");
 		
-		try {
-			final long[] repeatedArray = new long[Math.multiplyExact(repetition, array.length)];
+		if(array.length == 0 || repetition == 0) {
+			return new long[0];
+		} else if(array.length == 1) {
+			final long[] repeatedArray = new long[repetition];
+			
+			final long element = array[0];
 			
 			for(int i = 0; i < repetition; i++) {
-				System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				repeatedArray[i] = element;
 			}
 			
 			return repeatedArray;
-		} catch(final ArithmeticException e) {
-			throw new IllegalArgumentException(e);
+		} else {
+			try {
+				final long[] repeatedArray = new long[Math.multiplyExact(repetition, array.length)];
+				
+				for(int i = 0; i < repetition; i++) {
+					System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				}
+				
+				return repeatedArray;
+			} catch(final ArithmeticException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
@@ -944,16 +1444,30 @@ public final class Arrays {
 		
 		doRequireRange(repetition, 0, Integer.MAX_VALUE, "repetition");
 		
-		try {
-			final short[] repeatedArray = new short[Math.multiplyExact(repetition, array.length)];
+		if(array.length == 0 || repetition == 0) {
+			return new short[0];
+		} else if(array.length == 1) {
+			final short[] repeatedArray = new short[repetition];
+			
+			final short element = array[0];
 			
 			for(int i = 0; i < repetition; i++) {
-				System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				repeatedArray[i] = element;
 			}
 			
 			return repeatedArray;
-		} catch(final ArithmeticException e) {
-			throw new IllegalArgumentException(e);
+		} else {
+			try {
+				final short[] repeatedArray = new short[Math.multiplyExact(repetition, array.length)];
+				
+				for(int i = 0; i < repetition; i++) {
+					System.arraycopy(array, 0, repeatedArray, i * array.length, array.length);
+				}
+				
+				return repeatedArray;
+			} catch(final ArithmeticException e) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
