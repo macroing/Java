@@ -295,6 +295,70 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testGenerateBooleanArray() {
+		assertArrayEquals(new boolean[] {false, true, true}, Arrays.generateBooleanArray(3, index -> index > 0));
+		
+		assertThrows(IllegalArgumentException.class, () -> Arrays.generateBooleanArray(-1, index -> index > 0));
+		assertThrows(NullPointerException.class, () -> Arrays.generateBooleanArray(0, null));
+	}
+	
+	@Test
+	public void testGenerateByteArray() {
+		assertArrayEquals(new byte[] {(byte)(0), (byte)(1), (byte)(2)}, Arrays.generateByteArray(3, index -> (byte)(index)));
+		
+		assertThrows(IllegalArgumentException.class, () -> Arrays.generateByteArray(-1, index -> (byte)(index)));
+		assertThrows(NullPointerException.class, () -> Arrays.generateByteArray(0, null));
+	}
+	
+	@Test
+	public void testGenerateCharArray() {
+		assertArrayEquals(new char[] {'A', 'B', 'C'}, Arrays.generateCharArray(3, index -> (char)('A' + index)));
+		
+		assertThrows(IllegalArgumentException.class, () -> Arrays.generateCharArray(-1, index -> (char)('A' + index)));
+		assertThrows(NullPointerException.class, () -> Arrays.generateCharArray(0, null));
+	}
+	
+	@Test
+	public void testGenerateDoubleArray() {
+		assertArrayEquals(new double[] {0.0D, 1.0D, 2.0D}, Arrays.generateDoubleArray(3, index -> index));
+		
+		assertThrows(IllegalArgumentException.class, () -> Arrays.generateDoubleArray(-1, index -> index));
+		assertThrows(NullPointerException.class, () -> Arrays.generateDoubleArray(0, null));
+	}
+	
+	@Test
+	public void testGenerateFloatArray() {
+		assertArrayEquals(new float[] {0.0F, 1.0F, 2.0F}, Arrays.generateFloatArray(3, index -> index));
+		
+		assertThrows(IllegalArgumentException.class, () -> Arrays.generateFloatArray(-1, index -> index));
+		assertThrows(NullPointerException.class, () -> Arrays.generateFloatArray(0, null));
+	}
+	
+	@Test
+	public void testGenerateIntArray() {
+		assertArrayEquals(new int[] {0, 1, 2}, Arrays.generateIntArray(3, index -> index));
+		
+		assertThrows(IllegalArgumentException.class, () -> Arrays.generateIntArray(-1, index -> index));
+		assertThrows(NullPointerException.class, () -> Arrays.generateIntArray(0, null));
+	}
+	
+	@Test
+	public void testGenerateLongArray() {
+		assertArrayEquals(new long[] {0L, 1L, 2L}, Arrays.generateLongArray(3, index -> index));
+		
+		assertThrows(IllegalArgumentException.class, () -> Arrays.generateLongArray(-1, index -> index));
+		assertThrows(NullPointerException.class, () -> Arrays.generateLongArray(0, null));
+	}
+	
+	@Test
+	public void testGenerateShortArray() {
+		assertArrayEquals(new short[] {(short)(0), (short)(1), (short)(2)}, Arrays.generateShortArray(3, index -> (short)(index)));
+		
+		assertThrows(IllegalArgumentException.class, () -> Arrays.generateShortArray(-1, index -> (short)(index)));
+		assertThrows(NullPointerException.class, () -> Arrays.generateShortArray(0, null));
+	}
+	
+	@Test
 	public void testHashCodeBooleanArray() {
 		final boolean[] a = {false, true, false};
 		final boolean[] b = {false, true, false};
@@ -372,6 +436,44 @@ public final class ArraysUnitTests {
 		assertEquals(Arrays.hashCode(a), Arrays.hashCode(b));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.hashCode((short[])(null)));
+	}
+	
+	@Test
+	public void testIndexOfFloatArrayFloatArrayBooleanBoolean() {
+		assertEquals(-1, Arrays.indexOf(new float[1], new float[0], false, false));
+		assertEquals(-1, Arrays.indexOf(new float[0], new float[1], false, false));
+		assertEquals(+1, Arrays.indexOf(new float[] {1.0F, 2.0F}, new float[] {0.0F, 1.0F, 2.0F, 3.0F}, false, false));
+		assertEquals(+2, Arrays.indexOf(new float[] {2.0F, 3.0F}, new float[] {0.0F, 1.0F, 2.0F, 3.0F}, true, false));
+		assertEquals(+1, Arrays.indexOf(new float[] {2.0F, 3.0F}, new float[] {0.0F, 1.0F, 2.0F, 3.0F}, true, true));
+		assertEquals(-1, Arrays.indexOf(new float[] {3.0F, 4.0F}, new float[] {0.0F, 1.0F, 2.0F, 3.0F}, false, false));
+		assertEquals(-1, Arrays.indexOf(new float[] {3.0F, 4.0F}, new float[] {0.0F, 1.0F, 2.0F, 3.0F}, true, true));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.indexOf(new float[0], null, false, false));
+		assertThrows(NullPointerException.class, () -> Arrays.indexOf(null, new float[0], false, false));
+		assertThrows(IllegalArgumentException.class, () -> Arrays.indexOf(new float[2], new float[5], true, false));
+	}
+	
+	@Test
+	public void testIndexOfIntArrayIntArrayBooleanBoolean() {
+		assertEquals(-1, Arrays.indexOf(new int[1], new int[0], false, false));
+		assertEquals(-1, Arrays.indexOf(new int[0], new int[1], false, false));
+		assertEquals(+1, Arrays.indexOf(new int[] {1, 2}, new int[] {0, 1, 2, 3}, false, false));
+		assertEquals(+2, Arrays.indexOf(new int[] {2, 3}, new int[] {0, 1, 2, 3}, true, false));
+		assertEquals(+1, Arrays.indexOf(new int[] {2, 3}, new int[] {0, 1, 2, 3}, true, true));
+		assertEquals(-1, Arrays.indexOf(new int[] {3, 4}, new int[] {0, 1, 2, 3}, false, false));
+		assertEquals(-1, Arrays.indexOf(new int[] {3, 4}, new int[] {0, 1, 2, 3}, true, true));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.indexOf(new int[0], null, false, false));
+		assertThrows(NullPointerException.class, () -> Arrays.indexOf(null, new int[0], false, false));
+		assertThrows(IllegalArgumentException.class, () -> Arrays.indexOf(new int[2], new int[5], true, false));
+	}
+	
+	@Test
+	public void testIndexOfIntIntArray() {
+		assertEquals(+1, Arrays.indexOf(1, new int[] {0, 1, 2}));
+		assertEquals(-1, Arrays.indexOf(3, new int[] {0, 1, 2}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.indexOf(0, null));
 	}
 	
 	@Test
