@@ -25,6 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("static-method")
@@ -617,5 +620,52 @@ public final class ArraysUnitTests {
 		final short[][] arrays = new short[0][0];
 		
 		assertSame(arrays, Arrays.requireNonNull(arrays, "arrays"));
+	}
+	
+	@Test
+	public void testToByteArrayIntArray() {
+		assertArrayEquals(new byte[] {(byte)(0), (byte)(1), (byte)(2)}, Arrays.toByteArray(new int[] {0, 1, 2}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toByteArray((int[])(null)));
+	}
+	
+	@Test
+	public void testToFloatArrayListFunction() {
+		final List<String> stringsA = new ArrayList<>();
+		final List<String> stringsB = new ArrayList<>();
+		
+		stringsA.add("A");
+		stringsA.add("BB");
+		stringsA.add("CCC");
+		
+		stringsB.add(null);
+		
+		assertArrayEquals(new float[] {}, Arrays.toFloatArray(new ArrayList<String>(), string -> new float[0]));
+		assertArrayEquals(new float[] {1.0F, 2.0F, 2.0F, 3.0F, 3.0F, 3.0F}, Arrays.toFloatArray(stringsA, string -> Arrays.repeat(new float[] {string.length()}, string.length())));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toFloatArray(null, string -> new float[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toFloatArray(stringsB, string -> new float[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toFloatArray(stringsA, null));
+		assertThrows(NullPointerException.class, () -> Arrays.toFloatArray(stringsA, string -> null));
+	}
+	
+	@Test
+	public void testToIntArrayListFunction() {
+		final List<String> stringsA = new ArrayList<>();
+		final List<String> stringsB = new ArrayList<>();
+		
+		stringsA.add("A");
+		stringsA.add("BB");
+		stringsA.add("CCC");
+		
+		stringsB.add(null);
+		
+		assertArrayEquals(new int[] {}, Arrays.toIntArray(new ArrayList<String>(), string -> new int[0]));
+		assertArrayEquals(new int[] {1, 2, 2, 3, 3, 3}, Arrays.toIntArray(stringsA, string -> Arrays.repeat(new int[] {string.length()}, string.length())));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toIntArray(null, string -> new int[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toIntArray(stringsB, string -> new int[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toIntArray(stringsA, null));
+		assertThrows(NullPointerException.class, () -> Arrays.toIntArray(stringsA, string -> null));
 	}
 }

@@ -19,7 +19,9 @@
 package org.macroing.java.util;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 import org.macroing.java.io.BooleanArrayOutputStream;
 import org.macroing.java.io.CharArrayOutputStream;
@@ -726,6 +728,27 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Returns a {@code byte[]} representation of {@code intArray}.
+	 * <p>
+	 * If {@code intArray} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param intArray an {@code int[]}
+	 * @return a {@code byte[]} representation of {@code intArray}
+	 * @throws NullPointerException thrown if, and only if, {@code intArray} is {@code null}
+	 */
+	public static byte[] toByteArray(final int[] intArray) {
+		Objects.requireNonNull(intArray, "intArray == null");
+		
+		final byte[] byteArray = new byte[intArray.length];
+		
+		for(int i = 0; i < byteArray.length; i++) {
+			byteArray[i] = (byte)(intArray[i]);
+		}
+		
+		return byteArray;
+	}
+	
+	/**
 	 * Checks that {@code arrays} and all of its elements are not {@code null}.
 	 * <p>
 	 * Returns {@code arrays}.
@@ -1014,6 +1037,35 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Returns a {@code float[]} representation of {@code objects} using {@code arrayFunction} as a converter.
+	 * <p>
+	 * If either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type
+	 * @param objects a {@code List} of type {@code T} with {@code Object} instances to convert into {@code float[]} instances
+	 * @param arrayFunction a {@code Function} that maps {@code Object} instances of type {@code T} into {@code float[]} instances
+	 * @return a {@code float[]} representation of {@code objects} using {@code arrayFunction} as a converter
+	 * @throws NullPointerException thrown if, and only if, either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}
+	 */
+	public static <T> float[] toFloatArray(final List<T> objects, final Function<T, float[]> arrayFunction) {
+		doRequireNonNullList(objects, "objects");
+		
+		Objects.requireNonNull(arrayFunction, "arrayFunction == null");
+		
+		if(objects.isEmpty()) {
+			return new float[0];
+		}
+		
+		try(final FloatArrayOutputStream floatArrayOutputStream = new FloatArrayOutputStream()) {
+			for(final T object : objects) {
+				floatArrayOutputStream.write(arrayFunction.apply(object));
+			}
+			
+			return floatArrayOutputStream.toFloatArray();
+		}
+	}
+	
+	/**
 	 * Checks that {@code arrays} and all of its elements are not {@code null}.
 	 * <p>
 	 * Returns {@code arrays}.
@@ -1280,6 +1332,35 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Returns an {@code int[]} representation of {@code objects} using {@code arrayFunction} as a converter.
+	 * <p>
+	 * If either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type
+	 * @param objects a {@code List} of type {@code T} with {@code Object} instances to convert into {@code int[]} instances
+	 * @param arrayFunction a {@code Function} that maps {@code Object} instances of type {@code T} into {@code int[]} instances
+	 * @return an {@code int[]} representation of {@code objects} using {@code arrayFunction} as a converter
+	 * @throws NullPointerException thrown if, and only if, either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}
+	 */
+	public static <T> int[] toIntArray(final List<T> objects, final Function<T, int[]> arrayFunction) {
+		doRequireNonNullList(objects, "objects");
+		
+		Objects.requireNonNull(arrayFunction, "arrayFunction == null");
+		
+		if(objects.isEmpty()) {
+			return new int[0];
+		}
+		
+		try(final IntArrayOutputStream intArrayOutputStream = new IntArrayOutputStream()) {
+			for(final T object : objects) {
+				intArrayOutputStream.write(arrayFunction.apply(object));
+			}
+			
+			return intArrayOutputStream.toIntArray();
+		}
+	}
+	
+	/**
 	 * Checks that {@code arrays} and all of its elements are not {@code null}.
 	 * <p>
 	 * Returns {@code arrays}.
@@ -1500,6 +1581,22 @@ public final class Arrays {
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static <T> List<T> doRequireNonNullList(final List<T> list, final String name) {
+		Objects.requireNonNull(name, "name == null");
+		
+		if(list == null) {
+			throw new NullPointerException(String.format("%s == null", name));
+		}
+		
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i) == null) {
+				throw new NullPointerException(String.format("%s.get(%d) == null", name, Integer.valueOf(i)));
+			}
+		}
+		
+		return list;
+	}
 	
 	private static int doRequireRange(final int value, final int edgeA, final int edgeB, final String name) {
 		Objects.requireNonNull(name, "name == null");
