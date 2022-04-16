@@ -660,6 +660,127 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Performs a splice operation on the {@code boolean[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code boolean[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, array.length);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code boolean[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @return a new {@code boolean[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static boolean[] splice(final boolean[] array, final int offset) {
+		return splice(array, offset, array.length);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code boolean[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code boolean[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, length, new boolean[0]);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code boolean[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @return a new {@code boolean[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static boolean[] splice(final boolean[] array, final int offset, final int length) {
+		return splice(array, offset, length, new boolean[0]);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code boolean[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code boolean[]} with the result of the operation.
+	 * <p>
+	 * If either {@code array} or {@code arrayReplacement} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the input {@code boolean[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @param arrayReplacement a {@code boolean[]} that acts as replacement
+	 * @return a new {@code boolean[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, either {@code array} or {@code arrayReplacement} are {@code null}
+	 */
+	public static boolean[] splice(final boolean[] array, final int offset, final int length, final boolean[] arrayReplacement) {
+		Objects.requireNonNull(array, "array == null");
+		Objects.requireNonNull(arrayReplacement, "arrayReplacement == null");
+		
+		final boolean[] arrayA = array;
+		final boolean[] arrayB = arrayReplacement;
+		final boolean[] arrayC = array;
+		
+		final int arrayASrcPos = 0;
+		final int arrayALength = doSaturate(offset >= 0 ? offset : arrayA.length + offset, 0, arrayA.length);
+		
+		final int arrayBSrcPos = 0;
+		final int arrayBLength = arrayB.length;
+		
+		final int arrayCSrcPos = doSaturate(length >= 0 ? length + arrayALength : arrayC.length + length, arrayALength, arrayC.length);
+		final int arrayCLength = arrayC.length - arrayCSrcPos;
+		
+		final int arrayDSrcPos0 = 0;
+		final int arrayDSrcPos1 = arrayALength;
+		final int arrayDSrcPos2 = arrayALength + arrayBLength;
+		final int arrayDLength  = arrayA.length - (arrayCSrcPos - arrayALength) + arrayBLength;
+		
+		final boolean[] arrayD = new boolean[arrayDLength];
+		
+		System.arraycopy(arrayA, arrayASrcPos, arrayD, arrayDSrcPos0, arrayALength);
+		System.arraycopy(arrayB, arrayBSrcPos, arrayD, arrayDSrcPos1, arrayBLength);
+		System.arraycopy(arrayC, arrayCSrcPos, arrayD, arrayDSrcPos2, arrayCLength);
+		
+		return arrayD;
+	}
+	
+	/**
+	 * Returns a {@code boolean[]} representation of {@code objects} using {@code arrayFunction} as a converter.
+	 * <p>
+	 * If either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type
+	 * @param objects a {@code List} of type {@code T} with {@code Object} instances to convert into {@code boolean[]} instances
+	 * @param arrayFunction a {@code Function} that maps {@code Object} instances of type {@code T} into {@code boolean[]} instances
+	 * @return a {@code boolean[]} representation of {@code objects} using {@code arrayFunction} as a converter
+	 * @throws NullPointerException thrown if, and only if, either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}
+	 */
+	public static <T> boolean[] toBooleanArray(final List<T> objects, final Function<T, boolean[]> arrayFunction) {
+		doRequireNonNullList(objects, "objects");
+		
+		Objects.requireNonNull(arrayFunction, "arrayFunction == null");
+		
+		if(objects.isEmpty()) {
+			return new boolean[0];
+		}
+		
+		try(final BooleanArrayOutputStream booleanArrayOutputStream = new BooleanArrayOutputStream()) {
+			for(final T object : objects) {
+				booleanArrayOutputStream.write(arrayFunction.apply(object));
+			}
+			
+			return booleanArrayOutputStream.toBooleanArray();
+		}
+	}
+	
+	/**
 	 * Checks that {@code arrays} and all of its elements are not {@code null}.
 	 * <p>
 	 * Returns {@code arrays}.
@@ -787,6 +908,129 @@ public final class Arrays {
 				throw new IllegalArgumentException(e);
 			}
 		}
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code byte[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code byte[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, array.length);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code byte[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @return a new {@code byte[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static byte[] splice(final byte[] array, final int offset) {
+		return splice(array, offset, array.length);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code byte[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code byte[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, length, new byte[0]);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code byte[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @return a new {@code byte[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static byte[] splice(final byte[] array, final int offset, final int length) {
+		return splice(array, offset, length, new byte[0]);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code byte[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code byte[]} with the result of the operation.
+	 * <p>
+	 * If either {@code array} or {@code arrayReplacement} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the input {@code byte[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @param arrayReplacement a {@code byte[]} that acts as replacement
+	 * @return a new {@code byte[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, either {@code array} or {@code arrayReplacement} are {@code null}
+	 */
+	public static byte[] splice(final byte[] array, final int offset, final int length, final byte[] arrayReplacement) {
+		Objects.requireNonNull(array, "array == null");
+		Objects.requireNonNull(arrayReplacement, "arrayReplacement == null");
+		
+		final byte[] arrayA = array;
+		final byte[] arrayB = arrayReplacement;
+		final byte[] arrayC = array;
+		
+		final int arrayASrcPos = 0;
+		final int arrayALength = doSaturate(offset >= 0 ? offset : arrayA.length + offset, 0, arrayA.length);
+		
+		final int arrayBSrcPos = 0;
+		final int arrayBLength = arrayB.length;
+		
+		final int arrayCSrcPos = doSaturate(length >= 0 ? length + arrayALength : arrayC.length + length, arrayALength, arrayC.length);
+		final int arrayCLength = arrayC.length - arrayCSrcPos;
+		
+		final int arrayDSrcPos0 = 0;
+		final int arrayDSrcPos1 = arrayALength;
+		final int arrayDSrcPos2 = arrayALength + arrayBLength;
+		final int arrayDLength  = arrayA.length - (arrayCSrcPos - arrayALength) + arrayBLength;
+		
+		final byte[] arrayD = new byte[arrayDLength];
+		
+		System.arraycopy(arrayA, arrayASrcPos, arrayD, arrayDSrcPos0, arrayALength);
+		System.arraycopy(arrayB, arrayBSrcPos, arrayD, arrayDSrcPos1, arrayBLength);
+		System.arraycopy(arrayC, arrayCSrcPos, arrayD, arrayDSrcPos2, arrayCLength);
+		
+		return arrayD;
+	}
+	
+	/**
+	 * Returns a {@code byte[]} representation of {@code objects} using {@code arrayFunction} as a converter.
+	 * <p>
+	 * If either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type
+	 * @param objects a {@code List} of type {@code T} with {@code Object} instances to convert into {@code byte[]} instances
+	 * @param arrayFunction a {@code Function} that maps {@code Object} instances of type {@code T} into {@code byte[]} instances
+	 * @return a {@code boolean[]} representation of {@code objects} using {@code arrayFunction} as a converter
+	 * @throws NullPointerException thrown if, and only if, either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}
+	 */
+	public static <T> byte[] toByteArray(final List<T> objects, final Function<T, byte[]> arrayFunction) {
+		doRequireNonNullList(objects, "objects");
+		
+		Objects.requireNonNull(arrayFunction, "arrayFunction == null");
+		
+		if(objects.isEmpty()) {
+			return new byte[0];
+		}
+		
+		final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		
+		for(final T object : objects) {
+			final byte[] array = arrayFunction.apply(object);
+			
+			byteArrayOutputStream.write(array, 0, array.length);
+		}
+		
+		return byteArrayOutputStream.toByteArray();
 	}
 	
 	/**
@@ -934,6 +1178,127 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Performs a splice operation on the {@code char[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code char[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, array.length);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code char[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @return a new {@code char[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static char[] splice(final char[] array, final int offset) {
+		return splice(array, offset, array.length);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code char[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code char[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, length, new char[0]);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code char[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @return a new {@code char[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static char[] splice(final char[] array, final int offset, final int length) {
+		return splice(array, offset, length, new char[0]);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code char[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code char[]} with the result of the operation.
+	 * <p>
+	 * If either {@code array} or {@code arrayReplacement} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the input {@code char[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @param arrayReplacement a {@code char[]} that acts as replacement
+	 * @return a new {@code char[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, either {@code array} or {@code arrayReplacement} are {@code null}
+	 */
+	public static char[] splice(final char[] array, final int offset, final int length, final char[] arrayReplacement) {
+		Objects.requireNonNull(array, "array == null");
+		Objects.requireNonNull(arrayReplacement, "arrayReplacement == null");
+		
+		final char[] arrayA = array;
+		final char[] arrayB = arrayReplacement;
+		final char[] arrayC = array;
+		
+		final int arrayASrcPos = 0;
+		final int arrayALength = doSaturate(offset >= 0 ? offset : arrayA.length + offset, 0, arrayA.length);
+		
+		final int arrayBSrcPos = 0;
+		final int arrayBLength = arrayB.length;
+		
+		final int arrayCSrcPos = doSaturate(length >= 0 ? length + arrayALength : arrayC.length + length, arrayALength, arrayC.length);
+		final int arrayCLength = arrayC.length - arrayCSrcPos;
+		
+		final int arrayDSrcPos0 = 0;
+		final int arrayDSrcPos1 = arrayALength;
+		final int arrayDSrcPos2 = arrayALength + arrayBLength;
+		final int arrayDLength  = arrayA.length - (arrayCSrcPos - arrayALength) + arrayBLength;
+		
+		final char[] arrayD = new char[arrayDLength];
+		
+		System.arraycopy(arrayA, arrayASrcPos, arrayD, arrayDSrcPos0, arrayALength);
+		System.arraycopy(arrayB, arrayBSrcPos, arrayD, arrayDSrcPos1, arrayBLength);
+		System.arraycopy(arrayC, arrayCSrcPos, arrayD, arrayDSrcPos2, arrayCLength);
+		
+		return arrayD;
+	}
+	
+	/**
+	 * Returns a {@code char[]} representation of {@code objects} using {@code arrayFunction} as a converter.
+	 * <p>
+	 * If either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type
+	 * @param objects a {@code List} of type {@code T} with {@code Object} instances to convert into {@code char[]} instances
+	 * @param arrayFunction a {@code Function} that maps {@code Object} instances of type {@code T} into {@code char[]} instances
+	 * @return a {@code char[]} representation of {@code objects} using {@code arrayFunction} as a converter
+	 * @throws NullPointerException thrown if, and only if, either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}
+	 */
+	public static <T> char[] toCharArray(final List<T> objects, final Function<T, char[]> arrayFunction) {
+		doRequireNonNullList(objects, "objects");
+		
+		Objects.requireNonNull(arrayFunction, "arrayFunction == null");
+		
+		if(objects.isEmpty()) {
+			return new char[0];
+		}
+		
+		try(final CharArrayOutputStream charArrayOutputStream = new CharArrayOutputStream()) {
+			for(final T object : objects) {
+				charArrayOutputStream.write(arrayFunction.apply(object));
+			}
+			
+			return charArrayOutputStream.toCharArray();
+		}
+	}
+	
+	/**
 	 * Checks that {@code arrays} and all of its elements are not {@code null}.
 	 * <p>
 	 * Returns {@code arrays}.
@@ -1053,6 +1418,127 @@ public final class Arrays {
 			} catch(final ArithmeticException e) {
 				throw new IllegalArgumentException(e);
 			}
+		}
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code double[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code double[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, array.length);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code double[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @return a new {@code double[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static double[] splice(final double[] array, final int offset) {
+		return splice(array, offset, array.length);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code double[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code double[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, length, new double[0]);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code double[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @return a new {@code double[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static double[] splice(final double[] array, final int offset, final int length) {
+		return splice(array, offset, length, new double[0]);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code double[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code double[]} with the result of the operation.
+	 * <p>
+	 * If either {@code array} or {@code arrayReplacement} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the input {@code double[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @param arrayReplacement a {@code double[]} that acts as replacement
+	 * @return a new {@code double[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, either {@code array} or {@code arrayReplacement} are {@code null}
+	 */
+	public static double[] splice(final double[] array, final int offset, final int length, final double[] arrayReplacement) {
+		Objects.requireNonNull(array, "array == null");
+		Objects.requireNonNull(arrayReplacement, "arrayReplacement == null");
+		
+		final double[] arrayA = array;
+		final double[] arrayB = arrayReplacement;
+		final double[] arrayC = array;
+		
+		final int arrayASrcPos = 0;
+		final int arrayALength = doSaturate(offset >= 0 ? offset : arrayA.length + offset, 0, arrayA.length);
+		
+		final int arrayBSrcPos = 0;
+		final int arrayBLength = arrayB.length;
+		
+		final int arrayCSrcPos = doSaturate(length >= 0 ? length + arrayALength : arrayC.length + length, arrayALength, arrayC.length);
+		final int arrayCLength = arrayC.length - arrayCSrcPos;
+		
+		final int arrayDSrcPos0 = 0;
+		final int arrayDSrcPos1 = arrayALength;
+		final int arrayDSrcPos2 = arrayALength + arrayBLength;
+		final int arrayDLength  = arrayA.length - (arrayCSrcPos - arrayALength) + arrayBLength;
+		
+		final double[] arrayD = new double[arrayDLength];
+		
+		System.arraycopy(arrayA, arrayASrcPos, arrayD, arrayDSrcPos0, arrayALength);
+		System.arraycopy(arrayB, arrayBSrcPos, arrayD, arrayDSrcPos1, arrayBLength);
+		System.arraycopy(arrayC, arrayCSrcPos, arrayD, arrayDSrcPos2, arrayCLength);
+		
+		return arrayD;
+	}
+	
+	/**
+	 * Returns a {@code double[]} representation of {@code objects} using {@code arrayFunction} as a converter.
+	 * <p>
+	 * If either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type
+	 * @param objects a {@code List} of type {@code T} with {@code Object} instances to convert into {@code double[]} instances
+	 * @param arrayFunction a {@code Function} that maps {@code Object} instances of type {@code T} into {@code double[]} instances
+	 * @return a {@code double[]} representation of {@code objects} using {@code arrayFunction} as a converter
+	 * @throws NullPointerException thrown if, and only if, either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}
+	 */
+	public static <T> double[] toDoubleArray(final List<T> objects, final Function<T, double[]> arrayFunction) {
+		doRequireNonNullList(objects, "objects");
+		
+		Objects.requireNonNull(arrayFunction, "arrayFunction == null");
+		
+		if(objects.isEmpty()) {
+			return new double[0];
+		}
+		
+		try(final DoubleArrayOutputStream doubleArrayOutputStream = new DoubleArrayOutputStream()) {
+			for(final T object : objects) {
+				doubleArrayOutputStream.write(arrayFunction.apply(object));
+			}
+			
+			return doubleArrayOutputStream.toDoubleArray();
 		}
 	}
 	
@@ -1958,6 +2444,127 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Performs a splice operation on the {@code long[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code long[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, array.length);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code long[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @return a new {@code long[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static long[] splice(final long[] array, final int offset) {
+		return splice(array, offset, array.length);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code long[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code long[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, length, new long[0]);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code long[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @return a new {@code long[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static long[] splice(final long[] array, final int offset, final int length) {
+		return splice(array, offset, length, new long[0]);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code long[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code long[]} with the result of the operation.
+	 * <p>
+	 * If either {@code array} or {@code arrayReplacement} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the input {@code long[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @param arrayReplacement a {@code long[]} that acts as replacement
+	 * @return a new {@code long[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, either {@code array} or {@code arrayReplacement} are {@code null}
+	 */
+	public static long[] splice(final long[] array, final int offset, final int length, final long[] arrayReplacement) {
+		Objects.requireNonNull(array, "array == null");
+		Objects.requireNonNull(arrayReplacement, "arrayReplacement == null");
+		
+		final long[] arrayA = array;
+		final long[] arrayB = arrayReplacement;
+		final long[] arrayC = array;
+		
+		final int arrayASrcPos = 0;
+		final int arrayALength = doSaturate(offset >= 0 ? offset : arrayA.length + offset, 0, arrayA.length);
+		
+		final int arrayBSrcPos = 0;
+		final int arrayBLength = arrayB.length;
+		
+		final int arrayCSrcPos = doSaturate(length >= 0 ? length + arrayALength : arrayC.length + length, arrayALength, arrayC.length);
+		final int arrayCLength = arrayC.length - arrayCSrcPos;
+		
+		final int arrayDSrcPos0 = 0;
+		final int arrayDSrcPos1 = arrayALength;
+		final int arrayDSrcPos2 = arrayALength + arrayBLength;
+		final int arrayDLength  = arrayA.length - (arrayCSrcPos - arrayALength) + arrayBLength;
+		
+		final long[] arrayD = new long[arrayDLength];
+		
+		System.arraycopy(arrayA, arrayASrcPos, arrayD, arrayDSrcPos0, arrayALength);
+		System.arraycopy(arrayB, arrayBSrcPos, arrayD, arrayDSrcPos1, arrayBLength);
+		System.arraycopy(arrayC, arrayCSrcPos, arrayD, arrayDSrcPos2, arrayCLength);
+		
+		return arrayD;
+	}
+	
+	/**
+	 * Returns a {@code long[]} representation of {@code objects} using {@code arrayFunction} as a converter.
+	 * <p>
+	 * If either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type
+	 * @param objects a {@code List} of type {@code T} with {@code Object} instances to convert into {@code long[]} instances
+	 * @param arrayFunction a {@code Function} that maps {@code Object} instances of type {@code T} into {@code long[]} instances
+	 * @return a {@code long[]} representation of {@code objects} using {@code arrayFunction} as a converter
+	 * @throws NullPointerException thrown if, and only if, either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}
+	 */
+	public static <T> long[] toLongArray(final List<T> objects, final Function<T, long[]> arrayFunction) {
+		doRequireNonNullList(objects, "objects");
+		
+		Objects.requireNonNull(arrayFunction, "arrayFunction == null");
+		
+		if(objects.isEmpty()) {
+			return new long[0];
+		}
+		
+		try(final LongArrayOutputStream longArrayOutputStream = new LongArrayOutputStream()) {
+			for(final T object : objects) {
+				longArrayOutputStream.write(arrayFunction.apply(object));
+			}
+			
+			return longArrayOutputStream.toLongArray();
+		}
+	}
+	
+	/**
 	 * Checks that {@code arrays} and all of its elements are not {@code null}.
 	 * <p>
 	 * Returns {@code arrays}.
@@ -2081,6 +2688,127 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Performs a splice operation on the {@code short[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code short[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, array.length);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code short[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @return a new {@code short[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static short[] splice(final short[] array, final int offset) {
+		return splice(array, offset, array.length);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code short[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code short[]} with the result of the operation.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Arrays.splice(array, offset, length, new short[0]);
+	 * }
+	 * </pre>
+	 * 
+	 * @param array the input {@code short[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @return a new {@code short[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static short[] splice(final short[] array, final int offset, final int length) {
+		return splice(array, offset, length, new short[0]);
+	}
+	
+	/**
+	 * Performs a splice operation on the {@code short[]} instance {@code array}.
+	 * <p>
+	 * Returns a new {@code short[]} with the result of the operation.
+	 * <p>
+	 * If either {@code array} or {@code arrayReplacement} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param array the input {@code short[]}
+	 * @param offset the offset for the removal, which may be negative
+	 * @param length the length of the removal, which may be negative
+	 * @param arrayReplacement a {@code short[]} that acts as replacement
+	 * @return a new {@code short[]} with the result of the operation
+	 * @throws NullPointerException thrown if, and only if, either {@code array} or {@code arrayReplacement} are {@code null}
+	 */
+	public static short[] splice(final short[] array, final int offset, final int length, final short[] arrayReplacement) {
+		Objects.requireNonNull(array, "array == null");
+		Objects.requireNonNull(arrayReplacement, "arrayReplacement == null");
+		
+		final short[] arrayA = array;
+		final short[] arrayB = arrayReplacement;
+		final short[] arrayC = array;
+		
+		final int arrayASrcPos = 0;
+		final int arrayALength = doSaturate(offset >= 0 ? offset : arrayA.length + offset, 0, arrayA.length);
+		
+		final int arrayBSrcPos = 0;
+		final int arrayBLength = arrayB.length;
+		
+		final int arrayCSrcPos = doSaturate(length >= 0 ? length + arrayALength : arrayC.length + length, arrayALength, arrayC.length);
+		final int arrayCLength = arrayC.length - arrayCSrcPos;
+		
+		final int arrayDSrcPos0 = 0;
+		final int arrayDSrcPos1 = arrayALength;
+		final int arrayDSrcPos2 = arrayALength + arrayBLength;
+		final int arrayDLength  = arrayA.length - (arrayCSrcPos - arrayALength) + arrayBLength;
+		
+		final short[] arrayD = new short[arrayDLength];
+		
+		System.arraycopy(arrayA, arrayASrcPos, arrayD, arrayDSrcPos0, arrayALength);
+		System.arraycopy(arrayB, arrayBSrcPos, arrayD, arrayDSrcPos1, arrayBLength);
+		System.arraycopy(arrayC, arrayCSrcPos, arrayD, arrayDSrcPos2, arrayCLength);
+		
+		return arrayD;
+	}
+	
+	/**
+	 * Returns a {@code short[]} representation of {@code objects} using {@code arrayFunction} as a converter.
+	 * <p>
+	 * If either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type
+	 * @param objects a {@code List} of type {@code T} with {@code Object} instances to convert into {@code short[]} instances
+	 * @param arrayFunction a {@code Function} that maps {@code Object} instances of type {@code T} into {@code short[]} instances
+	 * @return a {@code short[]} representation of {@code objects} using {@code arrayFunction} as a converter
+	 * @throws NullPointerException thrown if, and only if, either {@code objects}, at least one of its elements, {@code arrayFunction} or at least one of its results are {@code null}
+	 */
+	public static <T> short[] toShortArray(final List<T> objects, final Function<T, short[]> arrayFunction) {
+		doRequireNonNullList(objects, "objects");
+		
+		Objects.requireNonNull(arrayFunction, "arrayFunction == null");
+		
+		if(objects.isEmpty()) {
+			return new short[0];
+		}
+		
+		try(final ShortArrayOutputStream shortArrayOutputStream = new ShortArrayOutputStream()) {
+			for(final T object : objects) {
+				shortArrayOutputStream.write(arrayFunction.apply(object));
+			}
+			
+			return shortArrayOutputStream.toShortArray();
+		}
+	}
+	
+	/**
 	 * Checks that {@code arrays} and all of its elements are not {@code null}.
 	 * <p>
 	 * Returns {@code arrays}.
@@ -2152,15 +2880,6 @@ public final class Arrays {
 	}
 	
 	private static int doSaturate(final int value, final int edgeA, final int edgeB) {
-		final int minimum = Math.min(edgeA, edgeB);
-		final int maximum = Math.max(edgeA, edgeB);
-		
-		if(value < minimum) {
-			return minimum;
-		} else if(value > maximum) {
-			return maximum;
-		} else {
-			return value;
-		}
+		return Math.max(Math.min(value, Math.max(edgeA, edgeB)), Math.min(edgeA, edgeB));
 	}
 }

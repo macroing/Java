@@ -725,6 +725,118 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testSpliceBooleanArrayInt() {
+		assertArrayEquals(new boolean[] {false, true}, Arrays.splice(new boolean[] {false, true, true, true}, +2));
+		assertArrayEquals(new boolean[] {false, true}, Arrays.splice(new boolean[] {false, true, true, true}, -2));
+		assertArrayEquals(new boolean[] {false}, Arrays.splice(new boolean[] {false, true, true, true}, -3));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((boolean[])(null), 0));
+	}
+	
+	@Test
+	public void testSpliceBooleanArrayIntInt() {
+		assertArrayEquals(new boolean[] {false, true}, Arrays.splice(new boolean[] {false, true, true, true}, +2, +2));
+		assertArrayEquals(new boolean[] {false, true}, Arrays.splice(new boolean[] {false, true, true, true}, -2, +2));
+		assertArrayEquals(new boolean[] {false, true}, Arrays.splice(new boolean[] {false, true, true, true}, -3, -1));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((boolean[])(null), 0, 0));
+	}
+	
+	@Test
+	public void testSpliceBooleanArrayIntIntBooleanArray() {
+		assertArrayEquals(new boolean[] {false, true, false, true, true, true, true, true}, Arrays.splice(new boolean[] {false, true, true, true}, +2, +2, new boolean[] {false, true, true, true, true, true}));
+		assertArrayEquals(new boolean[] {false, true, false, true, true, true, true, true}, Arrays.splice(new boolean[] {false, true, true, true}, -2, +2, new boolean[] {false, true, true, true, true, true}));
+		assertArrayEquals(new boolean[] {false, false, true, true, true, true, true, false}, Arrays.splice(new boolean[] {false, true, true, false}, -3, -1, new boolean[] {false, true, true, true, true, true}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice(new boolean[0], 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Arrays.splice(null, 0, 0, new boolean[0]));
+	}
+	
+	@Test
+	public void testSpliceByteArrayInt() {
+		assertArrayEquals(new byte[] {0, 1}, Arrays.splice(new byte[] {0, 1, 2, 3}, +2));
+		assertArrayEquals(new byte[] {0, 1}, Arrays.splice(new byte[] {0, 1, 2, 3}, -2));
+		assertArrayEquals(new byte[] {0}, Arrays.splice(new byte[] {0, 1, 2, 9}, -3));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((byte[])(null), 0));
+	}
+	
+	@Test
+	public void testSpliceByteArrayIntInt() {
+		assertArrayEquals(new byte[] {0, 1}, Arrays.splice(new byte[] {0, 1, 2, 3}, +2, +2));
+		assertArrayEquals(new byte[] {0, 1}, Arrays.splice(new byte[] {0, 1, 2, 3}, -2, +2));
+		assertArrayEquals(new byte[] {0, 9}, Arrays.splice(new byte[] {0, 1, 2, 9}, -3, -1));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((byte[])(null), 0, 0));
+	}
+	
+	@Test
+	public void testSpliceByteArrayIntIntByteArray() {
+		assertArrayEquals(new byte[] {0, 1, 4, 5, 6, 7, 8, 9}, Arrays.splice(new byte[] {0, 1, 2, 3}, +2, +2, new byte[] {4, 5, 6, 7, 8, 9}));
+		assertArrayEquals(new byte[] {0, 1, 4, 5, 6, 7, 8, 9}, Arrays.splice(new byte[] {0, 1, 2, 3}, -2, +2, new byte[] {4, 5, 6, 7, 8, 9}));
+		assertArrayEquals(new byte[] {0, 3, 4, 5, 6, 7, 8, 9}, Arrays.splice(new byte[] {0, 1, 2, 9}, -3, -1, new byte[] {3, 4, 5, 6, 7, 8}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice(new byte[0], 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Arrays.splice(null, 0, 0, new byte[0]));
+	}
+	
+	@Test
+	public void testSpliceCharArrayInt() {
+		assertArrayEquals(new char[] {'A', 'B'}, Arrays.splice(new char[] {'A', 'B', 'C', 'D'}, +2));
+		assertArrayEquals(new char[] {'A', 'B'}, Arrays.splice(new char[] {'A', 'B', 'C', 'D'}, -2));
+		assertArrayEquals(new char[] {'A'}, Arrays.splice(new char[] {'A', 'B', 'C', 'J'}, -3));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((char[])(null), 0));
+	}
+	
+	@Test
+	public void testSpliceCharArrayIntInt() {
+		assertArrayEquals(new char[] {'A', 'B'}, Arrays.splice(new char[] {'A', 'B', 'C', 'D'}, +2, +2));
+		assertArrayEquals(new char[] {'A', 'B'}, Arrays.splice(new char[] {'A', 'B', 'C', 'D'}, -2, +2));
+		assertArrayEquals(new char[] {'A', 'J'}, Arrays.splice(new char[] {'A', 'B', 'C', 'J'}, -3, -1));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((char[])(null), 0, 0));
+	}
+	
+	@Test
+	public void testSpliceCharArrayIntIntCharArray() {
+		assertArrayEquals(new char[] {'A', 'B', 'E', 'F', 'G', 'H', 'I', 'J'}, Arrays.splice(new char[] {'A', 'B', 'C', 'D'}, +2, +2, new char[] {'E', 'F', 'G', 'H', 'I', 'J'}));
+		assertArrayEquals(new char[] {'A', 'B', 'E', 'F', 'G', 'H', 'I', 'J'}, Arrays.splice(new char[] {'A', 'B', 'C', 'D'}, -2, +2, new char[] {'E', 'F', 'G', 'H', 'I', 'J'}));
+		assertArrayEquals(new char[] {'A', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}, Arrays.splice(new char[] {'A', 'B', 'C', 'J'}, -3, -1, new char[] {'D', 'E', 'F', 'G', 'H', 'I'}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice(new char[0], 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Arrays.splice(null, 0, 0, new char[0]));
+	}
+	
+	@Test
+	public void testSpliceDoubleArrayInt() {
+		assertArrayEquals(new double[] {0.0D, 1.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 3.0D}, +2));
+		assertArrayEquals(new double[] {0.0D, 1.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 3.0D}, -2));
+		assertArrayEquals(new double[] {0.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 9.0D}, -3));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((double[])(null), 0));
+	}
+	
+	@Test
+	public void testSpliceDoubleArrayIntInt() {
+		assertArrayEquals(new double[] {0.0D, 1.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 3.0D}, +2, +2));
+		assertArrayEquals(new double[] {0.0D, 1.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 3.0D}, -2, +2));
+		assertArrayEquals(new double[] {0.0D, 9.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 9.0D}, -3, -1));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((double[])(null), 0, 0));
+	}
+	
+	@Test
+	public void testSpliceDoubleArrayIntIntDoubleArray() {
+		assertArrayEquals(new double[] {0.0D, 1.0D, 4.0D, 5.0D, 6.0D, 7.0D, 8.0D, 9.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 3.0D}, +2, +2, new double[] {4.0D, 5.0D, 6.0D, 7.0D, 8.0D, 9.0D}));
+		assertArrayEquals(new double[] {0.0D, 1.0D, 4.0D, 5.0D, 6.0D, 7.0D, 8.0D, 9.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 3.0D}, -2, +2, new double[] {4.0D, 5.0D, 6.0D, 7.0D, 8.0D, 9.0D}));
+		assertArrayEquals(new double[] {0.0D, 3.0D, 4.0D, 5.0D, 6.0D, 7.0D, 8.0D, 9.0D}, Arrays.splice(new double[] {0.0D, 1.0D, 2.0D, 9.0D}, -3, -1, new double[] {3.0D, 4.0D, 5.0D, 6.0D, 7.0D, 8.0D}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice(new double[0], 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Arrays.splice(null, 0, 0, new double[0]));
+	}
+	
+	@Test
 	public void testSpliceFloatArrayInt() {
 		assertArrayEquals(new float[] {0.0F, 1.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 3.0F}, +2));
 		assertArrayEquals(new float[] {0.0F, 1.0F}, Arrays.splice(new float[] {0.0F, 1.0F, 2.0F, 3.0F}, -2));
@@ -781,10 +893,146 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testSpliceLongArrayInt() {
+		assertArrayEquals(new long[] {0L, 1L}, Arrays.splice(new long[] {0L, 1L, 2L, 3L}, +2));
+		assertArrayEquals(new long[] {0L, 1L}, Arrays.splice(new long[] {0L, 1L, 2L, 3L}, -2));
+		assertArrayEquals(new long[] {0L}, Arrays.splice(new long[] {0L, 1L, 2L, 9L}, -3));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((long[])(null), 0));
+	}
+	
+	@Test
+	public void testSpliceLongArrayIntInt() {
+		assertArrayEquals(new long[] {0L, 1L}, Arrays.splice(new long[] {0L, 1L, 2L, 3L}, +2, +2));
+		assertArrayEquals(new long[] {0L, 1L}, Arrays.splice(new long[] {0L, 1L, 2L, 3L}, -2, +2));
+		assertArrayEquals(new long[] {0L, 9L}, Arrays.splice(new long[] {0L, 1L, 2L, 9L}, -3, -1));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((long[])(null), 0, 0));
+	}
+	
+	@Test
+	public void testSpliceLongArrayIntIntLongArray() {
+		assertArrayEquals(new long[] {0L, 1L, 4L, 5L, 6L, 7L, 8L, 9L}, Arrays.splice(new long[] {0L, 1L, 2L, 3L}, +2, +2, new long[] {4L, 5L, 6L, 7L, 8L, 9L}));
+		assertArrayEquals(new long[] {0L, 1L, 4L, 5L, 6L, 7L, 8L, 9L}, Arrays.splice(new long[] {0L, 1L, 2L, 3L}, -2, +2, new long[] {4L, 5L, 6L, 7L, 8L, 9L}));
+		assertArrayEquals(new long[] {0L, 3L, 4L, 5L, 6L, 7L, 8L, 9L}, Arrays.splice(new long[] {0L, 1L, 2L, 9L}, -3, -1, new long[] {3L, 4L, 5L, 6L, 7L, 8L}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice(new long[0], 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Arrays.splice(null, 0, 0, new long[0]));
+	}
+	
+	@Test
+	public void testSpliceShortArrayInt() {
+		assertArrayEquals(new short[] {0, 1}, Arrays.splice(new short[] {0, 1, 2, 3}, +2));
+		assertArrayEquals(new short[] {0, 1}, Arrays.splice(new short[] {0, 1, 2, 3}, -2));
+		assertArrayEquals(new short[] {0}, Arrays.splice(new short[] {0, 1, 2, 9}, -3));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((short[])(null), 0));
+	}
+	
+	@Test
+	public void testSpliceShortArrayIntInt() {
+		assertArrayEquals(new short[] {0, 1}, Arrays.splice(new short[] {0, 1, 2, 3}, +2, +2));
+		assertArrayEquals(new short[] {0, 1}, Arrays.splice(new short[] {0, 1, 2, 3}, -2, +2));
+		assertArrayEquals(new short[] {0, 9}, Arrays.splice(new short[] {0, 1, 2, 9}, -3, -1));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice((short[])(null), 0, 0));
+	}
+	
+	@Test
+	public void testSpliceShortArrayIntIntShortArray() {
+		assertArrayEquals(new short[] {0, 1, 4, 5, 6, 7, 8, 9}, Arrays.splice(new short[] {0, 1, 2, 3}, +2, +2, new short[] {4, 5, 6, 7, 8, 9}));
+		assertArrayEquals(new short[] {0, 1, 4, 5, 6, 7, 8, 9}, Arrays.splice(new short[] {0, 1, 2, 3}, -2, +2, new short[] {4, 5, 6, 7, 8, 9}));
+		assertArrayEquals(new short[] {0, 3, 4, 5, 6, 7, 8, 9}, Arrays.splice(new short[] {0, 1, 2, 9}, -3, -1, new short[] {3, 4, 5, 6, 7, 8}));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.splice(new short[0], 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Arrays.splice(null, 0, 0, new short[0]));
+	}
+	
+	@Test
+	public void testToBooleanArrayListFunction() {
+		final List<String> stringsA = new ArrayList<>();
+		final List<String> stringsB = new ArrayList<>();
+		
+		stringsA.add("A");
+		stringsA.add("BB");
+		stringsA.add("CCC");
+		
+		stringsB.add(null);
+		
+		assertArrayEquals(new boolean[] {}, Arrays.toBooleanArray(new ArrayList<String>(), string -> new boolean[0]));
+		assertArrayEquals(new boolean[] {false, true, true, true, true, true}, Arrays.toBooleanArray(stringsA, string -> Arrays.repeat(new boolean[] {string.length() > 1}, string.length())));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toBooleanArray(null, string -> new boolean[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toBooleanArray(stringsB, string -> new boolean[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toBooleanArray(stringsA, null));
+		assertThrows(NullPointerException.class, () -> Arrays.toBooleanArray(stringsA, string -> null));
+	}
+	
+	@Test
 	public void testToByteArrayIntArray() {
 		assertArrayEquals(new byte[] {(byte)(0), (byte)(1), (byte)(2)}, Arrays.toByteArray(new int[] {0, 1, 2}));
 		
 		assertThrows(NullPointerException.class, () -> Arrays.toByteArray((int[])(null)));
+	}
+	
+	@Test
+	public void testToByteArrayListFunction() {
+		final List<String> stringsA = new ArrayList<>();
+		final List<String> stringsB = new ArrayList<>();
+		
+		stringsA.add("A");
+		stringsA.add("BB");
+		stringsA.add("CCC");
+		
+		stringsB.add(null);
+		
+		assertArrayEquals(new byte[] {}, Arrays.toByteArray(new ArrayList<String>(), string -> new byte[0]));
+		assertArrayEquals(new byte[] {1, 2, 2, 3, 3, 3}, Arrays.toByteArray(stringsA, string -> Arrays.repeat(new byte[] {(byte)(string.length())}, string.length())));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toByteArray(null, string -> new byte[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toByteArray(stringsB, string -> new byte[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toByteArray(stringsA, null));
+		assertThrows(NullPointerException.class, () -> Arrays.toByteArray(stringsA, string -> null));
+	}
+	
+	@Test
+	public void testToCharArrayListFunction() {
+		final List<String> stringsA = new ArrayList<>();
+		final List<String> stringsB = new ArrayList<>();
+		
+		stringsA.add("A");
+		stringsA.add("BB");
+		stringsA.add("CCC");
+		
+		stringsB.add(null);
+		
+		assertArrayEquals(new char[] {}, Arrays.toCharArray(new ArrayList<String>(), string -> new char[0]));
+		assertArrayEquals(new char[] {'B', 'C', 'C', 'D', 'D', 'D'}, Arrays.toCharArray(stringsA, string -> Arrays.repeat(new char[] {(char)('A' + string.length())}, string.length())));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toCharArray(null, string -> new char[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toCharArray(stringsB, string -> new char[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toCharArray(stringsA, null));
+		assertThrows(NullPointerException.class, () -> Arrays.toCharArray(stringsA, string -> null));
+	}
+	
+	@Test
+	public void testToDoubleArrayListFunction() {
+		final List<String> stringsA = new ArrayList<>();
+		final List<String> stringsB = new ArrayList<>();
+		
+		stringsA.add("A");
+		stringsA.add("BB");
+		stringsA.add("CCC");
+		
+		stringsB.add(null);
+		
+		assertArrayEquals(new double[] {}, Arrays.toDoubleArray(new ArrayList<String>(), string -> new double[0]));
+		assertArrayEquals(new double[] {1.0D, 2.0D, 2.0D, 3.0D, 3.0D, 3.0D}, Arrays.toDoubleArray(stringsA, string -> Arrays.repeat(new double[] {string.length()}, string.length())));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toDoubleArray(null, string -> new double[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toDoubleArray(stringsB, string -> new double[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toDoubleArray(stringsA, null));
+		assertThrows(NullPointerException.class, () -> Arrays.toDoubleArray(stringsA, string -> null));
 	}
 	
 	@Test
@@ -825,5 +1073,45 @@ public final class ArraysUnitTests {
 		assertThrows(NullPointerException.class, () -> Arrays.toIntArray(stringsB, string -> new int[0]));
 		assertThrows(NullPointerException.class, () -> Arrays.toIntArray(stringsA, null));
 		assertThrows(NullPointerException.class, () -> Arrays.toIntArray(stringsA, string -> null));
+	}
+	
+	@Test
+	public void testToLongArrayListFunction() {
+		final List<String> stringsA = new ArrayList<>();
+		final List<String> stringsB = new ArrayList<>();
+		
+		stringsA.add("A");
+		stringsA.add("BB");
+		stringsA.add("CCC");
+		
+		stringsB.add(null);
+		
+		assertArrayEquals(new long[] {}, Arrays.toLongArray(new ArrayList<String>(), string -> new long[0]));
+		assertArrayEquals(new long[] {1L, 2L, 2L, 3L, 3L, 3L}, Arrays.toLongArray(stringsA, string -> Arrays.repeat(new long[] {string.length()}, string.length())));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toLongArray(null, string -> new long[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toLongArray(stringsB, string -> new long[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toLongArray(stringsA, null));
+		assertThrows(NullPointerException.class, () -> Arrays.toLongArray(stringsA, string -> null));
+	}
+	
+	@Test
+	public void testToShortArrayListFunction() {
+		final List<String> stringsA = new ArrayList<>();
+		final List<String> stringsB = new ArrayList<>();
+		
+		stringsA.add("A");
+		stringsA.add("BB");
+		stringsA.add("CCC");
+		
+		stringsB.add(null);
+		
+		assertArrayEquals(new short[] {}, Arrays.toShortArray(new ArrayList<String>(), string -> new short[0]));
+		assertArrayEquals(new short[] {1, 2, 2, 3, 3, 3}, Arrays.toShortArray(stringsA, string -> Arrays.repeat(new short[] {(short)(string.length())}, string.length())));
+		
+		assertThrows(NullPointerException.class, () -> Arrays.toShortArray(null, string -> new short[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toShortArray(stringsB, string -> new short[0]));
+		assertThrows(NullPointerException.class, () -> Arrays.toShortArray(stringsA, null));
+		assertThrows(NullPointerException.class, () -> Arrays.toShortArray(stringsA, string -> null));
 	}
 }
