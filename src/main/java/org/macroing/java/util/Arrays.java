@@ -72,7 +72,7 @@ public final class Arrays {
 			return false;
 		} else {
 			for(int i = 0; i < arrayA.length; i++) {
-				if(Boolean.compare(arrayA[i], arrayB[i]) != 0) {
+				if(arrayA[i] != arrayB[i]) {
 					return false;
 				}
 			}
@@ -108,7 +108,7 @@ public final class Arrays {
 		doRequireRange(offsetArrayB + length, 0, arrayB.length, "offsetArrayB + length");
 		
 		for(int i = 0; i < length; i++) {
-			if(Boolean.compare(arrayA[offsetArrayA + i], arrayB[offsetArrayB + i]) != 0) {
+			if(arrayA[offsetArrayA + i] != arrayB[offsetArrayB + i]) {
 				return false;
 			}
 		}
@@ -136,7 +136,7 @@ public final class Arrays {
 			return false;
 		} else {
 			for(int i = 0; i < arrayA.length; i++) {
-				if(Byte.compare(arrayA[i], arrayB[i]) != 0) {
+				if(arrayA[i] != arrayB[i]) {
 					return false;
 				}
 			}
@@ -172,7 +172,7 @@ public final class Arrays {
 		doRequireRange(offsetArrayB + length, 0, arrayB.length, "offsetArrayB + length");
 		
 		for(int i = 0; i < length; i++) {
-			if(Byte.compare(arrayA[offsetArrayA + i], arrayB[offsetArrayB + i]) != 0) {
+			if(arrayA[offsetArrayA + i] != arrayB[offsetArrayB + i]) {
 				return false;
 			}
 		}
@@ -200,7 +200,7 @@ public final class Arrays {
 			return false;
 		} else {
 			for(int i = 0; i < arrayA.length; i++) {
-				if(Character.compare(arrayA[i], arrayB[i]) != 0) {
+				if(arrayA[i] != arrayB[i]) {
 					return false;
 				}
 			}
@@ -236,7 +236,7 @@ public final class Arrays {
 		doRequireRange(offsetArrayB + length, 0, arrayB.length, "offsetArrayB + length");
 		
 		for(int i = 0; i < length; i++) {
-			if(Character.compare(arrayA[offsetArrayA + i], arrayB[offsetArrayB + i]) != 0) {
+			if(arrayA[offsetArrayA + i] != arrayB[offsetArrayB + i]) {
 				return false;
 			}
 		}
@@ -392,7 +392,7 @@ public final class Arrays {
 			return false;
 		} else {
 			for(int i = 0; i < arrayA.length; i++) {
-				if(Integer.compare(arrayA[i], arrayB[i]) != 0) {
+				if(arrayA[i] != arrayB[i]) {
 					return false;
 				}
 			}
@@ -428,7 +428,7 @@ public final class Arrays {
 		doRequireRange(offsetArrayB + length, 0, arrayB.length, "offsetArrayB + length");
 		
 		for(int i = 0; i < length; i++) {
-			if(Integer.compare(arrayA[offsetArrayA + i], arrayB[offsetArrayB + i]) != 0) {
+			if(arrayA[offsetArrayA + i] != arrayB[offsetArrayB + i]) {
 				return false;
 			}
 		}
@@ -456,7 +456,7 @@ public final class Arrays {
 			return false;
 		} else {
 			for(int i = 0; i < arrayA.length; i++) {
-				if(Long.compare(arrayA[i], arrayB[i]) != 0) {
+				if(arrayA[i] != arrayB[i]) {
 					return false;
 				}
 			}
@@ -492,7 +492,7 @@ public final class Arrays {
 		doRequireRange(offsetArrayB + length, 0, arrayB.length, "offsetArrayB + length");
 		
 		for(int i = 0; i < length; i++) {
-			if(Long.compare(arrayA[offsetArrayA + i], arrayB[offsetArrayB + i]) != 0) {
+			if(arrayA[offsetArrayA + i] != arrayB[offsetArrayB + i]) {
 				return false;
 			}
 		}
@@ -520,7 +520,7 @@ public final class Arrays {
 			return false;
 		} else {
 			for(int i = 0; i < arrayA.length; i++) {
-				if(Short.compare(arrayA[i], arrayB[i]) != 0) {
+				if(arrayA[i] != arrayB[i]) {
 					return false;
 				}
 			}
@@ -556,7 +556,7 @@ public final class Arrays {
 		doRequireRange(offsetArrayB + length, 0, arrayB.length, "offsetArrayB + length");
 		
 		for(int i = 0; i < length; i++) {
-			if(Short.compare(arrayA[offsetArrayA + i], arrayB[offsetArrayB + i]) != 0) {
+			if(arrayA[offsetArrayA + i] != arrayB[offsetArrayB + i]) {
 				return false;
 			}
 		}
