@@ -1034,6 +1034,90 @@ public final class Arrays {
 	}
 	
 	/**
+	 * Returns a {@code byte[]} representation of {@code booleanArray}.
+	 * <p>
+	 * If {@code booleanArray} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param booleanArray a {@code boolean[]}
+	 * @return a {@code byte[]} representation of {@code booleanArray}
+	 * @throws NullPointerException thrown if, and only if, {@code booleanArray} is {@code null}
+	 */
+	public static byte[] toByteArray(final boolean[] booleanArray) {
+		Objects.requireNonNull(booleanArray, "booleanArray == null");
+		
+		final byte[] byteArray = new byte[booleanArray.length];
+		
+		for(int i = 0; i < byteArray.length; i++) {
+			byteArray[i] = (byte)(booleanArray[i] ? 1 : 0);
+		}
+		
+		return byteArray;
+	}
+	
+	/**
+	 * Returns a {@code byte[]} representation of {@code charArray}.
+	 * <p>
+	 * If {@code charArray} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param charArray a {@code char[]}
+	 * @return a {@code byte[]} representation of {@code charArray}
+	 * @throws NullPointerException thrown if, and only if, {@code charArray} is {@code null}
+	 */
+	public static byte[] toByteArray(final char[] charArray) {
+		Objects.requireNonNull(charArray, "charArray == null");
+		
+		final byte[] byteArray = new byte[charArray.length];
+		
+		for(int i = 0; i < byteArray.length; i++) {
+			byteArray[i] = (byte)(charArray[i]);
+		}
+		
+		return byteArray;
+	}
+	
+	/**
+	 * Returns a {@code byte[]} representation of {@code doubleArray}.
+	 * <p>
+	 * If {@code doubleArray} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param doubleArray a {@code double[]}
+	 * @return a {@code byte[]} representation of {@code doubleArray}
+	 * @throws NullPointerException thrown if, and only if, {@code doubleArray} is {@code null}
+	 */
+	public static byte[] toByteArray(final double[] doubleArray) {
+		Objects.requireNonNull(doubleArray, "doubleArray == null");
+		
+		final byte[] byteArray = new byte[doubleArray.length];
+		
+		for(int i = 0; i < byteArray.length; i++) {
+			byteArray[i] = (byte)(doubleArray[i]);
+		}
+		
+		return byteArray;
+	}
+	
+	/**
+	 * Returns a {@code byte[]} representation of {@code floatArray}.
+	 * <p>
+	 * If {@code floatArray} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param floatArray a {@code float[]}
+	 * @return a {@code byte[]} representation of {@code floatArray}
+	 * @throws NullPointerException thrown if, and only if, {@code floatArray} is {@code null}
+	 */
+	public static byte[] toByteArray(final float[] floatArray) {
+		Objects.requireNonNull(floatArray, "floatArray == null");
+		
+		final byte[] byteArray = new byte[floatArray.length];
+		
+		for(int i = 0; i < byteArray.length; i++) {
+			byteArray[i] = (byte)(floatArray[i]);
+		}
+		
+		return byteArray;
+	}
+	
+	/**
 	 * Returns a {@code byte[]} representation of {@code intArray}.
 	 * <p>
 	 * If {@code intArray} is {@code null}, a {@code NullPointerException} will be thrown.
@@ -1049,6 +1133,48 @@ public final class Arrays {
 		
 		for(int i = 0; i < byteArray.length; i++) {
 			byteArray[i] = (byte)(intArray[i]);
+		}
+		
+		return byteArray;
+	}
+	
+	/**
+	 * Returns a {@code byte[]} representation of {@code longArray}.
+	 * <p>
+	 * If {@code longArray} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param longArray a {@code long[]}
+	 * @return a {@code byte[]} representation of {@code longArray}
+	 * @throws NullPointerException thrown if, and only if, {@code longArray} is {@code null}
+	 */
+	public static byte[] toByteArray(final long[] longArray) {
+		Objects.requireNonNull(longArray, "longArray == null");
+		
+		final byte[] byteArray = new byte[longArray.length];
+		
+		for(int i = 0; i < byteArray.length; i++) {
+			byteArray[i] = (byte)(longArray[i]);
+		}
+		
+		return byteArray;
+	}
+	
+	/**
+	 * Returns a {@code byte[]} representation of {@code shortArray}.
+	 * <p>
+	 * If {@code shortArray} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param shortArray a {@code short[]}
+	 * @return a {@code byte[]} representation of {@code shortArray}
+	 * @throws NullPointerException thrown if, and only if, {@code shortArray} is {@code null}
+	 */
+	public static byte[] toByteArray(final short[] shortArray) {
+		Objects.requireNonNull(shortArray, "shortArray == null");
+		
+		final byte[] byteArray = new byte[shortArray.length];
+		
+		for(int i = 0; i < byteArray.length; i++) {
+			byteArray[i] = (byte)(shortArray[i]);
 		}
 		
 		return byteArray;
@@ -1987,6 +2113,312 @@ public final class Arrays {
 	/**
 	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
 	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param value the {@code boolean} value to find the index for
+	 * @param array the {@code boolean[]} to search for {@code value} in
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int indexOf(final boolean value, final boolean[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		for(int i = 0; i < array.length; i++) {
+			if(array[i] == value) {
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If either {@code value} or {@code array} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}, an {@code IllegalArgumentException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true}, this method assumes {@code array} contains sub-structures with equal lengths, namely {@code value.length}. This will yield a faster search, but also restrictions on {@code array}. It requires a length that is a multiple of {@code value.length}. If {@code array} does not contain sub-structures with equal lengths, {@code isIncrementingByValueLength} should be {@code false}.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code true}, the relative index of {@code value} in {@code array} will be returned. The relative index represents the index of the sub-structure in {@code array}. It works best if {@code isIncrementingByValueLength} is {@code true} and its restrictions are met.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code false}, the absolute index of {@code value} in {@code array} will be returned. The absolute index represents the index in {@code array}.
+	 * 
+	 * @param value the {@code boolean[]} value to find the index for
+	 * @param array the {@code boolean[]} to search for {@code value} in
+	 * @param isIncrementingByValueLength {@code true} if, and only if, {@code array} consists of sub-structures with a length of {@code value.length}, {@code false} otherwise
+	 * @param isReturningRelativeIndex {@code true} if, and only if, the relative index should be returned, {@code false} otherwise
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws IllegalArgumentException thrown if, and only if, {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}
+	 * @throws NullPointerException thrown if, and only if, either {@code value} or {@code array} are {@code null}
+	 */
+	public static int indexOf(final boolean[] value, final boolean[] array, final boolean isIncrementingByValueLength, final boolean isReturningRelativeIndex) {
+		Objects.requireNonNull(value, "value == null");
+		Objects.requireNonNull(array, "array == null");
+		
+		if(value.length == 0 || array.length == 0) {
+			return -1;
+		}
+		
+		if(isIncrementingByValueLength) {
+			doRequireExact(array.length % value.length, 0, "array.length % value.length");
+		}
+		
+		final int count = isIncrementingByValueLength ? array.length / value.length : array.length;
+		final int length = isIncrementingByValueLength ? value.length : 1;
+		
+		for(int indexAbsolute = 0, indexRelative = 0; indexRelative < count; indexAbsolute += length, indexRelative++) {
+			if(array.length < indexAbsolute + value.length) {
+				return -1;
+			}
+			
+			if(equals(array, value, indexAbsolute, 0, value.length)) {
+				return isReturningRelativeIndex ? indexRelative : indexAbsolute;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param value the {@code byte} value to find the index for
+	 * @param array the {@code byte[]} to search for {@code value} in
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int indexOf(final byte value, final byte[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		for(int i = 0; i < array.length; i++) {
+			if(array[i] == value) {
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If either {@code value} or {@code array} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}, an {@code IllegalArgumentException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true}, this method assumes {@code array} contains sub-structures with equal lengths, namely {@code value.length}. This will yield a faster search, but also restrictions on {@code array}. It requires a length that is a multiple of {@code value.length}. If {@code array} does not contain sub-structures with equal lengths, {@code isIncrementingByValueLength} should be {@code false}.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code true}, the relative index of {@code value} in {@code array} will be returned. The relative index represents the index of the sub-structure in {@code array}. It works best if {@code isIncrementingByValueLength} is {@code true} and its restrictions are met.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code false}, the absolute index of {@code value} in {@code array} will be returned. The absolute index represents the index in {@code array}.
+	 * 
+	 * @param value the {@code byte[]} value to find the index for
+	 * @param array the {@code byte[]} to search for {@code value} in
+	 * @param isIncrementingByValueLength {@code true} if, and only if, {@code array} consists of sub-structures with a length of {@code value.length}, {@code false} otherwise
+	 * @param isReturningRelativeIndex {@code true} if, and only if, the relative index should be returned, {@code false} otherwise
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws IllegalArgumentException thrown if, and only if, {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}
+	 * @throws NullPointerException thrown if, and only if, either {@code value} or {@code array} are {@code null}
+	 */
+	public static int indexOf(final byte[] value, final byte[] array, final boolean isIncrementingByValueLength, final boolean isReturningRelativeIndex) {
+		Objects.requireNonNull(value, "value == null");
+		Objects.requireNonNull(array, "array == null");
+		
+		if(value.length == 0 || array.length == 0) {
+			return -1;
+		}
+		
+		if(isIncrementingByValueLength) {
+			doRequireExact(array.length % value.length, 0, "array.length % value.length");
+		}
+		
+		final int count = isIncrementingByValueLength ? array.length / value.length : array.length;
+		final int length = isIncrementingByValueLength ? value.length : 1;
+		
+		for(int indexAbsolute = 0, indexRelative = 0; indexRelative < count; indexAbsolute += length, indexRelative++) {
+			if(array.length < indexAbsolute + value.length) {
+				return -1;
+			}
+			
+			if(equals(array, value, indexAbsolute, 0, value.length)) {
+				return isReturningRelativeIndex ? indexRelative : indexAbsolute;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param value the {@code char} value to find the index for
+	 * @param array the {@code char[]} to search for {@code value} in
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int indexOf(final char value, final char[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		for(int i = 0; i < array.length; i++) {
+			if(array[i] == value) {
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If either {@code value} or {@code array} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}, an {@code IllegalArgumentException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true}, this method assumes {@code array} contains sub-structures with equal lengths, namely {@code value.length}. This will yield a faster search, but also restrictions on {@code array}. It requires a length that is a multiple of {@code value.length}. If {@code array} does not contain sub-structures with equal lengths, {@code isIncrementingByValueLength} should be {@code false}.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code true}, the relative index of {@code value} in {@code array} will be returned. The relative index represents the index of the sub-structure in {@code array}. It works best if {@code isIncrementingByValueLength} is {@code true} and its restrictions are met.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code false}, the absolute index of {@code value} in {@code array} will be returned. The absolute index represents the index in {@code array}.
+	 * 
+	 * @param value the {@code char[]} value to find the index for
+	 * @param array the {@code char[]} to search for {@code value} in
+	 * @param isIncrementingByValueLength {@code true} if, and only if, {@code array} consists of sub-structures with a length of {@code value.length}, {@code false} otherwise
+	 * @param isReturningRelativeIndex {@code true} if, and only if, the relative index should be returned, {@code false} otherwise
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws IllegalArgumentException thrown if, and only if, {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}
+	 * @throws NullPointerException thrown if, and only if, either {@code value} or {@code array} are {@code null}
+	 */
+	public static int indexOf(final char[] value, final char[] array, final boolean isIncrementingByValueLength, final boolean isReturningRelativeIndex) {
+		Objects.requireNonNull(value, "value == null");
+		Objects.requireNonNull(array, "array == null");
+		
+		if(value.length == 0 || array.length == 0) {
+			return -1;
+		}
+		
+		if(isIncrementingByValueLength) {
+			doRequireExact(array.length % value.length, 0, "array.length % value.length");
+		}
+		
+		final int count = isIncrementingByValueLength ? array.length / value.length : array.length;
+		final int length = isIncrementingByValueLength ? value.length : 1;
+		
+		for(int indexAbsolute = 0, indexRelative = 0; indexRelative < count; indexAbsolute += length, indexRelative++) {
+			if(array.length < indexAbsolute + value.length) {
+				return -1;
+			}
+			
+			if(equals(array, value, indexAbsolute, 0, value.length)) {
+				return isReturningRelativeIndex ? indexRelative : indexAbsolute;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param value the {@code double} value to find the index for
+	 * @param array the {@code double[]} to search for {@code value} in
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int indexOf(final double value, final double[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		for(int i = 0; i < array.length; i++) {
+			if(Double.compare(array[i], value) == 0) {
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If either {@code value} or {@code array} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}, an {@code IllegalArgumentException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true}, this method assumes {@code array} contains sub-structures with equal lengths, namely {@code value.length}. This will yield a faster search, but also restrictions on {@code array}. It requires a length that is a multiple of {@code value.length}. If {@code array} does not contain sub-structures with equal lengths, {@code isIncrementingByValueLength} should be {@code false}.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code true}, the relative index of {@code value} in {@code array} will be returned. The relative index represents the index of the sub-structure in {@code array}. It works best if {@code isIncrementingByValueLength} is {@code true} and its restrictions are met.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code false}, the absolute index of {@code value} in {@code array} will be returned. The absolute index represents the index in {@code array}.
+	 * 
+	 * @param value the {@code double[]} value to find the index for
+	 * @param array the {@code double[]} to search for {@code value} in
+	 * @param isIncrementingByValueLength {@code true} if, and only if, {@code array} consists of sub-structures with a length of {@code value.length}, {@code false} otherwise
+	 * @param isReturningRelativeIndex {@code true} if, and only if, the relative index should be returned, {@code false} otherwise
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws IllegalArgumentException thrown if, and only if, {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}
+	 * @throws NullPointerException thrown if, and only if, either {@code value} or {@code array} are {@code null}
+	 */
+	public static int indexOf(final double[] value, final double[] array, final boolean isIncrementingByValueLength, final boolean isReturningRelativeIndex) {
+		Objects.requireNonNull(value, "value == null");
+		Objects.requireNonNull(array, "array == null");
+		
+		if(value.length == 0 || array.length == 0) {
+			return -1;
+		}
+		
+		if(isIncrementingByValueLength) {
+			doRequireExact(array.length % value.length, 0, "array.length % value.length");
+		}
+		
+		final int count = isIncrementingByValueLength ? array.length / value.length : array.length;
+		final int length = isIncrementingByValueLength ? value.length : 1;
+		
+		for(int indexAbsolute = 0, indexRelative = 0; indexRelative < count; indexAbsolute += length, indexRelative++) {
+			if(array.length < indexAbsolute + value.length) {
+				return -1;
+			}
+			
+			if(equals(array, value, indexAbsolute, 0, value.length)) {
+				return isReturningRelativeIndex ? indexRelative : indexAbsolute;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param value the {@code float} value to find the index for
+	 * @param array the {@code float[]} to search for {@code value} in
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int indexOf(final float value, final float[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		for(int i = 0; i < array.length; i++) {
+			if(Float.compare(array[i], value) == 0) {
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
 	 * If either {@code value} or {@code array} are {@code null}, a {@code NullPointerException} will be thrown.
 	 * <p>
 	 * If {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}, an {@code IllegalArgumentException} will be thrown.
@@ -2077,6 +2509,148 @@ public final class Arrays {
 	 * @throws NullPointerException thrown if, and only if, either {@code value} or {@code array} are {@code null}
 	 */
 	public static int indexOf(final int[] value, final int[] array, final boolean isIncrementingByValueLength, final boolean isReturningRelativeIndex) {
+		Objects.requireNonNull(value, "value == null");
+		Objects.requireNonNull(array, "array == null");
+		
+		if(value.length == 0 || array.length == 0) {
+			return -1;
+		}
+		
+		if(isIncrementingByValueLength) {
+			doRequireExact(array.length % value.length, 0, "array.length % value.length");
+		}
+		
+		final int count = isIncrementingByValueLength ? array.length / value.length : array.length;
+		final int length = isIncrementingByValueLength ? value.length : 1;
+		
+		for(int indexAbsolute = 0, indexRelative = 0; indexRelative < count; indexAbsolute += length, indexRelative++) {
+			if(array.length < indexAbsolute + value.length) {
+				return -1;
+			}
+			
+			if(equals(array, value, indexAbsolute, 0, value.length)) {
+				return isReturningRelativeIndex ? indexRelative : indexAbsolute;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param value the {@code long} value to find the index for
+	 * @param array the {@code long[]} to search for {@code value} in
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int indexOf(final long value, final long[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		for(int i = 0; i < array.length; i++) {
+			if(array[i] == value) {
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If either {@code value} or {@code array} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}, an {@code IllegalArgumentException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true}, this method assumes {@code array} contains sub-structures with equal lengths, namely {@code value.length}. This will yield a faster search, but also restrictions on {@code array}. It requires a length that is a multiple of {@code value.length}. If {@code array} does not contain sub-structures with equal lengths, {@code isIncrementingByValueLength} should be {@code false}.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code true}, the relative index of {@code value} in {@code array} will be returned. The relative index represents the index of the sub-structure in {@code array}. It works best if {@code isIncrementingByValueLength} is {@code true} and its restrictions are met.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code false}, the absolute index of {@code value} in {@code array} will be returned. The absolute index represents the index in {@code array}.
+	 * 
+	 * @param value the {@code long[]} value to find the index for
+	 * @param array the {@code long[]} to search for {@code value} in
+	 * @param isIncrementingByValueLength {@code true} if, and only if, {@code array} consists of sub-structures with a length of {@code value.length}, {@code false} otherwise
+	 * @param isReturningRelativeIndex {@code true} if, and only if, the relative index should be returned, {@code false} otherwise
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws IllegalArgumentException thrown if, and only if, {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}
+	 * @throws NullPointerException thrown if, and only if, either {@code value} or {@code array} are {@code null}
+	 */
+	public static int indexOf(final long[] value, final long[] array, final boolean isIncrementingByValueLength, final boolean isReturningRelativeIndex) {
+		Objects.requireNonNull(value, "value == null");
+		Objects.requireNonNull(array, "array == null");
+		
+		if(value.length == 0 || array.length == 0) {
+			return -1;
+		}
+		
+		if(isIncrementingByValueLength) {
+			doRequireExact(array.length % value.length, 0, "array.length % value.length");
+		}
+		
+		final int count = isIncrementingByValueLength ? array.length / value.length : array.length;
+		final int length = isIncrementingByValueLength ? value.length : 1;
+		
+		for(int indexAbsolute = 0, indexRelative = 0; indexRelative < count; indexAbsolute += length, indexRelative++) {
+			if(array.length < indexAbsolute + value.length) {
+				return -1;
+			}
+			
+			if(equals(array, value, indexAbsolute, 0, value.length)) {
+				return isReturningRelativeIndex ? indexRelative : indexAbsolute;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If {@code array} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param value the {@code short} value to find the index for
+	 * @param array the {@code short[]} to search for {@code value} in
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws NullPointerException thrown if, and only if, {@code array} is {@code null}
+	 */
+	public static int indexOf(final short value, final short[] array) {
+		Objects.requireNonNull(array, "array == null");
+		
+		for(int i = 0; i < array.length; i++) {
+			if(array[i] == value) {
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Returns the index of {@code value} in {@code array}, or {@code -1} if it cannot be found.
+	 * <p>
+	 * If either {@code value} or {@code array} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}, an {@code IllegalArgumentException} will be thrown.
+	 * <p>
+	 * If {@code isIncrementingByValueLength} is {@code true}, this method assumes {@code array} contains sub-structures with equal lengths, namely {@code value.length}. This will yield a faster search, but also restrictions on {@code array}. It requires a length that is a multiple of {@code value.length}. If {@code array} does not contain sub-structures with equal lengths, {@code isIncrementingByValueLength} should be {@code false}.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code true}, the relative index of {@code value} in {@code array} will be returned. The relative index represents the index of the sub-structure in {@code array}. It works best if {@code isIncrementingByValueLength} is {@code true} and its restrictions are met.
+	 * <p>
+	 * If {@code isReturningRelativeIndex} is {@code false}, the absolute index of {@code value} in {@code array} will be returned. The absolute index represents the index in {@code array}.
+	 * 
+	 * @param value the {@code short[]} value to find the index for
+	 * @param array the {@code short[]} to search for {@code value} in
+	 * @param isIncrementingByValueLength {@code true} if, and only if, {@code array} consists of sub-structures with a length of {@code value.length}, {@code false} otherwise
+	 * @param isReturningRelativeIndex {@code true} if, and only if, the relative index should be returned, {@code false} otherwise
+	 * @return the index of {@code value} in {@code array}, or {@code -1} if it cannot be found
+	 * @throws IllegalArgumentException thrown if, and only if, {@code isIncrementingByValueLength} is {@code true} and {@code array.length % value.length} is not equal to {@code 0}
+	 * @throws NullPointerException thrown if, and only if, either {@code value} or {@code array} are {@code null}
+	 */
+	public static int indexOf(final short[] value, final short[] array, final boolean isIncrementingByValueLength, final boolean isReturningRelativeIndex) {
 		Objects.requireNonNull(value, "value == null");
 		Objects.requireNonNull(array, "array == null");
 		
