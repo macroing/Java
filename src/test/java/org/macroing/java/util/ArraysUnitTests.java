@@ -860,6 +860,15 @@ public final class ArraysUnitTests {
 	}
 	
 	@Test
+	public void testRequireNonNullObjectArrayString() {
+		assertThrows(NullPointerException.class, () -> Arrays.requireNonNull((String[])(null), "array"));
+		assertThrows(NullPointerException.class, () -> Arrays.requireNonNull(new String[] {}, null));
+		assertThrows(NullPointerException.class, () -> Arrays.requireNonNull(new String[] {"A", null, "C"}, "array"));
+		
+		assertArrayEquals(new String[] {"A", "B", "C"}, Arrays.requireNonNull(new String[] {"A", "B", "C"}, "array"));
+	}
+	
+	@Test
 	public void testRequireNonNullShortArrayArrayString() {
 		assertThrows(NullPointerException.class, () -> Arrays.requireNonNull(new short[0][0], null));
 		assertThrows(NullPointerException.class, () -> Arrays.requireNonNull((short[][])(null), "arrays"));

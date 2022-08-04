@@ -53,6 +53,35 @@ public final class Arrays {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
+	 * Checks that {@code array} and all of its elements are not {@code null}.
+	 * <p>
+	 * Returns {@code array}.
+	 * <p>
+	 * If either {@code array}, an element in {@code array} or {@code name} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * 
+	 * @param <T> the generic type of {@code array}
+	 * @param array the array to check
+	 * @param name the name of the parameter argument used for {@code array}, that will be part of the message for the {@code NullPointerException}
+	 * @return {@code array}
+	 * @throws NullPointerException thrown if, and only if, either {@code array}, an element in {@code array} or {@code name} are {@code null}
+	 */
+	public static <T> T[] requireNonNull(final T[] array, final String name) {
+		Objects.requireNonNull(name, "name == null");
+		
+		if(array == null) {
+			throw new NullPointerException(String.format("%s == null", name));
+		}
+		
+		for(int i = 0; i < array.length; i++) {
+			if(array[i] == null) {
+				throw new NullPointerException(String.format("%s[%d] == null", name, Integer.valueOf(i)));
+			}
+		}
+		
+		return array;
+	}
+	
+	/**
 	 * Returns {@code true} if, and only if, the elements of {@code arrayA} are equal to the elements of {@code arrayB}, {@code false} otherwise.
 	 * <p>
 	 * If either {@code arrayA} or {@code arrayB} are {@code null}, a {@code NullPointerException} will be thrown.
