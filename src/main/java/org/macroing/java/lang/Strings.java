@@ -107,6 +107,31 @@ public final class Strings {
 	}
 	
 	/**
+	 * Returns a {@code String} representation of {@code value} without scientific notation and as a Java {@code double[]} literal.
+	 * 
+	 * @param value a {@code double[]} value that may be {@code null}
+	 * @return a {@code String} representation of {@code value} without scientific notation and as a Java {@code double[]} literal
+	 */
+	public static String toNonScientificNotationJava(final double[] value) {
+		if(value == null) {
+			return "null";
+		} else if(value.length == 0) {
+			return "new double[0]";
+		} else {
+			final StringBuilder stringBuilder = new StringBuilder("new double[] {");
+			
+			for(int i = 0; i < value.length; i++) {
+				stringBuilder.append(i > 0 ? ", " : "");
+				stringBuilder.append(toNonScientificNotationJava(value[i]));
+			}
+			
+			stringBuilder.append("}");
+			
+			return stringBuilder.toString();
+		}
+	}
+	
+	/**
 	 * Returns a {@code String} representation of {@code value} without scientific notation and as a Java {@code float} literal.
 	 * 
 	 * @param value a {@code float} value
@@ -121,6 +146,31 @@ public final class Strings {
 			return "Float.POSITIVE_INFINITY";
 		} else {
 			return DECIMAL_FORMAT_FLOAT.format(value).replace(',', '.') + "F";
+		}
+	}
+	
+	/**
+	 * Returns a {@code String} representation of {@code value} without scientific notation and as a Java {@code float[]} literal.
+	 * 
+	 * @param value a {@code float[]} value that may be {@code null}
+	 * @return a {@code String} representation of {@code value} without scientific notation and as a Java {@code float[]} literal
+	 */
+	public static String toNonScientificNotationJava(final float[] value) {
+		if(value == null) {
+			return "null";
+		} else if(value.length == 0) {
+			return "new float[0]";
+		} else {
+			final StringBuilder stringBuilder = new StringBuilder("new float[] {");
+			
+			for(int i = 0; i < value.length; i++) {
+				stringBuilder.append(i > 0 ? ", " : "");
+				stringBuilder.append(toNonScientificNotationJava(value[i]));
+			}
+			
+			stringBuilder.append("}");
+			
+			return stringBuilder.toString();
 		}
 	}
 	

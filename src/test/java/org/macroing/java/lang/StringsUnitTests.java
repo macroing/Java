@@ -71,6 +71,13 @@ public final class StringsUnitTests {
 	}
 	
 	@Test
+	public void testToNonScientificNotationJavaDoubleArray() {
+		assertEquals("null", Strings.toNonScientificNotationJava((double[])(null)));
+		assertEquals("new double[0]", Strings.toNonScientificNotationJava(new double[0]));
+		assertEquals("new double[] {0.0D, 1.0D, 2.0D}", Strings.toNonScientificNotationJava(new double[] {0.0D, 1.0D, 2.0D}));
+	}
+	
+	@Test
 	public void testToNonScientificNotationJavaFloat() {
 		final String a = Strings.toNonScientificNotationJava(100.0F);
 		final String b = Strings.toNonScientificNotationJava(-100.0F);
@@ -83,5 +90,12 @@ public final class StringsUnitTests {
 		assertEquals("Float.NaN", c);
 		assertEquals("Float.NEGATIVE_INFINITY", d);
 		assertEquals("Float.POSITIVE_INFINITY", e);
+	}
+	
+	@Test
+	public void testToNonScientificNotationJavaFloatArray() {
+		assertEquals("null", Strings.toNonScientificNotationJava((float[])(null)));
+		assertEquals("new float[0]", Strings.toNonScientificNotationJava(new float[0]));
+		assertEquals("new float[] {0.0F, 1.0F, 2.0F}", Strings.toNonScientificNotationJava(new float[] {0.0F, 1.0F, 2.0F}));
 	}
 }
