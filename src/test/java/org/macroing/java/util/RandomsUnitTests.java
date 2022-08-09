@@ -81,10 +81,10 @@ public final class RandomsUnitTests {
 	
 	@Test
 	public void testNextFloatFloat() {
-		for(int i = 0; i < 100000; i++) {
-			final float value = Randoms.nextFloat(100.0F);
+		for(int i = 0; i < 10000000; i++) {
+			final float value = Randoms.nextFloat(100000.0F);
 			
-			assertTrue(value >= 0.0F && value < 100.0F);
+			assertTrue(value >= 0.0F && value < 100000.0F);
 		}
 		
 		assertThrows(IllegalArgumentException.class, () -> Randoms.nextFloat(0.0F));
@@ -92,10 +92,10 @@ public final class RandomsUnitTests {
 	
 	@Test
 	public void testNextFloatFloatFloat() {
-		for(int i = 0; i < 100000; i++) {
-			final float value = Randoms.nextFloat(-100.0F, 100.0F);
+		for(int i = 0; i < 10000000; i++) {
+			final float value = Randoms.nextFloat(-100000.0F, 100000.0F);
 			
-			assertTrue(value >= -100.0F && value < 100.0F);
+			assertTrue(value >= -100000.0F && value < 100000.0F);
 		}
 		
 		assertThrows(IllegalArgumentException.class, () -> Randoms.nextFloat(0.0F, 0.0F));
