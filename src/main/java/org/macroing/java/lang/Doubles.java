@@ -38,6 +38,11 @@ public final class Doubles {
 	 */
 	public static final double PI = Math.PI;
 	
+	/**
+	 * The {@code double} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, multiplied by 2.0.
+	 */
+	public static final double PI_MULTIPLIED_BY_2 = PI * 2.0D;
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private Doubles() {
@@ -55,6 +60,38 @@ public final class Doubles {
 	 */
 	public static boolean equals(final double a, final double b) {
 		return Double.compare(a, b) == 0;
+	}
+	
+	/**
+	 * Returns {@code true} if, and only if, {@code a} is equal to {@code b} and {@code b} is equal to {@code c}, {@code false} otherwise.
+	 * 
+	 * @param a a {@code double} value
+	 * @param b a {@code double} value
+	 * @param c a {@code double} value
+	 * @return {@code true} if, and only if, {@code a} is equal to {@code b} and {@code b} is equal to {@code c}, {@code false} otherwise
+	 */
+	public static boolean equals(final double a, final double b, final double c) {
+		return equals(a, b) && equals(b, c);
+	}
+	
+	/**
+	 * Returns {@code true} if, and only if, {@code value} is infinitely large in magnitude, {@code false} otherwise.
+	 * 
+	 * @param value a {@code double} value
+	 * @return {@code true} if, and only if, {@code value} is infinitely large in magnitude, {@code false} otherwise
+	 */
+	public static boolean isInfinite(final double value) {
+		return Double.isInfinite(value);
+	}
+	
+	/**
+	 * Returns {@code true} if, and only if, {@code value} is {@code Double.NaN}, {@code false} otherwise.
+	 * 
+	 * @param value a {@code double} value
+	 * @return {@code true} if, and only if, {@code value} is {@code Double.NaN}, {@code false} otherwise
+	 */
+	public static boolean isNaN(final double value) {
+		return Double.isNaN(value);
 	}
 	
 	/**
@@ -92,6 +129,147 @@ public final class Doubles {
 	 */
 	public static double abs(final double value) {
 		return Math.abs(value);
+	}
+	
+	/**
+	 * Returns the arc cosine of {@code value}.
+	 * <p>
+	 * The returned angle is in the range 0.0 through pi.
+	 * <p>
+	 * Special case:
+	 * <ul>
+	 * <li>If the argument is NaN or its absolute value is greater than 1, then the result is NaN.</li>
+	 * </ul>
+	 * <p>
+	 * The computed result must be within 1 ulp of the exact result. Results must be semi-monotonic.
+	 * 
+	 * @param value the value whose arc cosine is to be returned
+	 * @return the arc cosine of {@code value}
+	 * @see Math#acos(double)
+	 */
+	public static double acos(final double value) {
+		return Math.acos(value);
+	}
+	
+	/**
+	 * Returns the arc sine of {@code value}.
+	 * <p>
+	 * The returned angle is in the range -pi / 2 through pi / 2.
+	 * <p>
+	 * Special cases:
+	 * <ul>
+	 * <li>If the argument is NaN or its absolute value is greater than 1, then the result is NaN.</li>
+	 * <li>If the argument is zero, then the result is a zero with the same sign as the argument.</li>
+	 * </ul>
+	 * <p>
+	 * The computed result must be within 1 ulp of the exact result. Results must be semi-monotonic.
+	 * 
+	 * @param value the value whose arc sine is to be returned
+	 * @return the arc sine of {@code value}
+	 * @see Math#asin(double)
+	 */
+	public static double asin(final double value) {
+		return Math.asin(value);
+	}
+	
+	/**
+	 * Returns the result of {@code asin(value)} divided by pi.
+	 * 
+	 * @param value the value whose arc sine divided by pi is to be returned
+	 * @return the result of {@code asin(value)} divided by pi
+	 * @see #asin(double)
+	 */
+	public static double asinpi(final double value) {
+		return asin(value) / PI;
+	}
+	
+	/**
+	 * Returns the arc tangent of {@code value}.
+	 * <p>
+	 * The returned angle is in the range -pi / 2 through pi / 2.
+	 * <p>
+	 * Special cases:
+	 * <ul>
+	 * <li>If the argument is NaN, then the result is NaN.</li>
+	 * <li>If the argument is zero, then the result is a zero with the same sign as the argument.</li>
+	 * </ul>
+	 * <p>
+	 * The computed result must be within 1 ulp of the exact result. Results must be semi-monotonic.
+	 * 
+	 * @param value the value whose arc tangent is to be returned
+	 * @return the arc tangent of {@code value}
+	 * @see Math#atan(double)
+	 */
+	public static double atan(final double value) {
+		return Math.atan(value);
+	}
+	
+	/**
+	 * Returns the angle <i>theta</i> from the conversion of rectangular coordinates (x, y) to polar coordinates (r, <i>theta</i>).
+	 * <p>
+	 * This method computes the phase <i>theta</i> by computing an arc tangent of y / x in the range of <i>-pi</i> to <i>pi</i>.
+	 * <p>
+	 * Special cases:
+	 * <ul>
+	 * <li>If either argument is NaN, then the result is NaN.</li>
+	 * <li>If the first argument is positive zero and the second argument is positive, or the first argument is positive and finite and the second argument is positive infinity, then the result is positive zero.</li>
+	 * <li>If the first argument is negative zero and the second argument is positive, or the first argument is negative and finite and the second argument is positive infinity, then the result is negative zero.</li>
+	 * <li>If the first argument is positive zero and the second argument is negative, or the first argument is positive and finite and the second argument is negative infinity, then the result is the {@code float} value closest to pi.</li>
+	 * <li>If the first argument is negative zero and the second argument is negative, or the first argument is negative and finite and the second argument is negative infinity, then the result is the {@code float} value closest to -pi.</li>
+	 * <li>If the first argument is positive and the second argument is positive zero or negative zero, or the first argument is positive infinity and the second argument is finite, then the result is the {@code float} value closest to pi / 2.</li>
+	 * <li>If the first argument is negative and the second argument is positive zero or negative zero, or the first argument is negative infinity and the second argument is finite, then the result is the {@code float} value closest to -pi / 2.</li>
+	 * <li>If both arguments are positive infinity, then the result is the {@code float} value closest to pi / 4.</li>
+	 * <li>If the first argument is positive infinity and the second argument is negative infinity, then the result is the {@code float} value closest to 3 * pi / 4.</li>
+	 * <li>If the first argument is negative infinity and the second argument is positive infinity, then the result is the {@code float} value closest to -pi / 4.</li>
+	 * <li>If both arguments are negative infinity, then the result is the {@code float} value closest to -3 * pi / 4.</li>
+	 * </ul>
+	 * <p>
+	 * The computed result must be within 2 ulps of the exact result. Results must be semi-monotonic.
+	 * 
+	 * @param y the ordinate coordinate
+	 * @param x the abscissa coordinate
+	 * @return the angle <i>theta</i> from the conversion of rectangular coordinates (x, y) to polar coordinates (r, <i>theta</i>)
+	 * @see Math#atan2(double, double)
+	 */
+	public static double atan2(final double y, final double x) {
+		return Math.atan2(y, x);
+	}
+	
+	/**
+	 * Returns the result of {@code atan2(y, x)} divided by (pi * 2).
+	 * 
+	 * @param y the ordinate coordinate
+	 * @param x the abscissa coordinate
+	 * @return the result of {@code atan2(y, x)} divided by (pi * 2)
+	 * @see #atan2(double, double)
+	 */
+	public static double atan2pi2(final double y, final double x) {
+		return atan2(y, x) / PI_MULTIPLIED_BY_2;
+	}
+	
+	/**
+	 * Performs a bilinear interpolation operation on the supplied values.
+	 * <p>
+	 * Returns the result of the bilinear interpolation operation.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Doubles.lerp(Doubles.lerp(a, b, tX), Doubles.lerp(c, d, tX), tY);
+	 * }
+	 * </pre>
+	 * 
+	 * @param a a {@code double} value
+	 * @param b a {@code double} value
+	 * @param c a {@code double} value
+	 * @param d a {@code double} value
+	 * @param tX the X-axis factor
+	 * @param tY the Y-axis factor
+	 * @return the result of the bilinear interpolation operation
+	 * @see #lerp(double, double, double)
+	 */
+	public static double blerp(final double a, final double b, final double c, final double d, final double tX, final double tY) {
+		return lerp(lerp(a, b, tX), lerp(c, d, tX), tY);
 	}
 	
 	/**

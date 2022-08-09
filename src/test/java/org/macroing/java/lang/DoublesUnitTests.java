@@ -39,6 +39,44 @@ public final class DoublesUnitTests {
 	}
 	
 	@Test
+	public void testAcos() {
+		assertEquals(Math.acos(0.5D), Doubles.acos(0.5D));
+	}
+	
+	@Test
+	public void testAsin() {
+		assertEquals(Math.asin(0.5D), Doubles.asin(0.5D));
+	}
+	
+	@Test
+	public void testAsinpi() {
+		assertEquals(Math.asin(0.5D) / Math.PI, Doubles.asinpi(0.5D));
+	}
+	
+	@Test
+	public void testAtan() {
+		assertEquals(Math.atan(0.5D), Doubles.atan(0.5D));
+	}
+	
+	@Test
+	public void testAtan2() {
+		assertEquals(Math.atan2(0.5D, 0.5D), Doubles.atan2(0.5D, 0.5D));
+	}
+	
+	@Test
+	public void testAtan2pi2() {
+		assertEquals(Math.atan2(0.5D, 0.5D) / (Math.PI * 2.0D), Doubles.atan2pi2(0.5D, 0.5D));
+	}
+	
+	@Test
+	public void testBlerp() {
+		assertEquals(0.5D, Doubles.blerp(0.0D, 1.0D, 0.0D, 1.0D, 0.5D, 0.5D));
+		assertEquals(1.5D, Doubles.blerp(0.0D, 1.0D, 2.0D, 3.0D, 0.5D, 0.5D));
+		assertEquals(0.5D, Doubles.blerp(0.0D, 1.0D, 2.0D, 3.0D, 0.5D, 0.0D));
+		assertEquals(2.5D, Doubles.blerp(0.0D, 1.0D, 2.0D, 3.0D, 0.5D, 1.0D));
+	}
+	
+	@Test
 	public void testCeil() {
 		assertEquals(Math.ceil(0.5D), Doubles.ceil(0.5D));
 	}
@@ -56,6 +94,15 @@ public final class DoublesUnitTests {
 	}
 	
 	@Test
+	public void testEqualsDoubleDoubleDouble() {
+		assertTrue(Doubles.equals(1.0D, 1.0D, 1.0D));
+		
+		assertFalse(Doubles.equals(1.0D, 1.0D, 2.0D));
+		assertFalse(Doubles.equals(1.0D, 2.0D, 1.0D));
+		assertFalse(Doubles.equals(2.0D, 1.0D, 1.0D));
+	}
+	
+	@Test
 	public void testExp() {
 		assertEquals(Math.exp(0.5D), Doubles.exp(0.5D));
 	}
@@ -63,6 +110,24 @@ public final class DoublesUnitTests {
 	@Test
 	public void testFloor() {
 		assertEquals(Math.floor(0.5D), Doubles.floor(0.5D));
+	}
+	
+	@Test
+	public void testIsInfinite() {
+		assertTrue(Doubles.isInfinite(Double.NEGATIVE_INFINITY));
+		assertTrue(Doubles.isInfinite(Double.POSITIVE_INFINITY));
+		
+		assertFalse(Doubles.isInfinite(Double.NaN));
+		assertFalse(Doubles.isInfinite(0.0D));
+	}
+	
+	@Test
+	public void testIsNaN() {
+		assertTrue(Doubles.isNaN(Double.NaN));
+		
+		assertFalse(Doubles.isNaN(Double.NEGATIVE_INFINITY));
+		assertFalse(Doubles.isNaN(Double.POSITIVE_INFINITY));
+		assertFalse(Doubles.isNaN(0.0D));
 	}
 	
 	@Test

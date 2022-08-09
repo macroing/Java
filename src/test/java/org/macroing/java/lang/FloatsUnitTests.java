@@ -39,6 +39,44 @@ public final class FloatsUnitTests {
 	}
 	
 	@Test
+	public void testAcos() {
+		assertEquals((float)(Math.acos(0.5F)), Floats.acos(0.5F));
+	}
+	
+	@Test
+	public void testAsin() {
+		assertEquals((float)(Math.asin(0.5F)), Floats.asin(0.5F));
+	}
+	
+	@Test
+	public void testAsinpi() {
+		assertEquals((float)(Math.asin(0.5F)) / (float)(Math.PI), Floats.asinpi(0.5F));
+	}
+	
+	@Test
+	public void testAtan() {
+		assertEquals((float)(Math.atan(0.5F)), Floats.atan(0.5F));
+	}
+	
+	@Test
+	public void testAtan2() {
+		assertEquals((float)(Math.atan2(0.5F, 0.5F)), Floats.atan2(0.5F, 0.5F));
+	}
+	
+	@Test
+	public void testAtan2pi2() {
+		assertEquals((float)(Math.atan2(0.5F, 0.5F)) / ((float)(Math.PI) * 2.0F), Floats.atan2pi2(0.5F, 0.5F));
+	}
+	
+	@Test
+	public void testBlerp() {
+		assertEquals(0.5F, Floats.blerp(0.0F, 1.0F, 0.0F, 1.0F, 0.5F, 0.5F));
+		assertEquals(1.5F, Floats.blerp(0.0F, 1.0F, 2.0F, 3.0F, 0.5F, 0.5F));
+		assertEquals(0.5F, Floats.blerp(0.0F, 1.0F, 2.0F, 3.0F, 0.5F, 0.0F));
+		assertEquals(2.5F, Floats.blerp(0.0F, 1.0F, 2.0F, 3.0F, 0.5F, 1.0F));
+	}
+	
+	@Test
 	public void testCeil() {
 		assertEquals((float)(Math.ceil(0.5F)), Floats.ceil(0.5F));
 	}
@@ -56,6 +94,15 @@ public final class FloatsUnitTests {
 	}
 	
 	@Test
+	public void testEqualsFloatFloatFloat() {
+		assertTrue(Floats.equals(1.0F, 1.0F, 1.0F));
+		
+		assertFalse(Floats.equals(1.0F, 1.0F, 2.0F));
+		assertFalse(Floats.equals(1.0F, 2.0F, 1.0F));
+		assertFalse(Floats.equals(2.0F, 1.0F, 1.0F));
+	}
+	
+	@Test
 	public void testExp() {
 		assertEquals((float)(Math.exp(0.5F)), Floats.exp(0.5F));
 	}
@@ -63,6 +110,24 @@ public final class FloatsUnitTests {
 	@Test
 	public void testFloor() {
 		assertEquals((float)(Math.floor(0.5F)), Floats.floor(0.5F));
+	}
+	
+	@Test
+	public void testIsInfinite() {
+		assertTrue(Floats.isInfinite(Float.NEGATIVE_INFINITY));
+		assertTrue(Floats.isInfinite(Float.POSITIVE_INFINITY));
+		
+		assertFalse(Floats.isInfinite(Float.NaN));
+		assertFalse(Floats.isInfinite(0.0F));
+	}
+	
+	@Test
+	public void testIsNaN() {
+		assertTrue(Floats.isNaN(Float.NaN));
+		
+		assertFalse(Floats.isNaN(Float.NEGATIVE_INFINITY));
+		assertFalse(Floats.isNaN(Float.POSITIVE_INFINITY));
+		assertFalse(Floats.isNaN(0.0F));
 	}
 	
 	@Test
