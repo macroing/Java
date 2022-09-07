@@ -34,14 +34,99 @@ package org.macroing.java.lang;
  */
 public final class Floats {
 	/**
+	 * The {@code float} value that represents a machine epsilon.
+	 */
+	public static final float MACHINE_EPSILON = Math.ulp(1.0F) * 0.5F;
+	
+	/**
+	 * The maximum {@code float} value that is equal to {@code +Float.MAX_VALUE}.
+	 */
+	public static final float MAX_VALUE = +Float.MAX_VALUE;
+	
+	/**
+	 * The minimum {@code float} value that is equal to {@code -Float.MAX_VALUE}.
+	 */
+	public static final float MIN_VALUE = -Float.MAX_VALUE;
+	
+	/**
+	 * The value of {@code Floats.nextDown(1.0F)}.
+	 */
+	public static final float NEXT_DOWN_1_1 = nextDown(1.0F);
+	
+	/**
+	 * The value of {@code Floats.nextDown(Floats.NEXT_DOWN_1_1)}.
+	 */
+	public static final float NEXT_DOWN_1_2 = nextDown(NEXT_DOWN_1_1);
+	
+	/**
+	 * The value of {@code Floats.nextDown(Floats.NEXT_DOWN_1_2)}.
+	 */
+	public static final float NEXT_DOWN_1_3 = nextDown(NEXT_DOWN_1_2);
+	
+	/**
+	 * The value of {@code Floats.nextUp(1.0F)}.
+	 */
+	public static final float NEXT_UP_1_1 = nextUp(1.0F);
+	
+	/**
+	 * The value of {@code Floats.nextUp(Floats.NEXT_UP_1_1)}.
+	 */
+	public static final float NEXT_UP_1_2 = nextUp(NEXT_UP_1_1);
+	
+	/**
+	 * The value of {@code Floats.nextUp(Floats.NEXT_UP_1_2)}.
+	 */
+	public static final float NEXT_UP_1_3 = nextUp(NEXT_UP_1_2);
+	
+	/**
+	 * The {@code float} value that represents Not-a-Number (NaN).
+	 */
+	public static final float NaN = Float.NaN;
+	
+	/**
 	 * The {@code float} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter.
 	 */
 	public static final float PI = (float)(Math.PI);
 	
 	/**
+	 * The {@code float} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, divided by 180.0.
+	 */
+	public static final float PI_DIVIDED_BY_180 = PI / 180.0F;
+	
+	/**
+	 * The {@code float} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, divided by 2.0.
+	 */
+	public static final float PI_DIVIDED_BY_2 = PI / 2.0F;
+	
+	/**
+	 * The {@code float} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, divided by 4.0.
+	 */
+	public static final float PI_DIVIDED_BY_4 = PI / 4.0F;
+	
+	/**
 	 * The {@code float} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, multiplied by 2.0.
 	 */
 	public static final float PI_MULTIPLIED_BY_2 = PI * 2.0F;
+	
+	/**
+	 * The reciprocal (or inverse) of {@link #PI_MULTIPLIED_BY_2}.
+	 */
+	public static final float PI_MULTIPLIED_BY_2_RECIPROCAL = 1.0F / PI_MULTIPLIED_BY_2;
+	
+	/**
+	 * The {@code float} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, multiplied by 4.0.
+	 */
+	public static final float PI_MULTIPLIED_BY_4 = PI * 4.0F;
+	
+	/**
+	 * The reciprocal (or inverse) of {@link #PI_MULTIPLIED_BY_4}.
+	 */
+	public static final float PI_MULTIPLIED_BY_4_RECIPROCAL = 1.0F / PI_MULTIPLIED_BY_4;
+	
+	/**
+	 * The reciprocal (or inverse) of {@link #PI}.
+	 */
+	public static final float PI_RECIPROCAL = 1.0F / PI;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -80,7 +165,6 @@ public final class Floats {
 	 * @param value a {@code float} value
 	 * @return {@code true} if, and only if, {@code value} is infinitely large in magnitude, {@code false} otherwise
 	 */
-//	TODO: Add Unit Tests!
 	public static boolean isInfinite(final float value) {
 		return Float.isInfinite(value);
 	}
@@ -91,7 +175,6 @@ public final class Floats {
 	 * @param value a {@code float} value
 	 * @return {@code true} if, and only if, {@code value} is {@code Float.NaN}, {@code false} otherwise
 	 */
-//	TODO: Add Unit Tests!
 	public static boolean isNaN(final float value) {
 		return Float.isNaN(value);
 	}
@@ -151,6 +234,18 @@ public final class Floats {
 	 */
 	public static float acos(final float value) {
 		return (float)(Math.acos(value));
+	}
+	
+	/**
+	 * Returns {@code value} if, and only if, {@code value >= valueMin}, {@code value + valueAdd} otherwise.
+	 * 
+	 * @param value the value to check
+	 * @param valueMin the minimum value to use
+	 * @param valueAdd the value that might be added to {@code value}
+	 * @return {@code value} if, and only if, {@code value >= valueMin}, {@code value + valueAdd} otherwise
+	 */
+	public static float addLessThan(final float value, final float valueMin, final float valueAdd) {
+		return value < valueMin ? value + valueAdd : value;
 	}
 	
 	/**
@@ -313,6 +408,70 @@ public final class Floats {
 	}
 	
 	/**
+	 * Returns the value of the error function for {@code value}.
+	 * 
+	 * @param value a {@code float} value
+	 * @return the value of the error function for {@code value}
+	 */
+	public static float erf(final float value) {
+		final int sign = value < 0.0F ? -1 : +1;
+		
+		final float a1 = +0.254829592F;
+		final float a2 = -0.284496736F;
+		final float a3 = +1.421413741F;
+		final float a4 = -1.453152027F;
+		final float a5 = +1.061405429F;
+		
+		final float p = 0.3275911F;
+		
+		final float x = abs(value);
+		final float y = 1.0F / (1.0F + p * x);
+		final float z = 1.0F - (((((a5 * y + a4) * y) + a3) * y + a2) * y + a1) * y * exp(-x * x);
+		
+		return sign * z;
+	}
+	
+	/**
+	 * Returns the value of the inverse error function for {@code value}.
+	 * 
+	 * @param value a {@code float} value
+	 * @return the value of the inverse error function for {@code value}
+	 */
+	public static float erfInv(final float value) {
+		float p = 0.0F;
+		float x = saturate(value, -0.99999F, +0.99999F);
+		float y = -log((1.0F - x) * (1.0F + x));
+		
+		if(y < 5.0F) {
+			y = y - 2.5F;
+			
+			p = +2.81022636E-08F;
+			p = +3.43273939E-07F + p * y;
+			p = -3.52338770E-06F + p * y;
+			p = -4.39150654E-06F + p * y;
+			p = +0.000218580870F + p * y;
+			p = -0.001253725030F + p * y;
+			p = -0.004177681640F + p * y;
+			p = +0.246640727000F + p * y;
+			p = +1.501409410000F + p * y;
+		} else {
+			y = sqrt(y) - 3.0F;
+			
+			p = -0.000200214257F;
+			p = +0.000100950558F + p * y;
+			p = +0.001349343220F + p * y;
+			p = -0.003673428440F + p * y;
+			p = +0.005739507730F + p * y;
+			p = -0.007622461300F + p * y;
+			p = +0.009438870470F + p * y;
+			p = +1.001674060000F + p * y;
+			p = +2.832976820000F + p * y;
+		}
+		
+		return p * x;
+	}
+	
+	/**
 	 * Returns Euler's number {@code e} raised to the power of {@code exponent}.
 	 * <p>
 	 * Special cases:
@@ -333,6 +492,23 @@ public final class Floats {
 	}
 	
 	/**
+	 * Returns {@code value} if it is finite and {@code defaultValue} otherwise.
+	 * 
+	 * @param value a {@code float} value
+	 * @param defaultValue a {@code float} value
+	 * @return {@code value} if it is finite and {@code defaultValue} otherwise
+	 */
+	public static float finiteOrDefault(final float value, final float defaultValue) {
+		if(isInfinite(value)) {
+			return defaultValue;
+		} else if(isNaN(value)) {
+			return defaultValue;
+		} else {
+			return value;
+		}
+	}
+	
+	/**
 	 * Returns the largest (closest to positive infinity) {@code float} value that is less than or equal to {@code value} and is equal to a mathematical integer.
 	 * <p>
 	 * Special cases:
@@ -350,6 +526,51 @@ public final class Floats {
 	}
 	
 	/**
+	 * Returns the fractional part of {@code value}.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Floats.fractionalPart(value, false);
+	 * }
+	 * </pre>
+	 * 
+	 * @param value a value
+	 * @return the fractional part of {@code value}
+	 */
+	public static float fractionalPart(final float value) {
+		return fractionalPart(value, false);
+	}
+	
+	/**
+	 * Returns the fractional part of {@code value}.
+	 * <p>
+	 * The fractional part of {@code value} is calculated in the following way:
+	 * <pre>
+	 * {@code
+	 * float fractionalPart = value < 0.0F && isUsingCeilOnNegativeValue ? ceil(value) - value : value - floor(value);
+	 * }
+	 * </pre>
+	 * 
+	 * @param value a value
+	 * @param isUsingCeilOnNegativeValue {@code true} if, and only if, {@code Floats.ceil(float)} should be used if {@code value} is negative, {@code false} otherwise
+	 * @return the fractional part of {@code value}
+	 */
+	public static float fractionalPart(final float value, final boolean isUsingCeilOnNegativeValue) {
+		return value < 0.0F && isUsingCeilOnNegativeValue ? ceil(value) - value : value - floor(value);
+	}
+	
+	/**
+	 * Returns the gamma of {@code value}.
+	 * 
+	 * @param value an {@code int} value
+	 * @return the gamma of {@code value}
+	 */
+	public static float gamma(final int value) {
+		return (value * MACHINE_EPSILON) / (1.0F - value * MACHINE_EPSILON);
+	}
+	
+	/**
 	 * Performs a linear interpolation operation on the supplied values.
 	 * <p>
 	 * Returns the result of the linear interpolation operation.
@@ -361,6 +582,26 @@ public final class Floats {
 	 */
 	public static float lerp(final float a, final float b, final float t) {
 		return (1.0F - t) * a + t * b;
+	}
+	
+	/**
+	 * Returns the natural logarithm (base {@code e}) of the {@code float} value {@code value}.
+	 * <p>
+	 * Special cases:
+	 * <ul>
+	 * <li>If the argument is NaN or less than zero, then the result is NaN.</li>
+	 * <li>If the argument is positive infinity, then the result is positive infinity.</li>
+	 * <li>If the argument is positive zero or negative zero, then the result is negative infinity.</li>
+	 * </ul>
+	 * <p>
+	 * The computed result must be within 1 ulp of the exact result. Results must be semi-monotonic.
+	 * 
+	 * @param value a value
+	 * @return the natural logarithm (base {@code e}) of the {@code float} value {@code value}
+	 * @see Math#log(double)
+	 */
+	public static float log(final float value) {
+		return (float)(Math.log(value));
 	}
 	
 	/**
@@ -482,6 +723,52 @@ public final class Floats {
 	}
 	
 	/**
+	 * Returns the normalized representation of {@code value}.
+	 * <p>
+	 * If {@code value} is greater than or equal to {@code min(a, b)} and less than or equal to {@code max(a, b)}, the normalized representation of {@code value} will be between {@code 0.0F} (inclusive) and {@code 1.0F} (inclusive).
+	 * 
+	 * @param value the {@code float} value to normalize
+	 * @param a the {@code float} value that represents the minimum or maximum boundary
+	 * @param b the {@code float} value that represents the maximum or minimum boundary
+	 * @return the normalized representation of {@code value}
+	 */
+	public static float normalize(final float value, final float a, final float b) {
+		final float maximum = max(a, b);
+		final float minimum = min(a, b);
+		final float valueNormalized = (value - minimum) / (maximum - minimum);
+		
+		return valueNormalized;
+	}
+	
+	/**
+	 * Performs a modulo operation on {@code x} and {@code y}.
+	 * <p>
+	 * Returns a {@code float} value.
+	 * <p>
+	 * The modulo operation performed by this method differs slightly from the modulo operator in Java.
+	 * <p>
+	 * If {@code x} is positive, the following occurs:
+	 * <pre>
+	 * {@code
+	 * float z = x % y;
+	 * }
+	 * </pre>
+	 * If {@code x} is negative, the following occurs:
+	 * <pre>
+	 * {@code
+	 * float z = (x % y + y) % y;
+	 * }
+	 * </pre>
+	 * 
+	 * @param x a {@code float} value
+	 * @param y a {@code float} value
+	 * @return a {@code float} value
+	 */
+	public static float positiveModulo(final float x, final float y) {
+		return x < 0.0F ? (x % y + y) % y : x % y;
+	}
+	
+	/**
 	 * Returns {@code base} raised to the power of {@code exponent}.
 	 * <p>
 	 * For the full documentation of this method, see {@link Math#pow(double, double)}.
@@ -493,6 +780,53 @@ public final class Floats {
 	 */
 	public static float pow(final float base, final float exponent) {
 		return (float)(Math.pow(base, exponent));
+	}
+	
+	/**
+	 * Returns {@code base} raised to the power of {@code 2.0F}.
+	 * <p>
+	 * This method should be faster than {@link #pow(float, float)}.
+	 * 
+	 * @param base the base
+	 * @return {@code base} raised to the power of {@code 2.0F}
+	 */
+	public static float pow2(final float base) {
+		return base * base;
+	}
+	
+	/**
+	 * Returns {@code base} raised to the power of {@code 5.0F}.
+	 * <p>
+	 * This method should be faster than {@link #pow(float, float)}.
+	 * 
+	 * @param base the base
+	 * @return {@code base} raised to the power of {@code 5.0F}
+	 */
+	public static float pow5(final float base) {
+		return base * base * base * base * base;
+	}
+	
+	/**
+	 * Returns {@code base} raised to the power of {@code exponent}.
+	 * <p>
+	 * This method is recursive and uses a divide and conquer approach.
+	 * 
+	 * @param base the base
+	 * @param exponent the exponent
+	 * @return {@code base} raised to the power of {@code exponent}
+	 */
+	public static float powR(final float base, final int exponent) {
+		switch(exponent) {
+			case 0:
+				return 1.0F;
+			case 1:
+				return base;
+			default:
+				final float a = powR(base, exponent / 2);
+				final float b = powR(base, exponent & 1);
+				
+				return a * a * b;
+		}
 	}
 	
 	/**
@@ -561,6 +895,33 @@ public final class Floats {
 	}
 	
 	/**
+	 * Returns the hyperbolic sine of a {@code value}.
+	 * 
+	 * @param value a {@code float} value
+	 * @return the hyperbolic sine of a {@code value}
+	 */
+	public static float sinh(final float value) {
+		return (float)(Math.sinh(value));
+	}
+	
+	/**
+	 * Performs a smoothstep operation on {@code value} and the edges {@code edgeA} and {@code edgeB}.
+	 * <p>
+	 * Returns a {@code float} value.
+	 * 
+	 * @param value a {@code float} value
+	 * @param edgeA one of the edges
+	 * @param edgeB one of the edges
+	 * @return a {@code float} value
+	 */
+	public static float smoothstep(final float value, final float edgeA, final float edgeB) {
+		final float x = saturate(normalize(value, edgeA, edgeB));
+		final float y = x * x * (3.0F - 2.0F * x);
+		
+		return y;
+	}
+	
+	/**
 	 * Returns the correctly rounded positive square root of {@code value}.
 	 * <p>
 	 * Special cases:
@@ -578,6 +939,25 @@ public final class Floats {
 	 */
 	public static float sqrt(final float value) {
 		return (float)(Math.sqrt(value));
+	}
+	
+	/**
+	 * Returns the trigonometric tangent of {@code angleRadians}.
+	 * <p>
+	 * Special cases:
+	 * <ul>
+	 * <li>If the argument is NaN or an infinity, then the result is NaN.</li>
+	 * <li>If the argument is zero, then the result is a zero with the same sign as the argument.</li>
+	 * </ul>
+	 * <p>
+	 * The computed result must be within 1 ulp of the exact result. Results must be semi-monotonic.
+	 * 
+	 * @param angleRadians an angle, in radians
+	 * @return the trigonometric tangent of {@code angleRadians}
+	 * @see Math#tan(double)
+	 */
+	public static float tan(final float angleRadians) {
+		return (float)(Math.tan(angleRadians));
 	}
 	
 	/**
@@ -604,5 +984,45 @@ public final class Floats {
 	 */
 	public static float toRadians(final float angleDegrees) {
 		return (float)(Math.toRadians(angleDegrees));
+	}
+	
+	/**
+	 * Attempts to solve the quadratic system based on the values {@code a}, {@code b} and {@code c}.
+	 * <p>
+	 * Returns a {@code float[]}, with a length of {@code 2}, that contains the result.
+	 * <p>
+	 * If the quadratic system could not be solved, the result will contain the values {@code Float.NaN}.
+	 * 
+	 * @param a a value
+	 * @param b a value
+	 * @param c a value
+	 * @return a {@code float[]}, with a length of {@code 2}, that contains the result
+	 */
+	public static float[] solveQuadraticSystem(final float a, final float b, final float c) {
+		final float[] result = new float[] {NaN, NaN};
+		
+		final float discriminantSquared = b * b - 4.0F * a * c;
+		
+		if(isZero(discriminantSquared)) {
+			final float q = -0.5F * b / a;
+			
+			final float result0 = q;
+			final float result1 = q;
+			
+			result[0] = result0;
+			result[1] = result1;
+		} else if(discriminantSquared > 0.0F) {
+			final float discriminant = sqrt(discriminantSquared);
+			
+			final float q = -0.5F * (b > 0.0F ? b + discriminant : b - discriminant);
+			
+			final float result0 = q / a;
+			final float result1 = c / q;
+			
+			result[0] = min(result0, result1);
+			result[1] = max(result0, result1);
+		}
+		
+		return result;
 	}
 }

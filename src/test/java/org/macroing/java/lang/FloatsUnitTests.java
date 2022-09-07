@@ -18,6 +18,7 @@
  */
 package org.macroing.java.lang;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,6 +42,12 @@ public final class FloatsUnitTests {
 	@Test
 	public void testAcos() {
 		assertEquals((float)(Math.acos(0.5F)), Floats.acos(0.5F));
+	}
+	
+	@Test
+	public void testAddLessThan() {
+		assertEquals(1.0F, Floats.addLessThan(0.0F, 0.1F, 1.0F));
+		assertEquals(1.0F, Floats.addLessThan(1.0F, 0.0F, 1.0F));
 	}
 	
 	@Test
@@ -103,13 +110,69 @@ public final class FloatsUnitTests {
 	}
 	
 	@Test
+	public void testErf() {
+		assertEquals(+0.99532217F, Floats.erf(+2.00F));
+		assertEquals(+0.84270070F, Floats.erf(+1.00F));
+		assertEquals(+0.00000000F, Floats.erf(+0.00F));
+		assertEquals(+0.27632612F, Floats.erf(+0.25F));
+		assertEquals(+0.00000000F, Floats.erf(-0.00F));
+		assertEquals(-0.27632612F, Floats.erf(-0.25F));
+		assertEquals(-0.84270070F, Floats.erf(-1.00F));
+		assertEquals(-0.99532217F, Floats.erf(-2.00F));
+	}
+	
+	@Test
+	public void testErfInv() {
+		assertEquals(+3.12320570000000000F, Floats.erfInv(+2.00F));
+		assertEquals(+3.12320570000000000F, Floats.erfInv(+1.00F));
+		assertEquals(+0.00000000000000000F, Floats.erfInv(+0.00F));
+		assertEquals(+0.22531207402846837F, Floats.erfInv(+0.25F));
+		assertEquals(-0.00000000000000000F, Floats.erfInv(-0.00F));
+		assertEquals(-0.22531207402846837F, Floats.erfInv(-0.25F));
+		assertEquals(-3.12320570000000000F, Floats.erfInv(-1.00F));
+		assertEquals(-3.12320570000000000F, Floats.erfInv(-2.00F));
+	}
+	
+	@Test
 	public void testExp() {
 		assertEquals((float)(Math.exp(0.5F)), Floats.exp(0.5F));
 	}
 	
 	@Test
+	public void testFiniteOrDefault() {
+		assertEquals(0.0F, Floats.finiteOrDefault(Float.NaN, 0.0F));
+		assertEquals(0.0F, Floats.finiteOrDefault(Float.NEGATIVE_INFINITY, 0.0F));
+		assertEquals(0.0F, Floats.finiteOrDefault(Float.POSITIVE_INFINITY, 0.0F));
+		assertEquals(0.0F, Floats.finiteOrDefault(0.0F, 1.0F));
+	}
+	
+	@Test
 	public void testFloor() {
 		assertEquals((float)(Math.floor(0.5F)), Floats.floor(0.5F));
+	}
+	
+	@Test
+	public void testFractionalPartFloat() {
+		assertEquals(0.5F, Floats.fractionalPart(-1.5F));
+		assertEquals(0.9F, Floats.fractionalPart(-1.1F));
+		assertEquals(0.5F, Floats.fractionalPart(+1.5F));
+		assertEquals(0.9F, Floats.fractionalPart(+1.9F));
+	}
+	
+	@Test
+	public void testFractionalPartFloatBoolean() {
+		assertEquals(0.5F, Floats.fractionalPart(-1.5F, false));
+		assertEquals(0.5F, Floats.fractionalPart(-1.5F, true));
+		assertEquals(0.9F, Floats.fractionalPart(-1.1F, false));
+		assertEquals(0.9F, Floats.fractionalPart(-1.9F, true));
+		assertEquals(0.5F, Floats.fractionalPart(+1.5F, false));
+		assertEquals(0.5F, Floats.fractionalPart(+1.5F, true));
+		assertEquals(0.9F, Floats.fractionalPart(+1.9F, false));
+	}
+	
+	@Test
+	public void testGamma() {
+		assertEquals(0.0000002980233F, Floats.gamma(5));
 	}
 	
 	@Test
@@ -149,6 +212,11 @@ public final class FloatsUnitTests {
 //		Extrapolation:
 		assertEquals(0.0F, Floats.lerp(1.0F, 2.0F, -1.0F));
 		assertEquals(3.0F, Floats.lerp(1.0F, 2.0F, +2.0F));
+	}
+	
+	@Test
+	public void testLog() {
+		assertEquals((float)(Math.log(0.5F)), Floats.log(0.5F));
 	}
 	
 	@Test
@@ -192,8 +260,49 @@ public final class FloatsUnitTests {
 	}
 	
 	@Test
+	public void testNormalize() {
+		assertEquals(-1.0F, Floats.normalize(  0.0F, 100.0F, 200.0F));
+		assertEquals(+0.0F, Floats.normalize(100.0F, 100.0F, 200.0F));
+		assertEquals(+0.5F, Floats.normalize(150.0F, 100.0F, 200.0F));
+		assertEquals(+1.0F, Floats.normalize(200.0F, 100.0F, 200.0F));
+		assertEquals(+2.0F, Floats.normalize(300.0F, 100.0F, 200.0F));
+	}
+	
+	@Test
+	public void testPositiveModulo() {
+		assertEquals(-0.0F, Floats.positiveModulo(-2.0F, -1.0F));
+		assertEquals(-2.0F, Floats.positiveModulo(-2.0F, -3.0F));
+		
+		assertEquals(+0.0F, Floats.positiveModulo(-2.0F, +1.0F));
+		
+		assertEquals(+0.0F, Floats.positiveModulo(+2.0F, -1.0F));
+		
+		assertEquals(+0.0F, Floats.positiveModulo(+2.0F, +1.0F));
+		assertEquals(+2.0F, Floats.positiveModulo(+2.0F, +3.0F));
+	}
+	
+	@Test
 	public void testPow() {
 		assertEquals((float)(Math.pow(2.0F, 2.0F)), Floats.pow(2.0F, 2.0F));
+	}
+	
+	@Test
+	public void testPow2() {
+		assertEquals(4.0F, Floats.pow2(2.0F));
+	}
+	
+	@Test
+	public void testPow5() {
+		assertEquals(32.0F, Floats.pow5(2.0F));
+	}
+	
+	@Test
+	public void testPowR() {
+		assertEquals( 1.0F, Floats.powR(2.0F, 0));
+		assertEquals( 2.0F, Floats.powR(2.0F, 1));
+		assertEquals( 4.0F, Floats.powR(2.0F, 2));
+		assertEquals( 8.0F, Floats.powR(2.0F, 3));
+		assertEquals(16.0F, Floats.powR(2.0F, 4));
 	}
 	
 	@Test
@@ -230,8 +339,36 @@ public final class FloatsUnitTests {
 	}
 	
 	@Test
+	public void testSinh() {
+		assertEquals((float)(Math.sinh(0.5F)), Floats.sinh(0.5F));
+	}
+	
+	@Test
+	public void testSmoothstep() {
+		assertEquals(+0.00000F, Floats.smoothstep(  0.0F, 100.0F, 200.0F));
+		assertEquals(+0.00000F, Floats.smoothstep(100.0F, 100.0F, 200.0F));
+		assertEquals(+0.15625F, Floats.smoothstep(125.0F, 100.0F, 200.0F));
+		assertEquals(+0.50000F, Floats.smoothstep(150.0F, 100.0F, 200.0F));
+		assertEquals(+1.00000F, Floats.smoothstep(200.0F, 100.0F, 200.0F));
+		assertEquals(+1.00000F, Floats.smoothstep(300.0F, 100.0F, 200.0F));
+	}
+	
+	@Test
+	public void testSolveQuadraticSystem() {
+		assertArrayEquals(new float[] {-2.0F, -0.3333333432674408F}, Floats.solveQuadraticSystem(3.0F, +7.0F, 2.0F));
+		assertArrayEquals(new float[] {+0.3333333432674408F, +2.0F}, Floats.solveQuadraticSystem(3.0F, -7.0F, 2.0F));
+		assertArrayEquals(new float[] {-1.0F, -1.0F}, Floats.solveQuadraticSystem(1.0F, 2.0F, 1.0F));
+		assertArrayEquals(new float[] {Float.NaN, Float.NaN}, Floats.solveQuadraticSystem(1.0F, 1.0F, 1.0F));
+	}
+	
+	@Test
 	public void testSqrt() {
 		assertEquals((float)(Math.sqrt(0.5F)), Floats.sqrt(0.5F));
+	}
+	
+	@Test
+	public void testTan() {
+		assertEquals((float)(Math.tan(0.5F)), Floats.tan(0.5F));
 	}
 	
 	@Test

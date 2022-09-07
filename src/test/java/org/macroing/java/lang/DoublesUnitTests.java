@@ -18,6 +18,7 @@
  */
 package org.macroing.java.lang;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,6 +42,12 @@ public final class DoublesUnitTests {
 	@Test
 	public void testAcos() {
 		assertEquals(Math.acos(0.5D), Doubles.acos(0.5D));
+	}
+	
+	@Test
+	public void testAddLessThan() {
+		assertEquals(1.0D, Doubles.addLessThan(0.0D, 0.1D, 1.0D));
+		assertEquals(1.0D, Doubles.addLessThan(1.0D, 0.0D, 1.0D));
 	}
 	
 	@Test
@@ -103,13 +110,73 @@ public final class DoublesUnitTests {
 	}
 	
 	@Test
+	public void testErf() {
+		assertEquals(+0.9953221395812188000D, Doubles.erf(+2.00D));
+		assertEquals(+0.8427006897475899000D, Doubles.erf(+1.00D));
+		assertEquals(+9.999999717180685E-10D, Doubles.erf(+0.00D));
+		assertEquals(+0.2763262613535272000D, Doubles.erf(+0.25D));
+		assertEquals(+9.999999717180685E-10D, Doubles.erf(-0.00D));
+		assertEquals(-0.2763262613535272000D, Doubles.erf(-0.25D));
+		assertEquals(-0.8427006897475899000D, Doubles.erf(-1.00D));
+		assertEquals(-0.9953221395812188000D, Doubles.erf(-2.00D));
+	}
+	
+	@Test
+	public void testErfInv() {
+		assertEquals(+3.12341301695557450D, Doubles.erfInv(+2.00D));
+		assertEquals(+3.12341301695557450D, Doubles.erfInv(+1.00D));
+		assertEquals(+0.00000000000000000D, Doubles.erfInv(+0.00D));
+		assertEquals(+0.08885598780483887D, Doubles.erfInv(+0.10D));
+		assertEquals(+0.22531207402846837D, Doubles.erfInv(+0.25D));
+		assertEquals(+1.16308710137503770D, Doubles.erfInv(+0.90D));
+		assertEquals(-0.00000000000000000D, Doubles.erfInv(-0.00D));
+		assertEquals(-0.08885598780483887D, Doubles.erfInv(-0.10D));
+		assertEquals(-0.22531207402846837D, Doubles.erfInv(-0.25D));
+		assertEquals(-1.16308710137503770D, Doubles.erfInv(-0.90D));
+		assertEquals(-3.12341301695557450D, Doubles.erfInv(-1.00D));
+		assertEquals(-3.12341301695557450D, Doubles.erfInv(-2.00D));
+	}
+	
+	@Test
 	public void testExp() {
 		assertEquals(Math.exp(0.5D), Doubles.exp(0.5D));
 	}
 	
 	@Test
+	public void testFiniteOrDefault() {
+		assertEquals(0.0D, Doubles.finiteOrDefault(Double.NaN, 0.0D));
+		assertEquals(0.0D, Doubles.finiteOrDefault(Double.NEGATIVE_INFINITY, 0.0D));
+		assertEquals(0.0D, Doubles.finiteOrDefault(Double.POSITIVE_INFINITY, 0.0D));
+		assertEquals(0.0D, Doubles.finiteOrDefault(0.0D, 1.0D));
+	}
+	
+	@Test
 	public void testFloor() {
 		assertEquals(Math.floor(0.5D), Doubles.floor(0.5D));
+	}
+	
+	@Test
+	public void testFractionalPartDouble() {
+		assertEquals(0.5D, Doubles.fractionalPart(-1.5D));
+		assertEquals(0.8D, Doubles.fractionalPart(-1.2D));
+		assertEquals(0.5D, Doubles.fractionalPart(+1.5D));
+		assertEquals(0.8D, Doubles.fractionalPart(+1.8D));
+	}
+	
+	@Test
+	public void testFractionalPartDoubleBoolean() {
+		assertEquals(0.5D, Doubles.fractionalPart(-1.5D, false));
+		assertEquals(0.5D, Doubles.fractionalPart(-1.5D, true));
+		assertEquals(0.8D, Doubles.fractionalPart(-1.2D, false));
+		assertEquals(0.8D, Doubles.fractionalPart(-1.8D, true));
+		assertEquals(0.5D, Doubles.fractionalPart(+1.5D, false));
+		assertEquals(0.5D, Doubles.fractionalPart(+1.5D, true));
+		assertEquals(0.8D, Doubles.fractionalPart(+1.8D, false));
+	}
+	
+	@Test
+	public void testGamma() {
+		assertEquals(0.0000000000000005551115123125786D, Doubles.gamma(5));
 	}
 	
 	@Test
@@ -149,6 +216,11 @@ public final class DoublesUnitTests {
 //		Extrapolation:
 		assertEquals(0.0D, Doubles.lerp(1.0D, 2.0D, -1.0D));
 		assertEquals(3.0D, Doubles.lerp(1.0D, 2.0D, +2.0D));
+	}
+	
+	@Test
+	public void testLog() {
+		assertEquals(Math.log(0.5D), Doubles.log(0.5D));
 	}
 	
 	@Test
@@ -192,8 +264,49 @@ public final class DoublesUnitTests {
 	}
 	
 	@Test
+	public void testNormalize() {
+		assertEquals(-1.0D, Doubles.normalize(  0.0D, 100.0D, 200.0D));
+		assertEquals(+0.0D, Doubles.normalize(100.0D, 100.0D, 200.0D));
+		assertEquals(+0.5D, Doubles.normalize(150.0D, 100.0D, 200.0D));
+		assertEquals(+1.0D, Doubles.normalize(200.0D, 100.0D, 200.0D));
+		assertEquals(+2.0D, Doubles.normalize(300.0D, 100.0D, 200.0D));
+	}
+	
+	@Test
+	public void testPositiveModulo() {
+		assertEquals(-0.0D, Doubles.positiveModulo(-2.0D, -1.0D));
+		assertEquals(-2.0D, Doubles.positiveModulo(-2.0D, -3.0D));
+		
+		assertEquals(+0.0D, Doubles.positiveModulo(-2.0D, +1.0D));
+		
+		assertEquals(+0.0D, Doubles.positiveModulo(+2.0D, -1.0D));
+		
+		assertEquals(+0.0D, Doubles.positiveModulo(+2.0D, +1.0D));
+		assertEquals(+2.0D, Doubles.positiveModulo(+2.0D, +3.0D));
+	}
+	
+	@Test
 	public void testPow() {
 		assertEquals(Math.pow(2.0D, 2.0D), Doubles.pow(2.0D, 2.0D));
+	}
+	
+	@Test
+	public void testPow2() {
+		assertEquals(4.0D, Doubles.pow2(2.0D));
+	}
+	
+	@Test
+	public void testPow5() {
+		assertEquals(32.0D, Doubles.pow5(2.0D));
+	}
+	
+	@Test
+	public void testPowR() {
+		assertEquals( 1.0D, Doubles.powR(2.0D, 0));
+		assertEquals( 2.0D, Doubles.powR(2.0D, 1));
+		assertEquals( 4.0D, Doubles.powR(2.0D, 2));
+		assertEquals( 8.0D, Doubles.powR(2.0D, 3));
+		assertEquals(16.0D, Doubles.powR(2.0D, 4));
 	}
 	
 	@Test
@@ -230,8 +343,36 @@ public final class DoublesUnitTests {
 	}
 	
 	@Test
+	public void testSinh() {
+		assertEquals(Math.sinh(0.5D), Doubles.sinh(0.5D));
+	}
+	
+	@Test
+	public void testSmoothstep() {
+		assertEquals(+0.00000D, Doubles.smoothstep(  0.0D, 100.0D, 200.0D));
+		assertEquals(+0.00000D, Doubles.smoothstep(100.0D, 100.0D, 200.0D));
+		assertEquals(+0.15625D, Doubles.smoothstep(125.0D, 100.0D, 200.0D));
+		assertEquals(+0.50000D, Doubles.smoothstep(150.0D, 100.0D, 200.0D));
+		assertEquals(+1.00000D, Doubles.smoothstep(200.0D, 100.0D, 200.0D));
+		assertEquals(+1.00000D, Doubles.smoothstep(300.0D, 100.0D, 200.0D));
+	}
+	
+	@Test
+	public void testSolveQuadraticSystem() {
+		assertArrayEquals(new double[] {-2.0D, -0.3333333333333333D}, Doubles.solveQuadraticSystem(3.0D, +7.0D, 2.0D));
+		assertArrayEquals(new double[] {+0.3333333333333333D, +2.0D}, Doubles.solveQuadraticSystem(3.0D, -7.0D, 2.0D));
+		assertArrayEquals(new double[] {-1.0D, -1.0D}, Doubles.solveQuadraticSystem(1.0D, 2.0D, 1.0D));
+		assertArrayEquals(new double[] {Double.NaN, Double.NaN}, Doubles.solveQuadraticSystem(1.0D, 1.0D, 1.0D));
+	}
+	
+	@Test
 	public void testSqrt() {
 		assertEquals(Math.sqrt(0.5D), Doubles.sqrt(0.5D));
+	}
+	
+	@Test
+	public void testTan() {
+		assertEquals(Math.tan(0.5D), Doubles.tan(0.5D));
 	}
 	
 	@Test

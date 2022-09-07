@@ -34,14 +34,99 @@ package org.macroing.java.lang;
  */
 public final class Doubles {
 	/**
+	 * The {@code double} value that represents a machine epsilon.
+	 */
+	public static final double MACHINE_EPSILON = Math.ulp(1.0D) * 0.5D;
+	
+	/**
+	 * The maximum {@code double} value that is equal to {@code +Double.MAX_VALUE}.
+	 */
+	public static final double MAX_VALUE = +Double.MAX_VALUE;
+	
+	/**
+	 * The minimum {@code double} value that is equal to {@code -Double.MAX_VALUE}.
+	 */
+	public static final double MIN_VALUE = -Double.MAX_VALUE;
+	
+	/**
+	 * The value of {@code Doubles.nextDown(1.0D)}.
+	 */
+	public static final double NEXT_DOWN_1_1 = nextDown(1.0D);
+	
+	/**
+	 * The value of {@code Doubles.nextDown(Doubles.NEXT_DOWN_1_1)}.
+	 */
+	public static final double NEXT_DOWN_1_2 = nextDown(NEXT_DOWN_1_1);
+	
+	/**
+	 * The value of {@code Doubles.nextDown(Doubles.NEXT_DOWN_1_2)}.
+	 */
+	public static final double NEXT_DOWN_1_3 = nextDown(NEXT_DOWN_1_2);
+	
+	/**
+	 * The value of {@code Doubles.nextUp(1.0D)}.
+	 */
+	public static final double NEXT_UP_1_1 = nextUp(1.0D);
+	
+	/**
+	 * The value of {@code Doubles.nextUp(Doubles.NEXT_UP_1_1)}.
+	 */
+	public static final double NEXT_UP_1_2 = nextUp(NEXT_UP_1_1);
+	
+	/**
+	 * The value of {@code Doubles.nextUp(Doubles.NEXT_UP_1_2)}.
+	 */
+	public static final double NEXT_UP_1_3 = nextUp(NEXT_UP_1_2);
+	
+	/**
+	 * The {@code double} value that represents Not-a-Number (NaN).
+	 */
+	public static final double NaN = Double.NaN;
+	
+	/**
 	 * The {@code double} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter.
 	 */
 	public static final double PI = Math.PI;
 	
 	/**
+	 * The {@code double} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, divided by 180.0.
+	 */
+	public static final double PI_DIVIDED_BY_180 = PI / 180.0D;
+	
+	/**
+	 * The {@code double} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, divided by 2.0.
+	 */
+	public static final double PI_DIVIDED_BY_2 = PI / 2.0D;
+	
+	/**
+	 * The {@code double} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, divided by 4.0.
+	 */
+	public static final double PI_DIVIDED_BY_4 = PI / 4.0D;
+	
+	/**
 	 * The {@code double} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, multiplied by 2.0.
 	 */
 	public static final double PI_MULTIPLIED_BY_2 = PI * 2.0D;
+	
+	/**
+	 * The reciprocal (or inverse) of {@link #PI_MULTIPLIED_BY_2}.
+	 */
+	public static final double PI_MULTIPLIED_BY_2_RECIPROCAL = 1.0D / PI_MULTIPLIED_BY_2;
+	
+	/**
+	 * The {@code double} value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter, multiplied by 4.0.
+	 */
+	public static final double PI_MULTIPLIED_BY_4 = PI * 4.0D;
+	
+	/**
+	 * The reciprocal (or inverse) of {@link #PI_MULTIPLIED_BY_4}.
+	 */
+	public static final double PI_MULTIPLIED_BY_4_RECIPROCAL = 1.0D / PI_MULTIPLIED_BY_4;
+	
+	/**
+	 * The reciprocal (or inverse) of {@link #PI}.
+	 */
+	public static final double PI_RECIPROCAL = 1.0D / PI;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -149,6 +234,18 @@ public final class Doubles {
 	 */
 	public static double acos(final double value) {
 		return Math.acos(value);
+	}
+	
+	/**
+	 * Returns {@code value} if, and only if, {@code value >= valueMin}, {@code value + valueAdd} otherwise.
+	 * 
+	 * @param value the value to check
+	 * @param valueMin the minimum value to use
+	 * @param valueAdd the value that might be added to {@code value}
+	 * @return {@code value} if, and only if, {@code value >= valueMin}, {@code value + valueAdd} otherwise
+	 */
+	public static double addLessThan(final double value, final double valueMin, final double valueAdd) {
+		return value < valueMin ? value + valueAdd : value;
 	}
 	
 	/**
@@ -311,6 +408,70 @@ public final class Doubles {
 	}
 	
 	/**
+	 * Returns the value of the error function for {@code value}.
+	 * 
+	 * @param value a {@code double} value
+	 * @return the value of the error function for {@code value}
+	 */
+	public static double erf(final double value) {
+		final int sign = value < 0.0D ? -1 : +1;
+		
+		final double a1 = +0.254829592D;
+		final double a2 = -0.284496736D;
+		final double a3 = +1.421413741D;
+		final double a4 = -1.453152027D;
+		final double a5 = +1.061405429D;
+		
+		final double p = 0.3275911D;
+		
+		final double x = abs(value);
+		final double y = 1.0D / (1.0D + p * x);
+		final double z = 1.0D - (((((a5 * y + a4) * y) + a3) * y + a2) * y + a1) * y * exp(-x * x);
+		
+		return sign * z;
+	}
+	
+	/**
+	 * Returns the value of the inverse error function for {@code value}.
+	 * 
+	 * @param value a {@code double} value
+	 * @return the value of the inverse error function for {@code value}
+	 */
+	public static double erfInv(final double value) {
+		double p = 0.0D;
+		double x = saturate(value, -0.99999D, +0.99999D);
+		double y = -log((1.0D - x) * (1.0D + x));
+		
+		if(y < 5.0D) {
+			y = y - 2.5D;
+			
+			p = +2.81022636e-08D;
+			p = +3.43273939e-07D + p * y;
+			p = -3.52338770e-06D + p * y;
+			p = -4.39150654e-06D + p * y;
+			p = +0.000218580870D + p * y;
+			p = -0.001253725030D + p * y;
+			p = -0.004177681640D + p * y;
+			p = +0.246640727000D + p * y;
+			p = +1.501409410000D + p * y;
+		} else {
+			y = sqrt(y) - 3.0D;
+			
+			p = -0.000200214257D;
+			p = +0.000100950558D + p * y;
+			p = +0.001349343220D + p * y;
+			p = -0.003673428440D + p * y;
+			p = +0.005739507730D + p * y;
+			p = -0.007622461300D + p * y;
+			p = +0.009438870470D + p * y;
+			p = +1.001674060000D + p * y;
+			p = +2.832976820000D + p * y;
+		}
+		
+		return p * x;
+	}
+	
+	/**
 	 * Returns Euler's number {@code e} raised to the power of {@code exponent}.
 	 * <p>
 	 * Special cases:
@@ -331,6 +492,23 @@ public final class Doubles {
 	}
 	
 	/**
+	 * Returns {@code value} if it is finite and {@code defaultValue} otherwise.
+	 * 
+	 * @param value a {@code double} value
+	 * @param defaultValue a {@code double} value
+	 * @return {@code value} if it is finite and {@code defaultValue} otherwise
+	 */
+	public static double finiteOrDefault(final double value, final double defaultValue) {
+		if(isInfinite(value)) {
+			return defaultValue;
+		} else if(isNaN(value)) {
+			return defaultValue;
+		} else {
+			return value;
+		}
+	}
+	
+	/**
 	 * Returns the largest (closest to positive infinity) {@code double} value that is less than or equal to {@code value} and is equal to a mathematical integer.
 	 * <p>
 	 * Special cases:
@@ -348,6 +526,51 @@ public final class Doubles {
 	}
 	
 	/**
+	 * Returns the fractional part of {@code value}.
+	 * <p>
+	 * Calling this method is equivalent to the following:
+	 * <pre>
+	 * {@code
+	 * Doubles.fractionalPart(value, false);
+	 * }
+	 * </pre>
+	 * 
+	 * @param value a value
+	 * @return the fractional part of {@code value}
+	 */
+	public static double fractionalPart(final double value) {
+		return fractionalPart(value, false);
+	}
+	
+	/**
+	 * Returns the fractional part of {@code value}.
+	 * <p>
+	 * The fractional part of {@code value} is calculated in the following way:
+	 * <pre>
+	 * {@code
+	 * double fractionalPart = value < 0.0D && isUsingCeilOnNegativeValue ? ceil(value) - value : value - floor(value);
+	 * }
+	 * </pre>
+	 * 
+	 * @param value a value
+	 * @param isUsingCeilOnNegativeValue {@code true} if, and only if, {@code Doubles.ceil(double)} should be used if {@code value} is negative, {@code false} otherwise
+	 * @return the fractional part of {@code value}
+	 */
+	public static double fractionalPart(final double value, final boolean isUsingCeilOnNegativeValue) {
+		return value < 0.0D && isUsingCeilOnNegativeValue ? ceil(value) - value : value - floor(value);
+	}
+	
+	/**
+	 * Returns the gamma of {@code value}.
+	 * 
+	 * @param value an {@code int} value
+	 * @return the gamma of {@code value}
+	 */
+	public static double gamma(final int value) {
+		return (value * MACHINE_EPSILON) / (1.0D - value * MACHINE_EPSILON);
+	}
+	
+	/**
 	 * Performs a linear interpolation operation on the supplied values.
 	 * <p>
 	 * Returns the result of the linear interpolation operation.
@@ -359,6 +582,26 @@ public final class Doubles {
 	 */
 	public static double lerp(final double a, final double b, final double t) {
 		return (1.0D - t) * a + t * b;
+	}
+	
+	/**
+	 * Returns the natural logarithm (base {@code e}) of the {@code double} value {@code value}.
+	 * <p>
+	 * Special cases:
+	 * <ul>
+	 * <li>If the argument is NaN or less than zero, then the result is NaN.</li>
+	 * <li>If the argument is positive infinity, then the result is positive infinity.</li>
+	 * <li>If the argument is positive zero or negative zero, then the result is negative infinity.</li>
+	 * </ul>
+	 * <p>
+	 * The computed result must be within 1 ulp of the exact result. Results must be semi-monotonic.
+	 * 
+	 * @param value a value
+	 * @return the natural logarithm (base {@code e}) of the {@code double} value {@code value}
+	 * @see Math#log(double)
+	 */
+	public static double log(final double value) {
+		return Math.log(value);
 	}
 	
 	/**
@@ -480,6 +723,52 @@ public final class Doubles {
 	}
 	
 	/**
+	 * Returns the normalized representation of {@code value}.
+	 * <p>
+	 * If {@code value} is greater than or equal to {@code min(a, b)} and less than or equal to {@code max(a, b)}, the normalized representation of {@code value} will be between {@code 0.0D} (inclusive) and {@code 1.0D} (inclusive).
+	 * 
+	 * @param value the {@code double} value to normalize
+	 * @param a the {@code double} value that represents the minimum or maximum boundary
+	 * @param b the {@code double} value that represents the maximum or minimum boundary
+	 * @return the normalized representation of {@code value}
+	 */
+	public static double normalize(final double value, final double a, final double b) {
+		final double maximum = max(a, b);
+		final double minimum = min(a, b);
+		final double valueNormalized = (value - minimum) / (maximum - minimum);
+		
+		return valueNormalized;
+	}
+	
+	/**
+	 * Performs a modulo operation on {@code x} and {@code y}.
+	 * <p>
+	 * Returns a {@code double} value.
+	 * <p>
+	 * The modulo operation performed by this method differs slightly from the modulo operator in Java.
+	 * <p>
+	 * If {@code x} is positive, the following occurs:
+	 * <pre>
+	 * {@code
+	 * double z = x % y;
+	 * }
+	 * </pre>
+	 * If {@code x} is negative, the following occurs:
+	 * <pre>
+	 * {@code
+	 * double z = (x % y + y) % y;
+	 * }
+	 * </pre>
+	 * 
+	 * @param x a {@code double} value
+	 * @param y a {@code double} value
+	 * @return a {@code double} value
+	 */
+	public static double positiveModulo(final double x, final double y) {
+		return x < 0.0D ? (x % y + y) % y : x % y;
+	}
+	
+	/**
 	 * Returns {@code base} raised to the power of {@code exponent}.
 	 * <p>
 	 * For the full documentation of this method, see {@link Math#pow(double, double)}.
@@ -491,6 +780,53 @@ public final class Doubles {
 	 */
 	public static double pow(final double base, final double exponent) {
 		return Math.pow(base, exponent);
+	}
+	
+	/**
+	 * Returns {@code base} raised to the power of {@code 2.0D}.
+	 * <p>
+	 * This method should be faster than {@link #pow(double, double)}.
+	 * 
+	 * @param base the base
+	 * @return {@code base} raised to the power of {@code 2.0D}
+	 */
+	public static double pow2(final double base) {
+		return base * base;
+	}
+	
+	/**
+	 * Returns {@code base} raised to the power of {@code 5.0D}.
+	 * <p>
+	 * This method should be faster than {@link #pow(double, double)}.
+	 * 
+	 * @param base the base
+	 * @return {@code base} raised to the power of {@code 5.0D}
+	 */
+	public static double pow5(final double base) {
+		return base * base * base * base * base;
+	}
+	
+	/**
+	 * Returns {@code base} raised to the power of {@code exponent}.
+	 * <p>
+	 * This method is recursive and uses a divide and conquer approach.
+	 * 
+	 * @param base the base
+	 * @param exponent the exponent
+	 * @return {@code base} raised to the power of {@code exponent}
+	 */
+	public static double powR(final double base, final int exponent) {
+		switch(exponent) {
+			case 0:
+				return 1.0D;
+			case 1:
+				return base;
+			default:
+				final double a = powR(base, exponent / 2);
+				final double b = powR(base, exponent & 1);
+				
+				return a * a * b;
+		}
 	}
 	
 	/**
@@ -559,6 +895,33 @@ public final class Doubles {
 	}
 	
 	/**
+	 * Returns the hyperbolic sine of a {@code value}.
+	 * 
+	 * @param value a {@code double} value
+	 * @return the hyperbolic sine of a {@code value}
+	 */
+	public static double sinh(final double value) {
+		return Math.sinh(value);
+	}
+	
+	/**
+	 * Performs a smoothstep operation on {@code value} and the edges {@code edgeA} and {@code edgeB}.
+	 * <p>
+	 * Returns a {@code double} value.
+	 * 
+	 * @param value a {@code double} value
+	 * @param edgeA one of the edges
+	 * @param edgeB one of the edges
+	 * @return a {@code double} value
+	 */
+	public static double smoothstep(final double value, final double edgeA, final double edgeB) {
+		final double x = saturate(normalize(value, edgeA, edgeB));
+		final double y = x * x * (3.0D - 2.0D * x);
+		
+		return y;
+	}
+	
+	/**
 	 * Returns the correctly rounded positive square root of {@code value}.
 	 * <p>
 	 * Special cases:
@@ -576,6 +939,25 @@ public final class Doubles {
 	 */
 	public static double sqrt(final double value) {
 		return Math.sqrt(value);
+	}
+	
+	/**
+	 * Returns the trigonometric tangent of {@code angleRadians}.
+	 * <p>
+	 * Special cases:
+	 * <ul>
+	 * <li>If the argument is NaN or an infinity, then the result is NaN.</li>
+	 * <li>If the argument is zero, then the result is a zero with the same sign as the argument.</li>
+	 * </ul>
+	 * <p>
+	 * The computed result must be within 1 ulp of the exact result. Results must be semi-monotonic.
+	 * 
+	 * @param angleRadians an angle, in radians
+	 * @return the trigonometric tangent of {@code angleRadians}
+	 * @see Math#tan(double)
+	 */
+	public static double tan(final double angleRadians) {
+		return Math.tan(angleRadians);
 	}
 	
 	/**
@@ -602,5 +984,45 @@ public final class Doubles {
 	 */
 	public static double toRadians(final double angleDegrees) {
 		return Math.toRadians(angleDegrees);
+	}
+	
+	/**
+	 * Attempts to solve the quadratic system based on the values {@code a}, {@code b} and {@code c}.
+	 * <p>
+	 * Returns a {@code double[]}, with a length of {@code 2}, that contains the result.
+	 * <p>
+	 * If the quadratic system could not be solved, the result will contain the values {@code Double.NaN}.
+	 * 
+	 * @param a a value
+	 * @param b a value
+	 * @param c a value
+	 * @return a {@code double[]}, with a length of {@code 2}, that contains the result
+	 */
+	public static double[] solveQuadraticSystem(final double a, final double b, final double c) {
+		final double[] result = new double[] {NaN, NaN};
+		
+		final double discriminantSquared = b * b - 4.0D * a * c;
+		
+		if(isZero(discriminantSquared)) {
+			final double q = -0.5D * b / a;
+			
+			final double result0 = q;
+			final double result1 = q;
+			
+			result[0] = result0;
+			result[1] = result1;
+		} else if(discriminantSquared > 0.0D) {
+			final double discriminant = sqrt(discriminantSquared);
+			
+			final double q = -0.5D * (b > 0.0D ? b + discriminant : b - discriminant);
+			
+			final double result0 = q / a;
+			final double result1 = c / q;
+			
+			result[0] = min(result0, result1);
+			result[1] = max(result0, result1);
+		}
+		
+		return result;
 	}
 }
