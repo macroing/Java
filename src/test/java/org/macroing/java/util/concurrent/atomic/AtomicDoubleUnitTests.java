@@ -364,6 +364,7 @@ public final class AtomicDoubleUnitTests {
 		assertEquals(30.0D, atomicDouble.get());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testWeakCompareAndSet() {
 		final AtomicDouble atomicDouble = new AtomicDouble(10.0D);

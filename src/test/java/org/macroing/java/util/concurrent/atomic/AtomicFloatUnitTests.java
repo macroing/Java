@@ -364,6 +364,7 @@ public final class AtomicFloatUnitTests {
 		assertEquals(30.0F, atomicFloat.get());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testWeakCompareAndSet() {
 		final AtomicFloat atomicFloat = new AtomicFloat(10.0F);
