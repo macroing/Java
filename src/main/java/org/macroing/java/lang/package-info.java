@@ -2,7 +2,8 @@
  * Provides the Macroing Java Lang API.
  * <p>
  * The Macroing Java Lang API is an extension to {@code java.lang}.
- * <h3>Overview</h3>
+ * <p>
+ * <strong>Overview</strong>
  * <p>
  * The following list contains information about the classes in this API.
  * <ul>

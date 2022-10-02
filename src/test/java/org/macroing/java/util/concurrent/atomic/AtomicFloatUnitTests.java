@@ -36,6 +36,7 @@ public final class AtomicFloatUnitTests {
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testAccumulateAndGet() {
 		final AtomicFloat atomicFloat = new AtomicFloat(10.0F);
@@ -67,7 +68,7 @@ public final class AtomicFloatUnitTests {
 				try {
 					countDownLatch.await();
 				} catch(final InterruptedException e) {
-					
+//					Do nothing.
 				}
 			}
 			
@@ -146,6 +147,7 @@ public final class AtomicFloatUnitTests {
 		assertEquals(10.0F, atomicFloat.get());
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testGetAndAccumulate() {
 		final AtomicFloat atomicFloat = new AtomicFloat(10.0F);
@@ -177,7 +179,7 @@ public final class AtomicFloatUnitTests {
 				try {
 					countDownLatch.await();
 				} catch(final InterruptedException e) {
-					
+//					Do nothing.
 				}
 			}
 			
@@ -224,6 +226,7 @@ public final class AtomicFloatUnitTests {
 		assertEquals(20.0F, atomicFloat.get());
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testGetAndUpdate() {
 		final AtomicFloat atomicFloat = new AtomicFloat(10.0F);
@@ -255,7 +258,7 @@ public final class AtomicFloatUnitTests {
 				try {
 					countDownLatch.await();
 				} catch(final InterruptedException e) {
-					
+//					Do nothing.
 				}
 			}
 			
@@ -318,6 +321,7 @@ public final class AtomicFloatUnitTests {
 		assertEquals(Float.toString(10.0F), atomicFloat.toString());
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testUpdateAndGet() {
 		final AtomicFloat atomicFloat = new AtomicFloat(10.0F);
@@ -349,7 +353,7 @@ public final class AtomicFloatUnitTests {
 				try {
 					countDownLatch.await();
 				} catch(final InterruptedException e) {
-					
+//					Do nothing.
 				}
 			}
 			

@@ -26,8 +26,7 @@ import org.macroing.java.util.function.FloatUnaryOperator;
 /**
  * A {@code float} value that may be updated atomically.
  * <p>
- * An {@code AtomicFloat} is used in applications such as atomically incremented counters, and cannot be used as a replacement for a {@code Float}. However, this class does extend {@code Number} to allow uniform access by tools and utilities that
- * deal with numerically-based classes.
+ * An {@code AtomicFloat} is used in applications such as atomically incremented counters, and cannot be used as a replacement for a {@code Float}. However, this class does extend {@code Number} to allow uniform access by tools and utilities that deal with numerically-based classes.
  * 
  * @since 1.0.0
  * @author J&#246;rgen Lundgren
@@ -37,6 +36,9 @@ public final class AtomicFloat extends Number {
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	/**
+	 * Contains the bits that are converted using Float.floatToRawIntBits(float).
+	 */
 	private final AtomicInteger bits;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,6 +95,7 @@ public final class AtomicFloat extends Number {
 	 * @param update the new value
 	 * @return {@code true} if, and only if, the current value was set to {@code update}, {@code false} otherwise
 	 */
+	@Deprecated(since = "9")
 	public boolean weakCompareAndSet(final float expect, final float update) {
 		return this.bits.weakCompareAndSet(Float.floatToRawIntBits(expect), Float.floatToRawIntBits(update));
 	}

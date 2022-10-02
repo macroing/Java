@@ -36,6 +36,7 @@ public final class AtomicDoubleUnitTests {
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testAccumulateAndGet() {
 		final AtomicDouble atomicDouble = new AtomicDouble(10.0D);
@@ -67,7 +68,7 @@ public final class AtomicDoubleUnitTests {
 				try {
 					countDownLatch.await();
 				} catch(final InterruptedException e) {
-					
+//					Do nothing.
 				}
 			}
 			
@@ -146,6 +147,7 @@ public final class AtomicDoubleUnitTests {
 		assertEquals(10.0D, atomicDouble.get());
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testGetAndAccumulate() {
 		final AtomicDouble atomicDouble = new AtomicDouble(10.0D);
@@ -177,7 +179,7 @@ public final class AtomicDoubleUnitTests {
 				try {
 					countDownLatch.await();
 				} catch(final InterruptedException e) {
-					
+//					Do nothing.
 				}
 			}
 			
@@ -224,6 +226,7 @@ public final class AtomicDoubleUnitTests {
 		assertEquals(20.0D, atomicDouble.get());
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testGetAndUpdate() {
 		final AtomicDouble atomicDouble = new AtomicDouble(10.0D);
@@ -255,7 +258,7 @@ public final class AtomicDoubleUnitTests {
 				try {
 					countDownLatch.await();
 				} catch(final InterruptedException e) {
-					
+//					Do nothing.
 				}
 			}
 			
@@ -318,6 +321,7 @@ public final class AtomicDoubleUnitTests {
 		assertEquals(Double.toString(10.0D), atomicDouble.toString());
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testUpdateAndGet() {
 		final AtomicDouble atomicDouble = new AtomicDouble(10.0D);
@@ -349,7 +353,7 @@ public final class AtomicDoubleUnitTests {
 				try {
 					countDownLatch.await();
 				} catch(final InterruptedException e) {
-					
+//					Do nothing.
 				}
 			}
 			

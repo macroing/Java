@@ -75,7 +75,7 @@ public final class Strings {
 	 * @return a {@code String} representation of {@code value} without scientific notation
 	 */
 	public static String toNonScientificNotation(final double value) {
-		return DECIMAL_FORMAT_DOUBLE.format(value).replace(',', '.');
+		return DECIMAL_FORMAT_DOUBLE.format(value).replace('−', '-').replace(',', '.');
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public final class Strings {
 	 * @return a {@code String} representation of {@code value} without scientific notation
 	 */
 	public static String toNonScientificNotation(final float value) {
-		return DECIMAL_FORMAT_FLOAT.format(value).replace(',', '.');
+		return DECIMAL_FORMAT_FLOAT.format(value).replace('−', '-').replace(',', '.');
 	}
 	
 	/**
@@ -102,7 +102,7 @@ public final class Strings {
 		} else if(value == Double.POSITIVE_INFINITY) {
 			return "Double.POSITIVE_INFINITY";
 		} else {
-			return DECIMAL_FORMAT_DOUBLE.format(value).replace(',', '.') + "D";
+			return DECIMAL_FORMAT_DOUBLE.format(value).replace('−', '-').replace(',', '.') + "D";
 		}
 	}
 	
@@ -145,7 +145,7 @@ public final class Strings {
 		} else if(value == Float.POSITIVE_INFINITY) {
 			return "Float.POSITIVE_INFINITY";
 		} else {
-			return DECIMAL_FORMAT_FLOAT.format(value).replace(',', '.') + "F";
+			return DECIMAL_FORMAT_FLOAT.format(value).replace('−', '-').replace(',', '.') + "F";
 		}
 	}
 	

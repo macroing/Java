@@ -25,8 +25,7 @@ import java.util.function.DoubleUnaryOperator;
 /**
  * A {@code double} value that may be updated atomically.
  * <p>
- * An {@code AtomicDouble} is used in applications such as atomically incremented counters, and cannot be used as a replacement for a {@code Double}. However, this class does extend {@code Number} to allow uniform access by tools and utilities that
- * deal with numerically-based classes.
+ * An {@code AtomicDouble} is used in applications such as atomically incremented counters, and cannot be used as a replacement for a {@code Double}. However, this class does extend {@code Number} to allow uniform access by tools and utilities that deal with numerically-based classes.
  * 
  * @since 1.0.0
  * @author J&#246;rgen Lundgren
@@ -36,6 +35,9 @@ public final class AtomicDouble extends Number {
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	/**
+	 * Contains the bits that are converted using Double.doubleToLongBits(double).
+	 */
 	private final AtomicLong bits;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,7 +55,7 @@ public final class AtomicDouble extends Number {
 	 * @param initialValue the initial value
 	 */
 	public AtomicDouble(final double initialValue) {
-		this.bits = new AtomicLong(Double.doubleToLongBits(initialValue));
+		this.bits = new AtomicLong(Double.doubleToRawLongBits(initialValue));
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,7 +80,7 @@ public final class AtomicDouble extends Number {
 	 * @return {@code true} if, and only if, the current value was set to {@code update}, {@code false} otherwise
 	 */
 	public boolean compareAndSet(final double expect, final double update) {
-		return this.bits.compareAndSet(Double.doubleToLongBits(expect), Double.doubleToLongBits(update));
+		return this.bits.compareAndSet(Double.doubleToRawLongBits(expect), Double.doubleToRawLongBits(update));
 	}
 	
 	/**
@@ -92,8 +94,9 @@ public final class AtomicDouble extends Number {
 	 * @param update the new value
 	 * @return {@code true} if, and only if, the current value was set to {@code update}, {@code false} otherwise
 	 */
+	@Deprecated(since = "9")
 	public boolean weakCompareAndSet(final double expect, final double update) {
-		return this.bits.weakCompareAndSet(Double.doubleToLongBits(expect), Double.doubleToLongBits(update));
+		return this.bits.weakCompareAndSet(Double.doubleToRawLongBits(expect), Double.doubleToRawLongBits(update));
 	}
 	
 	/**
@@ -233,7 +236,7 @@ public final class AtomicDouble extends Number {
 	 * @return the previous value
 	 */
 	public double getAndSet(final double newValue) {
-		return Double.longBitsToDouble(this.bits.getAndSet(Double.doubleToLongBits(newValue)));
+		return Double.longBitsToDouble(this.bits.getAndSet(Double.doubleToRawLongBits(newValue)));
 	}
 	
 	/**
@@ -333,7 +336,7 @@ public final class AtomicDouble extends Number {
 	 * @param newValue the new value
 	 */
 	public void lazySet(final double newValue) {
-		this.bits.lazySet(Double.doubleToLongBits(newValue));
+		this.bits.lazySet(Double.doubleToRawLongBits(newValue));
 	}
 	
 	/**
@@ -342,6 +345,6 @@ public final class AtomicDouble extends Number {
 	 * @param newValue the new value
 	 */
 	public void set(final double newValue) {
-		this.bits.set(Double.doubleToLongBits(newValue));
+		this.bits.set(Double.doubleToRawLongBits(newValue));
 	}
 }

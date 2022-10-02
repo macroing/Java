@@ -2,7 +2,8 @@
  * Provides the Macroing Java AWT Image API.
  * <p>
  * The Macroing Java AWT Image API is an extension to {@code java.awt.image}.
- * <h3>Overview</h3>
+ * <p>
+ * <strong>Overview</strong>
  * <p>
  * The following list contains information about the classes in this API.
  * <ul>

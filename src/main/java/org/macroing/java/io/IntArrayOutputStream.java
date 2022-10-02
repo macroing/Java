@@ -120,7 +120,7 @@ public final class IntArrayOutputStream extends OutputStream {
 	 */
 	@Override
 	public void close() {
-		
+//		Do nothing.
 	}
 	
 	/**

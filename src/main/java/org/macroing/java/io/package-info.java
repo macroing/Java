@@ -2,7 +2,8 @@
  * Provides the Macroing Java I/O API.
  * <p>
  * The Macroing Java I/O API is an extension to {@code java.io}.
- * <h3>Overview</h3>
+ * <p>
+ * <strong>Overview</strong>
  * <p>
  * The following list contains information about the classes in this API that extends {@code OutputStream}.
  * <ul>

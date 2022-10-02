@@ -120,7 +120,7 @@ public final class BooleanArrayOutputStream extends OutputStream {
 	 */
 	@Override
 	public void close() {
-		
+//		Do nothing.
 	}
 	
 	/**

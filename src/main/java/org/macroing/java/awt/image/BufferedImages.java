@@ -170,6 +170,7 @@ public final class BufferedImages {
 		ROBOT.set(robot);
 	}
 	
+	@SuppressWarnings("unused")
 	static void setRobot(final boolean isThrowingAWTException) {
 		try {
 			if(isThrowingAWTException) {

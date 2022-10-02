@@ -3441,7 +3441,7 @@ public final class Arrays {
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public static <T> List<T> doRequireNonNullList(final List<T> list, final String name) {
+	private static <T> List<T> doRequireNonNullList(final List<T> list, final String name) {
 		Objects.requireNonNull(name, "name == null");
 		
 		if(list == null) {
