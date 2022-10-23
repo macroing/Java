@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.IllegalFormatException;
+
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("static-method")
@@ -106,6 +108,21 @@ public final class IntsUnitTests {
 	@Test
 	public void testMinIntIntIntInt() {
 		assertEquals(1, Ints.min(1, 2, 3, 4));
+	}
+	
+	@Test
+	public void testRequireRangeFormat() {
+		assertThrows(NullPointerException.class, () -> Ints.requireRangeFormat(0, 0, 0, null));
+		assertThrows(NullPointerException.class, () -> Ints.requireRangeFormat(0, 0, 0, "", (Object[])(null)));
+		
+		assertThrows(IllegalFormatException.class, () -> Ints.requireRangeFormat(0, 1, 2, "%s"));
+		
+		assertThrows(IllegalArgumentException.class, () -> Ints.requireRangeFormat(0, 1, 2, "%s", "value"));
+		assertThrows(IllegalArgumentException.class, () -> Ints.requireRangeFormat(0, 2, 1, "%s", "value"));
+		assertThrows(IllegalArgumentException.class, () -> Ints.requireRangeFormat(3, 1, 2, "%s", "value"));
+		assertThrows(IllegalArgumentException.class, () -> Ints.requireRangeFormat(3, 2, 1, "%s", "value"));
+		
+		assertEquals(0, Ints.requireRangeFormat(0, 0, 1, "%s", "value"));
 	}
 	
 	@Test

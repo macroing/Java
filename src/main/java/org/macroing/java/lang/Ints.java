@@ -18,6 +18,7 @@
  */
 package org.macroing.java.lang;
 
+import java.util.IllegalFormatException;
 import java.util.Objects;
 
 /**
@@ -237,6 +238,47 @@ public final class Ints {
 		if(value < minimum) {
 			throw new IllegalArgumentException(String.format("%s < %d: %s == %d", name, Integer.valueOf(minimum), name, Integer.valueOf(value)));
 		} else if(value > maximum) {
+			throw new IllegalArgumentException(String.format("%s > %d: %s == %d", name, Integer.valueOf(maximum), name, Integer.valueOf(value)));
+		} else {
+			return value;
+		}
+	}
+	
+	/**
+	 * Checks that {@code value} is in the range {@code [Ints.min(rangeEndA, rangeEndB), Ints.max(rangeEndA, rangeEndB)]}.
+	 * <p>
+	 * Returns {@code value}.
+	 * <p>
+	 * If either {@code nameFormat} or {@code nameFormatArguments} are {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * If {@code value} is less than {@code Ints.min(rangeEndA, rangeEndB)} or greater than {@code Ints.max(rangeEndA, rangeEndB)}, an {@code IllegalArgumentException} will be thrown.
+	 * <p>
+	 * If either {@code nameFormat} or {@code nameFormatArguments} are invalid, an {@code IllegalFormatException} will be thrown.
+	 * 
+	 * @param value the value to check
+	 * @param rangeEndA the minimum or maximum value allowed
+	 * @param rangeEndB the maximum or minimum value allowed
+	 * @param nameFormat the name format of the variable that will be part of the message of the {@code IllegalArgumentException}
+	 * @param nameFormatArguments the name format arguments of the variable that will be part of the message of the {@code IllegalArgumentException}
+	 * @return {@code value}
+	 * @throws IllegalArgumentException thrown if, and only if, {@code value} is less than {@code Ints.min(rangeEndA, rangeEndB)} or greater than {@code Ints.max(rangeEndA, rangeEndB)}
+	 * @throws IllegalFormatException thrown if, and only if, either {@code nameFormat} or {@code nameFormatArguments} are invalid
+	 * @throws NullPointerException thrown if, and only if, either {@code nameFormat} or {@code nameFormatArguments} are {@code null}
+	 */
+	public static int requireRangeFormat(final int value, final int rangeEndA, final int rangeEndB, final String nameFormat, final Object... nameFormatArguments) {
+		Objects.requireNonNull(nameFormat, "nameFormat == null");
+		Objects.requireNonNull(nameFormatArguments, "nameFormatArguments == null");
+		
+		final int minimum = min(rangeEndA, rangeEndB);
+		final int maximum = max(rangeEndA, rangeEndB);
+		
+		if(value < minimum) {
+			final String name = String.format(nameFormat, nameFormatArguments);
+			
+			throw new IllegalArgumentException(String.format("%s < %d: %s == %d", name, Integer.valueOf(minimum), name, Integer.valueOf(value)));
+		} else if(value > maximum) {
+			final String name = String.format(nameFormat, nameFormatArguments);
+			
 			throw new IllegalArgumentException(String.format("%s > %d: %s == %d", name, Integer.valueOf(maximum), name, Integer.valueOf(value)));
 		} else {
 			return value;

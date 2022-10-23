@@ -20,6 +20,7 @@ Supported Features
  - `org.macroing.java.util` provides an extension to `java.util`.
  - `org.macroing.java.util.concurrent.atomic` provides an extension to `java.util.concurrent.atomic`.
  - `org.macroing.java.util.function` provides an extension to `java.util.function`.
+ - `org.macroing.java.util.visitor` provides data types for the Visitor or Hierarchical Visitor design patterns.
 
 Documentation
 -------------
@@ -37,6 +38,7 @@ The following table describes the different APIs and their current status in the
 | Macroing Java Util API                   | 100.0%  | 100.0%    | org.macroing.java.util                   |
 | Macroing Java Util Concurrent Atomic API | 100.0%  | 100.0%    | org.macroing.java.util.concurrent.atomic |
 | Macroing Java Util Function API          | 100.0%  | 100.0%    | org.macroing.java.util.function          |
+| Macroing Java Util Visitor API           | 100.0%  | 100.0%    | org.macroing.java.util.visitor           |
 
 Dependencies
 ------------
