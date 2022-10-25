@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="org.macroing.java" default="distribution" basedir=".">
 	<!--The following properties should be specified by each project. Some of them are the same for all projects, whereas others are not.-->
-	<property name="java.source" value="17"/>
-	<property name="java.target" value="17"/>
+	<property name="java.source" value="1.8"/>
+	<property name="java.target" value="1.8"/>
 	<property name="project.directory.root" location="."/>
 	<property name="project.name" value="${ant.project.name}"/>
 	<property name="project.vendor" value="Macroing.org"/>
