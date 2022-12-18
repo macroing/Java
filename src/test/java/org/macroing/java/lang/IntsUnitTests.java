@@ -111,6 +111,15 @@ public final class IntsUnitTests {
 	}
 	
 	@Test
+	public void testRequireExact() {
+		assertThrows(NullPointerException.class, () -> Ints.requireExact(1, 1, null));
+		
+		assertThrows(IllegalArgumentException.class, () -> Ints.requireExact(1, 2, "value"));
+		
+		assertEquals(1, Ints.requireExact(1, 1, "value"));
+	}
+	
+	@Test
 	public void testRequireRangeFormat() {
 		assertThrows(NullPointerException.class, () -> Ints.requireRangeFormat(0, 0, 0, null));
 		assertThrows(NullPointerException.class, () -> Ints.requireRangeFormat(0, 0, 0, "", (Object[])(null)));
@@ -149,6 +158,23 @@ public final class IntsUnitTests {
 		assertThrows(IllegalArgumentException.class, () -> Ints.requireRangeMultiplyExact(Integer.MAX_VALUE, Integer.MAX_VALUE, 2, 1, "a", "b"));
 		
 		assertEquals(0, Ints.requireRangeMultiplyExact(0, 1, 0, 1, "a", "b"));
+	}
+	
+	@Test
+	public void testReverseBits() {
+		final int a = 1234;
+		final int b = Ints.reverseBits(a);
+		final int c = Ints.reverseBits(b);
+		
+		final String stringA = Integer.toBinaryString(a);
+		final String stringB = Integer.toBinaryString(b);
+		final String stringC = Integer.toBinaryString(c);
+		
+		assertEquals(a, c);
+		
+		assertEquals("10011010010", stringA);
+		assertEquals("1001011001000000000000000000000", stringB);
+		assertEquals("10011010010", stringC);
 	}
 	
 	@Test

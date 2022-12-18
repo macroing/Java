@@ -213,6 +213,32 @@ public final class Ints {
 	}
 	
 	/**
+	 * Checks that {@code value} is equal to {@code valueExpected}.
+	 * <p>
+	 * Returns {@code value}.
+	 * <p>
+	 * If {@code name} is {@code null}, a {@code NullPointerException} will be thrown.
+	 * <p>
+	 * If {@code value} is not equal to {@code valueExpected}, an {@code IllegalArgumentException} will be thrown.
+	 * 
+	 * @param value the value to check
+	 * @param valueExpected the expected value to compare against
+	 * @param name the name of the variable that will be part of the message of the {@code IllegalArgumentException}
+	 * @return {@code value}
+	 * @throws IllegalArgumentException thrown if, and only if, {@code value} is not equal to {@code valueExpected}
+	 * @throws NullPointerException thrown if, and only if, {@code name} is {@code null}
+	 */
+	public static int requireExact(final int value, final int valueExpected, final String name) {
+		Objects.requireNonNull(name, "name == null");
+		
+		if(value != valueExpected) {
+			throw new IllegalArgumentException(String.format("%s != %d: %s == %d", name, Integer.valueOf(valueExpected), name, Integer.valueOf(value)));
+		}
+		
+		return value;
+	}
+	
+	/**
 	 * Checks that {@code value} is in the range {@code [Ints.min(rangeEndA, rangeEndB), Ints.max(rangeEndA, rangeEndB)]}.
 	 * <p>
 	 * Returns {@code value}.
@@ -324,6 +350,23 @@ public final class Ints {
 		} else {
 			return value;
 		}
+	}
+	
+	/**
+	 * Returns an {@code int} with the bits of {@code value} reversed.
+	 * 
+	 * @param value an {@code int} value
+	 * @return an {@code int} with the bits of {@code value} reversed
+	 */
+	public static int reverseBits(final int value) {
+		int currentValue = (value << 16) | (value >>> 16);
+		
+		currentValue = ((currentValue & 0x00FF00FF) << 8) | ((currentValue & 0xFF00FF00) >>> 8);
+		currentValue = ((currentValue & 0x0F0F0F0F) << 4) | ((currentValue & 0xF0F0F0F0) >>> 4);
+		currentValue = ((currentValue & 0x33333333) << 2) | ((currentValue & 0xCCCCCCCC) >>> 2);
+		currentValue = ((currentValue & 0x55555555) << 1) | ((currentValue & 0xAAAAAAAA) >>> 1);
+		
+		return currentValue;
 	}
 	
 	/**
