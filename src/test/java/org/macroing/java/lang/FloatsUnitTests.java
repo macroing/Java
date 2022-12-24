@@ -176,6 +176,15 @@ public final class FloatsUnitTests {
 	}
 	
 	@Test
+	public void testIsFinite() {
+		assertFalse(Floats.isFinite(Float.NaN));
+		assertFalse(Floats.isFinite(Float.NEGATIVE_INFINITY));
+		assertFalse(Floats.isFinite(Float.POSITIVE_INFINITY));
+		
+		assertTrue(Floats.isFinite(0.0F));
+	}
+	
+	@Test
 	public void testIsInfinite() {
 		assertTrue(Floats.isInfinite(Float.NEGATIVE_INFINITY));
 		assertTrue(Floats.isInfinite(Float.POSITIVE_INFINITY));
@@ -235,6 +244,14 @@ public final class FloatsUnitTests {
 	}
 	
 	@Test
+	public void testMaxOrDefault() {
+		assertEquals(2.0F, Floats.maxOrDefault(1.0F, 2.0F, 3.0F));
+		assertEquals(2.0F, Floats.maxOrDefault(Float.NaN, 2.0F, 3.0F));
+		assertEquals(1.0F, Floats.maxOrDefault(1.0F, Float.NaN, 3.0F));
+		assertEquals(3.0F, Floats.maxOrDefault(Float.NaN, Float.NaN, 3.0F));
+	}
+	
+	@Test
 	public void testMinFloatFloat() {
 		assertEquals(1.0F, Floats.min(1.0F, 2.0F));
 	}
@@ -247,6 +264,14 @@ public final class FloatsUnitTests {
 	@Test
 	public void testMinFloatFloatFloatFloat() {
 		assertEquals(1.0F, Floats.min(1.0F, 2.0F, 3.0F, 4.0F));
+	}
+	
+	@Test
+	public void testMinOrDefault() {
+		assertEquals(1.0F, Floats.minOrDefault(1.0F, 2.0F, 3.0F));
+		assertEquals(2.0F, Floats.minOrDefault(Float.NaN, 2.0F, 3.0F));
+		assertEquals(1.0F, Floats.minOrDefault(1.0F, Float.NaN, 3.0F));
+		assertEquals(3.0F, Floats.minOrDefault(Float.NaN, Float.NaN, 3.0F));
 	}
 	
 	@Test

@@ -180,6 +180,15 @@ public final class DoublesUnitTests {
 	}
 	
 	@Test
+	public void testIsFinite() {
+		assertFalse(Doubles.isFinite(Double.NaN));
+		assertFalse(Doubles.isFinite(Double.NEGATIVE_INFINITY));
+		assertFalse(Doubles.isFinite(Double.POSITIVE_INFINITY));
+		
+		assertTrue(Doubles.isFinite(0.0D));
+	}
+	
+	@Test
 	public void testIsInfinite() {
 		assertTrue(Doubles.isInfinite(Double.NEGATIVE_INFINITY));
 		assertTrue(Doubles.isInfinite(Double.POSITIVE_INFINITY));
@@ -239,6 +248,14 @@ public final class DoublesUnitTests {
 	}
 	
 	@Test
+	public void testMaxOrDefault() {
+		assertEquals(2.0D, Doubles.maxOrDefault(1.0D, 2.0D, 3.0D));
+		assertEquals(2.0D, Doubles.maxOrDefault(Double.NaN, 2.0D, 3.0D));
+		assertEquals(1.0D, Doubles.maxOrDefault(1.0D, Double.NaN, 3.0D));
+		assertEquals(3.0D, Doubles.maxOrDefault(Double.NaN, Double.NaN, 3.0D));
+	}
+	
+	@Test
 	public void testMinDoubleDouble() {
 		assertEquals(1.0D, Doubles.min(1.0D, 2.0D));
 	}
@@ -251,6 +268,14 @@ public final class DoublesUnitTests {
 	@Test
 	public void testMinDoubleDoubleDoubleDouble() {
 		assertEquals(1.0D, Doubles.min(1.0D, 2.0D, 3.0D, 4.0D));
+	}
+	
+	@Test
+	public void testMinOrDefault() {
+		assertEquals(1.0D, Doubles.minOrDefault(1.0D, 2.0D, 3.0D));
+		assertEquals(2.0D, Doubles.minOrDefault(Double.NaN, 2.0D, 3.0D));
+		assertEquals(1.0D, Doubles.minOrDefault(1.0D, Double.NaN, 3.0D));
+		assertEquals(3.0D, Doubles.minOrDefault(Double.NaN, Double.NaN, 3.0D));
 	}
 	
 	@Test

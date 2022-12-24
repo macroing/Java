@@ -160,6 +160,16 @@ public final class Floats {
 	}
 	
 	/**
+	 * Returns {@code true} if, and only if, {@code value} is finite, {@code false} otherwise.
+	 * 
+	 * @param value a {@code float} value
+	 * @return {@code true} if, and only if, {@code value} is finite, {@code false} otherwise
+	 */
+	public static boolean isFinite(final float value) {
+		return !isInfinite(value) && !isNaN(value);
+	}
+	
+	/**
 	 * Returns {@code true} if, and only if, {@code value} is infinitely large in magnitude, {@code false} otherwise.
 	 * 
 	 * @param value a {@code float} value
@@ -654,6 +664,29 @@ public final class Floats {
 	}
 	
 	/**
+	 * Returns the greater value of {@code a} and {@code b} or {@code defaultValue} if both are NaN.
+	 * 
+	 * @param a a value
+	 * @param b a value
+	 * @param defaultValue the default value
+	 * @return the greater value of {@code a} and {@code b} or {@code defaultValue} if both are NaN
+	 */
+	public static float maxOrDefault(final float a, final float b, final float defaultValue) {
+		final boolean isNaNA = isNaN(a);
+		final boolean isNaNB = isNaN(b);
+		
+		if(!isNaNA && !isNaNB) {
+			return max(a, b);
+		} else if(!isNaNA) {
+			return a;
+		} else if(!isNaNB) {
+			return b;
+		} else {
+			return defaultValue;
+		}
+	}
+	
+	/**
 	 * Returns the smaller value of {@code a} and {@code b}.
 	 * <p>
 	 * The result is the value closer to negative infinity.
@@ -700,6 +733,29 @@ public final class Floats {
 	 */
 	public static float min(final float a, final float b, final float c, final float d) {
 		return Math.min(Math.min(a, b), Math.min(c, d));
+	}
+	
+	/**
+	 * Returns the smaller value of {@code a} and {@code b} or {@code defaultValue} if both are NaN.
+	 * 
+	 * @param a a value
+	 * @param b a value
+	 * @param defaultValue the default value
+	 * @return the smaller value of {@code a} and {@code b} or {@code defaultValue} if both are NaN
+	 */
+	public static float minOrDefault(final float a, final float b, final float defaultValue) {
+		final boolean isNaNA = isNaN(a);
+		final boolean isNaNB = isNaN(b);
+		
+		if(!isNaNA && !isNaNB) {
+			return min(a, b);
+		} else if(!isNaNA) {
+			return a;
+		} else if(!isNaNB) {
+			return b;
+		} else {
+			return defaultValue;
+		}
 	}
 	
 	/**
