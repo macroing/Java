@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 - 2023 J&#246;rgen Lundgren
+ * Copyright 2021 - 2026 J&#246;rgen Lundgren
  * 
  * This file is part of org.macroing.java.
  * 
@@ -149,5 +149,5 @@ public final class MersenneTwisterRandom extends Random {
 		y ^= (y >>> 18);
 		
 		return y >>> (32 - bits);
-    }
+	}
 }
